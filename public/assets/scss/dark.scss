@@ -1,0 +1,125 @@
+html{
+    &.active{
+        background: $black;
+        h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6,.sub_title, .sub_heading,p,.cta_text,.testimonial-swiper .testimonial_content, .testimonial-swiper .company .name, 
+        a, .detail_title, .work_box .work_item a, .blog_name, .testimonial_wrapper .testimonial_content, .testimonial_wrapper .company .name, .feature_title::before,
+        .workspace .service_item a .service_name, .workspace .service_item a .service_type, .award_section .awards_box .awards_item, .aside_title, .blog_section .blog_set .blog_page .blog_title, .region_text{
+            color: $white;
+        }
+        .award_section .awards_box .awards_item .award_date{
+            color: rgba(255,255,255,0.3);
+        }
+        .blog_section .blog_set aside .blog_services{
+            background: rgba(255,255,255,0.04);
+        }
+        .blog_date span{
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .blog_section .blog_set .blog_page .blog_content::before{
+            background: rgba(255,255,255,0.4);
+        }
+        .detail_site .min_detail_box>img, .detail_site .max_detail_box>img{
+            filter: invert(1);
+        }
+        .testimonial_wrapper .testimonial_content span, .testimonial_wrapper .company .work{
+            color: rgba(255, 255, 255, .8);
+        }
+        .our_work .work_box a img, .our_work .work_box .awards_work img{
+            filter: invert(1);
+        }
+        .blog_cta a{
+            border-color: rgba(255,255,255,0.3);
+            svg{
+                path{
+                    fill: rgba(255, 255, 255, 0.6);
+                }
+            }
+            .heart_red{
+                svg{
+                    path{
+                        fill: rgb(199, 44, 44);
+                    }
+                }
+            }
+        }
+        .slide_cta .swiper-button-prev span{
+            color: rgba(255, 255,255,0.2);
+        }
+        .our_work .work_box a, .our_work .work_box .awards_work{
+            img{
+                filter: invert(1);
+            }
+            &:hover{
+                background: $white;
+                img{
+                    filter: invert(0);
+                }
+            }
+        }
+        .toggle{
+          svg{
+            path{
+              fill: $white;
+            }
+          }
+        }
+        header{
+            background: $black;
+            .logo, .menu{
+                img{
+                    filter: invert(1);
+                }
+            }
+        }
+        .dark_img{
+            filter: invert(1);
+        }
+        .service-swiper .swiper-wrapper .swiper-item{
+            color: $white_60;
+        }
+        .accord_title, .accordion .accord_container .accord_wrapper>div>div{
+            color: $white;
+            img{
+                filter: invert(1);
+            }
+        }
+        .contact_us .form label, .contact_us .form input{
+            color: $white;
+        }
+        .input_checkox .checkmark input:checked ~ span{
+            background: $white;
+            border-color: $white;
+            color: $black;
+        }
+        .input_checkox .checkmark:hover span{
+            border-color: $white;
+            color: $white;
+        }
+        footer {
+            background: $white;
+            .footer_container{
+                .footer_title{
+                    color: $black !important;
+                }
+                .contact_us .form label, .contact_us .form input, .form .cta_text span, .form label, .form input{
+                    color: $black !important;
+                }
+            }
+            img{
+                filter: invert(1);
+            }
+        }
+        .form .cta_text span{
+            color: #5b5b5b !important;
+            &::before{
+                background: #5b5b5b ;
+            }
+        }
+        .copyright{
+            color: $black_10;
+        }
+        .contact_us .contact_address address a{
+            color: $white;
+        }
+    }
+}

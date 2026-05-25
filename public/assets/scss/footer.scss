@@ -1,0 +1,124 @@
+footer {
+  background: $black;
+  padding: vw(160) vw(155) vw(100) vw(65);
+
+  @include mobile() {
+    padding: vw(100) vw(65) vw(80);
+  }
+
+  .footer_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    @include mobile() {
+      flex-direction: column;
+    }
+
+    .footer_title {
+      color: $white !important;
+      width: auto;
+      font-size: vw(135);
+      margin-bottom: vw(50);
+      letter-spacing: vw(5);
+      line-height: 1;
+
+      @include mobile() {
+        br {
+          display: none;
+        }
+      }
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      width: 48%;
+
+      @include mobile() {
+        width: 100%;
+        margin-top: vw(40);
+      }
+
+      label {
+        display: none;
+      }
+
+      input,
+      select {
+        width: 100%;
+        background: #1a1a1a;
+        border: 1px solid #2e2e2e;
+        border-radius: vw(6);
+        padding: vw(16) vw(20);
+        margin-bottom: vw(12);
+        color: $white;
+        font-size: vw(16);
+        outline: none;
+        -webkit-appearance: none;
+        appearance: none;
+        transition: border-color 0.25s ease;
+
+        &::placeholder {
+          color: #666;
+        }
+
+        &:focus {
+          border-color: #555;
+        }
+      }
+
+      select {
+        cursor: pointer;
+        background-color: #1a1a1a;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23888' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right vw(20) center;
+        padding-right: vw(40);
+
+        option {
+          background: #1a1a1a;
+          color: $white;
+        }
+      }
+
+      button[type="submit"] {
+        align-self: flex-end;
+        border: 1px solid $white;
+        border-radius: vw(999);
+        padding: vw(14) vw(32);
+        background: transparent;
+        color: $white;
+        font-size: vw(18);
+        cursor: pointer;
+        margin-top: vw(8);
+        transition: background 0.2s ease, color 0.2s ease;
+
+        &:hover {
+          background: $white;
+          color: $black;
+        }
+
+        &:disabled {
+          opacity: 0.4;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+
+  & > a {
+    img {
+      width: vw(1318);
+      margin: vw(200) auto vw(60);
+      display: block;
+    }
+  }
+}
+
+.copyright {
+  font-size: vw(12);
+  text-align: center;
+  letter-spacing: vw(15);
+  color: $white_10;
+}

@@ -1,0 +1,26 @@
+/* SCSS includes */
+@import 'colors';
+@import 'reset';
+@import 'variables';
+@import 'functions';
+@import 'mixins';
+@import 'font-size';
+
+@import 'fonts';
+// @import 'lib';
+@import 'animations';
+
+
+
+@import 'global';
+@import 'components';
+@import 'homePage/sections';
+@import 'component/component-style.scss';
+@import 'footer';
+@import 'pages/pages';
+@import 'min';
+@import 'max';
+@import 'media';
+@import 'dark';
+@import 'gsap';
+@import 'mac';

@@ -1,0 +1,164 @@
+.services{
+    .hero_section{
+        margin-bottom: 3rem;
+        @include mobile(){
+            margin-bottom: 17.5rem;
+        }
+        h1{
+            line-height: 0.85;
+        }
+        p{
+            margin-top: 5rem;
+            margin-bottom: 0;
+        }
+    }
+    &>div{
+        margin: 0 6.5rem 29rem;
+        section{
+            align-items: flex-end;
+            margin-bottom: 17.5rem;
+            
+            .cta_text{
+                display: inline-block;
+                margin-bottom: 4rem;
+            }
+            &>img{
+                width: 60rem;
+                @include mobile(){
+                    width: 50rem;
+                    mix-blend-mode: multiply;
+                    position: relative;
+                }
+            }
+            h2{
+                margin-bottom: 3rem;
+            }
+            &:nth-child(odd){
+                justify-content: flex-end;
+                gap: 9.5rem;
+                @include mobile(){
+                    gap: 0;
+                }
+                p{
+                    @include mobile(){
+                        padding-right: 15rem;
+                    }
+                }
+                &>img{
+                    margin-left: auto;
+                    top: 7rem;
+                    left: -2.5rem;
+                }
+            }
+            &:nth-child(even){
+                justify-content: flex-start;
+                @include mobile(){
+                    flex-direction: column-reverse;
+                    align-items: flex-start;
+                }
+                &>div{
+                    @include mobile(){
+                        padding-left: 15rem;
+                    }
+                }
+                .service-swiper{
+                    &>img{
+                        width: 35rem;
+                        position: absolute;
+                        right: 25rem;
+                        top: 0;
+                    }
+                }
+            }
+            &:nth-child(3){
+                &>img{
+                    left: -14rem;
+                }
+            }
+            &:nth-child(4){
+                h2{
+                    br{
+                        display: none;
+                        @include mobile(){
+                            display: block;
+                        }
+                    }
+                }
+                &>img{
+                    left: 17rem;
+                }
+            }
+            &:nth-child(5){
+                &>img{
+                    left: 4rem;
+                }
+            }
+            &:nth-child(7){
+                &>img{
+                    left: -18.5rem;
+                }
+            }
+        }
+    }
+}
+
+.service-swiper{
+    position: relative;
+    margin-bottom: 5.8rem;
+    width: 61.1rem;
+    margin-left: 0 !important;
+    &>img{
+        width: 35rem;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 9;
+    }
+    .swiper-wrapper{
+        display: flex;
+        align-items: center;
+        gap: 2.5rem;
+        .swiper-slide{
+            width: 80% ;
+        }
+        .swiper-item{
+            font-size: 4.02rem;
+            color: $black_60;
+            line-height: 1.2;
+        }
+        .lineLoader{
+            border: 0.1rem solid $gray_thin;
+            position: relative;
+            width: 15rem;
+            transform: translateY(0.3rem);
+            &::after{
+                content: '';
+                position: absolute;
+                width: 0%;
+                height: 0.2rem;
+                background: $gray_medium;
+                left: 0;
+                top: -0.1rem;
+                animation: timer 5.4s ease-in infinite;
+                @include mobile(){
+                    height: 0.5rem;
+                }
+            }
+        }
+    }
+}
+
+.sliderBox{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+@keyframes timer{
+    0%{
+        width: 0;
+    }
+    100%{
+        width: 100%;
+    }
+}

@@ -1,0 +1,381 @@
+@import '../../scss/mixins.scss';
+@import '../../scss/variables.scss';
+@import '../../scss/colors.scss';
+
+header{
+    width: 100%;
+    padding: 3.4rem 6.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99999;
+    background: $white;
+    transition: transform 0.5s ease-in;
+    @include mobile(){
+        width: 100%;
+        padding: 3rem 5rem;
+    }
+}
+.right_container{
+    width: 55rem;
+    @include mobile(){
+        width: 100%;
+    }
+    .form{
+        width: 100%;
+    }
+}
+.logo{
+    width: 16.6rem;
+    @include mobile(){
+        width: 25rem;
+    }
+    img{
+        width: 100%;
+    }
+}
+.right_menu{
+    display: flex;
+    align-items: center;
+    button{
+        margin-left: 3.1rem;
+        @include mobile(){
+            margin-left: 5rem;
+        }
+        img{
+            width: 2.3rem;
+            @include mobile(){
+                width: 4rem;
+            }
+        }
+    }
+    a{
+        font-size: 1.8rem;
+        letter-spacing: 0.2rem;
+        @include mobile(){
+            font-size: 3rem;
+        }
+    }
+}
+.menu{
+    display: flex;
+    align-items: center;
+    gap: 1.9rem;
+    margin-left: 4.1rem;
+    @include mobile(){
+     &>div{
+        display: none;
+     }   
+    }
+    img{
+        width: 2.5rem;
+        @include mobile(){
+            width: 5rem;
+        }
+    }
+}
+.cta{
+    display: block;
+    width: 15.4rem;
+    border-radius: 2.5rem;
+    border: 0.1rem solid $white;
+    text-align: center;
+    padding: 1rem 0;
+    letter-spacing: 0 !important;
+    background: $black;
+    color: $white;
+    font-size: 1.8rem;
+    font-weight: $light;
+    margin-left: 4.1rem;
+    transition: all 0.3s ease-in;
+    &:hover{
+        border-color: $black;
+        color: $black;
+        background: $white;
+    }
+    @include mobile(){
+        font-size: 2rem;
+        padding: 1.2rem 0;
+        width: 20.4rem;
+        border-radius: 5rem;
+    }
+}
+
+.menu_wrapper{
+    background: $black;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    padding: 0 17.8rem;
+    padding-top: 6.5rem;
+    z-index: 999999;
+    top: -100rem;
+    transition: top 0.5s ease-in;
+    @include mobile(){
+        padding: 10rem 6.5rem 8rem;
+        top: -500rem;
+        overflow-y: scroll;
+    }
+    form{
+        opacity: 0;
+        transition: opacity 0.5s ease-in;
+    }
+    .menu_link{
+            margin-bottom: 4rem;
+            padding-left: 7rem;
+            line-height: 1;
+            position: relative;
+            @include mobile(){
+                padding-left: 10rem;
+            }
+            &::before{
+                content: attr(data-number);
+                position: absolute;
+                width: 5rem;
+                height: 5rem;
+                font-size: 4.8rem;
+                color: $black_thin;
+                top: 0;
+                left: 0;
+                text-align: left;
+            }
+            &>a, &>button{
+                font-size: 4.8rem;
+                color: $white;
+                display: inline-block;
+                position: relative;
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 0;
+                font-family: inherit;
+                letter-spacing: inherit;
+                &::after{
+                    content: '';
+                    position: absolute;
+                    width: 105%;
+                    left: -0.5rem;
+                    bottom: 38%;
+                    height: 0.15rem;
+                    background: $white;
+                    transform: scaleX(0);
+                    transform-origin: bottom right;
+                    transition: transform 0.3s ease-in;
+                }
+                &:hover{
+                    &::after{
+                        transform: scaleX(1);
+                        transform-origin: bottom left;
+                    }
+                }
+            }
+            .sub_menu_content{
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease, padding 0.3s ease;
+                width: 230%;
+                @include mobile(){
+                    width: auto;
+                    max-height: none;
+                    overflow: auto;
+                }
+                .sub_menu{
+                    display: flex;
+                    gap: 2rem;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    padding-top: 1.5rem;
+                    padding-right: 2.5rem;
+                    list-style: none;
+                    @include mobile(){
+                        padding-top: 5rem;
+                        gap: 3rem;
+                    }
+                    li{
+                        font-size: 2.3rem;
+                        line-height: 1;
+                        position: relative;
+                        @include mobile(){
+                            font-size: 3.8rem;
+                            margin-bottom: 2.5rem;
+                        }
+                        &::before{
+                            content: '';
+                            position: absolute;
+                            width: .1rem;
+                            height: 100%;
+                            background: $white_60;
+                            top: 0;
+                            right: -.8rem;
+                            @include mobile(){
+                                right: -1rem;
+                            }
+                        }
+                        a{
+                            position: relative;
+                            display: inline-block;
+                            color: $white_60;
+                            &::after{
+                                content: '';
+                                position: absolute;
+                                width: 105%;
+                                left: -0.3rem;
+                                bottom: 43%;
+                                height: 0.15rem;
+                                background: $white_60;
+                                transform: scaleX(0);
+                                transform-origin: bottom right;
+                                transition: transform 0.3s ease-in;
+                            }
+                            &:hover{
+                                &::after{
+                                    transform: scaleX(1);
+                                    transform-origin: bottom left;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+    &.is_open{
+        top: 0 !important;
+        form{
+            animation: animateForm 2s ease-in both;
+            opacity: 0;
+        }
+    }
+                }
+                &::after{
+                    transform: translateY(-50%) rotate(-90deg);
+                    @include mobile(){
+                        transform: translateY(-50%) rotate(90deg);
+                    }
+                }
+            }
+        }
+        .region_text{
+            color: $white_30;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            @include mobile(){
+                margin-bottom: 2rem;
+                font-size: 4rem;
+            }
+        }
+        .country_region{
+            margin-bottom: 3rem;
+            @include mobile(){
+                margin-top: 2rem;
+            }
+            address{
+                padding-left: 0;
+                margin-bottom: 1.5rem;
+                a{
+                    color: $white_30;
+                    transition: all .3s ease-in;
+                    &:hover{
+                        color: $white;
+                    }
+                }
+            }
+        }
+        .country_container{
+            display: flex;
+            align-items: flex-start;
+            margin-left: 7rem;
+            width: 55rem;
+            gap: 5rem;
+            @include mobile(){
+                margin-left: 10rem;
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+        .contact_info{
+            a{
+                color: $white_30;
+                font-size: 1.8rem;
+                margin-bottom: 1rem;
+                line-height: 1;
+                display: block;
+                transition: color 0.3s ease-in;
+                &:hover{
+                    color: $white;
+                }
+                @include mobile(){
+                    font-size: 3rem;
+                    margin-bottom: 4rem;
+                }
+            }
+        }
+    }
+    .mail_title{
+        font-size: 4.8rem;
+        line-height: 1;
+        color: $white;
+        display: block;
+        margin-bottom: 4rem;
+
+    }
+}
+address{
+    padding-left: 7rem;
+    margin-top: -2rem;
+    margin-bottom: 2.5rem;
+    @include mobile(){
+        padding-left: 10rem;
+        margin-top: 0rem;
+    }
+    a{
+        display: inline-block;
+        font-size: 1.6rem;
+        color: $white_30;
+        transition: all 0.3s ease-in;
+        @include mobile(){
+            font-size: 3rem;
+        }
+        &:hover{
+            color: $white;
+        }
+    }
+}
+
+.hideHeader{
+    header{
+        transform: translateY(-12rem);
+        transition: transform 0.5s ease-in;
+        @include mobile(){
+            transform: translateY(-15rem);
+        }
+    }
+}
+
+.social_icons{
+    display: flex;
+    align-items: center;
+    gap: 5rem;
+    padding-left: 7rem;
+    // margin-top: 5rem;
+    @include mobile(){
+        margin-top: 8rem;
+        margin-bottom: 10rem;
+        padding-left: 10rem;
+    }
+    img{
+        width: 4.1rem;
+        @include mobile(){
+            width: 8rem;
+        }
+    }
+    a{
+        transition: transform 0.3s ease-in;
+        &:hover{
+           transform: translateY(-0.3rem);
+        }
+    }
+}

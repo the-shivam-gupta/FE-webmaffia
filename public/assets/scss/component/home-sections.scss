@@ -1,0 +1,787 @@
+@import '../../scss/mixins.scss';
+@import '../../scss/variables.scss';
+@import '../../scss/colors.scss';
+@import '../../scss/fonts.scss';
+
+.wrapper{
+    padding-top: 15.5rem !important;
+    overflow-x: hidden;
+    @include mobile(){
+        padding-top: 21rem !important;
+    }
+}
+
+.home_wrapper{
+    @include mobile(){
+        padding-top: 12rem !important;
+    }
+}
+
+.ml-setter{
+    margin-left: 6.5rem;
+    @include mobile(){
+        margin-left: 0;
+    }
+}
+
+.hero_section{
+    align-items: flex-start;
+    // margin-bottom: 12rem;
+    @include mobile(){
+        margin-bottom: 6.5rem;
+    }
+    &>div{
+        width: auto;
+        @include mobile(){
+            width: auto;
+            margin-bottom: 0;
+            margin: 0 6.5rem;
+        }
+    }
+    picture{
+        position: relative;
+        right: -12rem;
+        margin-top: 3rem;
+        @include mobile(){
+            right: -28rem;
+        }
+        @include mobile(){
+            margin-top: 2.2rem;
+            margin-left: 2rem;
+            margin-right: 0;
+        }
+        img{
+            width: 76.8rem;
+            @include mobile(){
+                width: 98%;
+            }
+        }
+    }
+}
+
+.sub_title{
+    font-size: 1.8rem;
+    letter-spacing: 1rem;
+    line-height: 1;
+    margin-bottom: 2rem;
+    margin-left: 0;
+    color: $black;
+    font-weight: $light;
+    @include mobile(){
+        font-size: 3rem;
+        margin-bottom: 2rem;
+    }
+}
+
+h1, .h1{
+    width: 100%;
+    line-height: 0.95;
+    font-size: 14rem;
+    margin-bottom: 2rem;
+    color: $black;
+    letter-spacing: 0;
+    @include mobile(){
+        font-size: 10rem;
+        margin-bottom: 5rem;
+        br{
+            display: none;
+        }
+    }
+}
+
+p{
+    width: 100%;
+    font-size: 1.6rem;
+    line-height: 1.3;
+    color: $black;
+    margin-bottom: 6.5rem;
+    font-weight: $regular;
+
+    &::-webkit-scrollbar{
+        width: 0.2rem;
+        background: $gray;
+    }
+    &::-webkit-scrollbar-thumb{
+        background: $black;
+        border-radius: 1rem;
+    }
+    a{
+        position: relative;
+        &::after{
+            content: '';
+            position: absolute;
+            width: 100%;
+            left: 0;
+            bottom: 0;
+            height: 0.15rem;
+            background: $black_60;
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-in;
+        }
+        &:hover{
+            &::after{
+                transform: scaleX(1);
+                transform-origin: bottom left;
+            }
+        }
+    }
+    @include mobile(){
+        font-size: 3rem !important;
+        margin-bottom: 5rem;
+        br{
+            display: none;
+        }
+    }
+}
+
+.cta_text{
+    font-size: 3.6rem;
+    color: $black;
+    line-height: 1;
+    font-weight: $exlight;
+    span{
+        color: $gray_dark;
+        position: relative;
+        &::before{
+            display: block;
+            content: '';
+            position: absolute;
+            width: 105%;
+            height: 0.2rem;
+            background: $gray_dark;
+            left: 50%;
+            top: 55%;
+            transform: translateX(-50%) scaleX(1);
+            transition: all 0.2s ease-in;
+            transform-origin: bottom left;
+            transition: transform 0.3s ease-in;
+        }
+    }
+    .cta_span{
+        color: $black;
+        &::before{
+            display: none;
+        }
+    }
+    &:hover{
+        span{
+            &::before{
+                transform: translateX(-50%) scaleX(0);
+                transform-origin: bottom right;
+            }
+        }
+    }
+    @include mobile(){
+        font-size: 6.188rem;
+    }
+}
+
+// Services horizontal block: layout lives in public/assets/css/style.css (PHP parity).
+// Do not add flex/flex-wrap on .main_horizontal — it breaks the overlay + GSAP scroll.
+
+.main_horizontal{
+    .slide_cta{
+        bottom: 6rem;
+        right: 40rem;
+        width: 45rem;
+        gap: 11rem;
+        z-index: 999;
+        .cta_text{
+            cursor: pointer;
+        }
+        @include mobile(){
+            bottom: -12rem;
+            right: 21rem;
+            width: 50rem;
+            gap: 0;
+            justify-content: space-between;
+        }
+    }
+}
+
+// Image + text side by side inside each slide (override global .flex column on desktop)
+.main_horizontal .horizontal_sliders.flex{
+    display: flex !important;
+    flex-direction: row-reverse !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100%;
+    max-width: 120rem;
+    margin-left: auto;
+    margin-right: auto;
+    @include mobile(){
+        flex-direction: column !important;
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+.horizontal_sliders{
+    width: auto;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: row-reverse;
+    margin-left: 9.5rem;
+    position: relative;
+    top: 22.4rem;
+    z-index: 999;
+    @include mobile(){
+        align-items: center;
+        width: 100%;
+        max-width: 100%;
+        flex-direction: column;
+    }
+    &:nth-child(1){
+        @include mobile(){
+            width: 75rem;
+        }
+    }
+    &>img{
+        width: 67.2rem;
+        @include mobile(){
+            margin-top: 1rem;
+            margin-left: 0;
+            width: 80%;
+        }
+    }
+    &>div{
+        @include mobile(){
+            margin: 0 6.5rem;
+            width: 75.6rem;
+        }
+    }
+}
+
+h2, .sub_heading{
+    width: 100%;
+    line-height: 1;
+    font-size: 13.5rem;
+    margin-bottom: 5rem;
+    letter-spacing: 1rem;
+    color: $black;
+    @include mobile(){
+        font-size: 10rem;
+        margin-bottom: 5rem;
+        letter-spacing: 0.2rem;
+    }
+}
+
+.sub_heading{
+    font-size: 9.5rem;
+    @include mobile(){
+        font-size: 8rem;
+    }
+}
+
+.feature_swiper {
+    .sub_heading{
+        color: $white;
+    }
+}
+
+.frr{
+    flex-direction: row-reverse;
+}
+
+.horizontal_sliders.slide-2{
+    margin-top: 10rem;
+    justify-content: flex-end;
+    align-items: flex-start;
+    margin-left: 11rem;
+    gap: 2rem;
+    .sub_title{
+        letter-spacing: 1.5rem;
+    }
+    &>img{
+        width: 67.2rem;
+        mix-blend-mode:multiply;
+        margin: 21rem 5rem 0 0;
+    }
+}
+
+.swiper-slide .horizontal_sliders{
+    width: 60% !important;
+    &.slider-6,
+    &.slider-7{
+        width: 50% !important;
+        @include mobile(){
+            width: 60% !important;
+        }
+    }
+}
+
+.our_work{
+    margin-bottom: 13.5rem;
+    @include mobile(){
+        margin: 0 6.5rem 13.5rem;
+    }
+    .work_box{
+        width: 164.9rem;
+        margin-left: 8.5rem;
+        display: flex;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        @include mobile(){
+            width: auto;
+            margin: 0;
+        }
+        a, .awards_work{
+            width: 41.4rem;
+            height: 33.6rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid $gray_light;
+            margin-right: -0.2rem;
+            margin-bottom: -0.2rem;
+            @include mobile(){
+                border: 1px solid $gray_light;
+                width: 50%;
+                height: 30rem;
+                margin-bottom: -0.3rem;
+            }
+            img{
+                width: 12.2rem;
+                @include mobile(){
+                    width: 20rem;
+    
+                }
+            }
+            &:hover{
+                background: $black;
+                img{
+                    filter: invert(1);
+                }
+            }
+        }
+    }
+    h2{
+        color: $black_light;
+    }
+}
+
+.cta_box{
+    width: auto;
+    margin-top: 9.5rem;
+    margin-left: 8.5rem;
+
+}
+
+
+.features{
+   
+    picture{
+        display: block;
+        img{
+            display: block;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .swiper_content{
+        position: relative;
+        &::before{
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba($color: #000, $alpha: 0.5);
+        }
+        &>div{
+            position: absolute;
+            top: 10.5rem;
+            left: 11.9rem;
+            
+        }
+        .project_content{
+            margin-top: 30rem;
+            margin-bottom: 8rem;
+            @include mobile(){
+                margin-top: 88rem;
+                margin-bottom: 5rem;
+            }
+            .project_title{
+                font-size: 5.8rem;
+                color: $white;
+                margin-bottom: 2rem;
+                letter-spacing: 0.3rem;
+                line-height: 0.8;
+                @include mobile(){
+                    font-size: 7.8rem;
+                }
+            }
+            .project_text{                
+                color: $white_80;
+                font-size: 2.2rem;
+                letter-spacing: 0.2rem;
+                @include mobile(){
+                    font-size: 4.2rem;
+                }
+            }
+        }
+        .cta_text{
+            color: $white;
+        }
+    }
+}
+
+.awards{
+    margin-top: 16rem;
+    margin-bottom: 0;
+    margin-bottom: 18.2rem;
+    .cta_box{
+        margin-left: auto;
+    }
+    .work_box{
+        margin-left: 1rem;
+        display: flex;
+        width: 137.7rem;
+        align-items: flex-start;
+        position: relative;
+        z-index: 99;
+        @include mobile(){
+            width: auto;
+        }
+        &>img{
+            width: 44rem;
+            margin-top: 7rem;
+        }
+        .awards_work{
+            width: 25.1%;
+            height: 28rem;
+            @include mobile(){
+                width: 50%;
+                height: 30rem;
+            }
+            &:hover{
+                background: $black;
+                img{
+                    filter: invert(1);
+                }
+            }
+        }
+    }
+}
+
+.white_color{
+    h6,.sub_title, h2, .project_content .project_title, .project_content .project_text, .cta_text{
+        color: $white;
+    }
+}
+
+.form{
+    width: 82.5rem;
+    overflow: hidden;
+    @include mobile(){
+        width: 100%;
+    }
+    label{
+        font-size: 2rem;
+        color: $white;
+        display: block;
+        padding-bottom: 1.5rem;
+        @include mobile(){
+            font-size: 3rem;
+        }
+    }
+    input{
+        display: block;
+        border-bottom: 0.2rem solid $gray;
+        width: 100%;
+        color: $white;
+        font-size: 2rem;
+        padding-bottom: 1rem;
+        line-height: 1.3;
+        margin-bottom: 4.5rem;
+        appearance: none;
+        @include mobile(){
+            font-size: 3rem;
+        }
+    }
+    .cta_text{
+        font-size: 4.8rem;
+        span{
+            color: $white;
+            &::before{
+                background: $white;
+            }
+        }
+    }
+}
+
+.testimonial_top{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 13.5rem;
+    @include mobile(){
+        flex-direction: column-reverse;
+        gap: 20rem;
+    }
+    &>img{
+        width: 67.8rem;
+        margin-top: -40rem;
+        position: relative;
+        right: -1.5rem;
+        @include mobile(){
+            margin: 0;
+            right: auto;
+        }
+    }
+}
+
+.testimonial{
+    margin-bottom: 12rem;
+    position: relative;
+    @include mobile(){
+        margin: 0 6.5rem 12rem;
+    }
+}
+
+.testimonial_wrapper{
+    width: 111.5rem;
+    margin: 0 auto;
+    position: relative;
+    @include mobile(){
+        width: 100%;
+        margin-bottom: 30rem;
+    }
+    .testimonial_content{
+        font-size: 3.5rem;
+        margin-bottom: 5.5rem;
+        color: $black;
+        max-width: 80rem;
+        span{
+            font-size: 1.801rem;
+            color: $gray_dark;
+            margin-right: 1.3rem;
+            text-transform: uppercase;
+            @include mobile(){
+                font-size: 2.5rem;
+            }
+        }
+        @include mobile(){
+            br{
+                display: none;
+            }    
+        }
+    }
+    .company{
+        display: flex;
+        align-items: center;
+        gap: 2.5rem;
+        font-size: 1.801rem;
+        @include mobile(){
+            font-size: 4rem;
+        }
+        img{
+            width: 11.4rem;
+            @include mobile(){
+                width: 17rem;
+            }
+        }
+        .name{
+            line-height: 1;
+            margin-bottom: 1rem;
+            color: $black;
+            text-transform: uppercase;
+        }
+        .work{
+            line-height: 1;
+            color: $gray_dark;
+        }
+    }
+}
+
+.slide_cta{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    width: 30rem;
+    bottom: 6rem;
+    right: 40rem;
+    @include mobile(){
+        width: 50rem;
+        bottom: -12rem;
+        right: 21rem;
+        justify-content: space-between;
+    }
+    .cta_text{
+        gap: 1rem;
+        color: $black;
+        font-size: 2.6rem;
+    }
+    .swiper-button-prev,
+    .swiper-button-next{
+        position: relative;
+        top: auto;
+        margin-top: 0;
+        width: auto;
+        height: auto;
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        background-image: none;
+        color: $black_40;
+        &::after{
+            display: none;
+        }
+        span{
+            color: $black_40;
+        }
+    }
+}
+
+.home_blogs{
+    margin-right: 6.5rem;
+    margin-bottom: 12.5rem;
+    .blog_wrapper{
+        margin-top: 7.5rem;
+        text-align: center;
+    }
+    @include mobile(){
+        margin-left: 6.5rem;
+    }
+}
+
+.blog_container{
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14rem;
+    @include mobile(){
+        flex-direction: column;
+        gap: 10rem;
+    }
+    .blog_box{
+        width: 54rem;
+        @include mobile(){
+            width: 100%;
+        }
+        .blog_img{
+            overflow: hidden;
+            width: 100%;
+            margin-bottom: 4rem;
+            img{
+                width: 100%;
+                transition: scale 0.4s ease-in;
+            }
+        }
+        .top_text{
+            font-size: 3rem;
+            line-height: 1;
+            margin-bottom: .8rem;
+            letter-spacing: .1rem;
+            transition: scale 0.5s ease-in;
+            @include mobile(){
+                font-size: 5rem;
+                margin-bottom: 1.5rem;
+            }
+        }
+        .bottom_text{
+            font-size: 1.6rem;
+            @include mobile(){
+                font-size: 3.5rem;
+            }
+        }
+        &:hover{
+            img{
+                scale: 1.1;
+            }
+        }
+    }
+}
+
+
+h5, .h5{
+    font-size: 4.2rem;
+    line-height: 1.1;
+    color: $black;
+    width: auto;
+    @include mobile(){
+        font-size: 7rem;
+    }
+}
+
+.h6{
+    font-size: 2.6rem;
+    line-height: 1.1;
+    color: $black;
+    width: auto;
+    @include mobile(){
+        font-size: 2.5rem;
+    }
+}
+
+.h5{
+    letter-spacing: .8rem;
+}
+
+h4, .aside_title{
+    font-size: 5.4rem;
+    line-height: 1.1;
+    color: $black;
+    @include mobile(){
+        font-size: 7rem;
+    }
+}
+
+h3, .h2{
+    font-size: 10rem;
+    line-height: 1;
+    color: $black;
+    letter-spacing: normal;
+    @include mobile(){
+        font-size: 7rem;
+    }
+}
+
+
+
+@media all and (min-width:1023px) {
+    .hs1 .sub_heading {
+        width: 57%;
+    }
+    
+    .hs2 .sub_heading,.hs3 .sub_heading {
+        width: 70%;
+    }
+    
+    .hs4 .sub_heading,.hs5 .sub_heading {
+        width: 65%;
+    }
+    
+    .hs7 .sub_heading {
+        width: 85%;
+    }
+    
+}
+
+
+
+.link{
+    position: relative;
+    &::after{
+        content: '';
+        position: absolute;
+        width: 100%;
+        left: 0;
+        bottom: 0;
+        height: 0.2rem;
+        background: $black_60;
+        transform: scaleX(1);
+        transform-origin: bottom left;
+        transition: transform 0.3s ease-in;
+    }
+    &:hover{
+        &::after{
+            transform: scaleX(0);
+            transform-origin: bottom right;
+        }
+    }
+}

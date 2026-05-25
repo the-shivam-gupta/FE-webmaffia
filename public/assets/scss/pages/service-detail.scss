@@ -1,0 +1,238 @@
+.service_detail{
+    margin-bottom: 2.5rem;
+    picture{
+        margin-top: -5rem;
+        right: 8rem;
+        @include mobile(){
+            right: -12rem;
+            margin-top: 1rem;
+        }
+        img{
+            width: 80.8rem;
+            @include mobile(){
+                width: 90%;
+            }
+        }
+    }
+    h3, .h2{
+        margin-bottom: 3rem;
+    }
+}
+
+.services_parent{
+    margin: 0 12rem;
+    section{
+        margin-bottom: 15rem;
+        @include mobile(){
+            margin-bottom: 20rem;
+        }
+    }
+    .service_features{
+        .feature_type{
+            margin-top: 10rem;
+            width: 134.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 8rem;
+            @include mobile(){
+                flex-direction: column;
+                width: 100%;
+            }
+            p{
+                margin: 0;
+            }
+            .feature_box{
+                width: 45%;
+                @include mobile(){
+                    width: 100%;
+                }
+                p{
+                    margin-bottom: 1rem;
+                    @include mobile(){
+                        margin-bottom: 2rem;
+                    }
+                }
+            }
+            .feature_title{
+                margin-bottom: 3rem;
+            }
+        }
+    }
+}
+
+.feature_title{
+    position: relative;
+    padding-left: 4rem;
+    font-size: 5rem;
+    color: $black;
+    line-height: 1;
+    letter-spacing: 0;
+    @include mobile(){
+        padding-left: 8rem;
+        br{
+            display: none;
+        }
+    }
+    &::before{
+        content: attr(data-sf-number);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 5rem;
+        height: 5rem;
+        font-size: 2rem;
+        color: $black;
+        @include mobile(){
+            width: 10rem;
+            height: 10rem;
+            font-size: 3.6rem;
+        }
+    }
+}
+
+.influencer_title{
+    font-size: 3rem;
+    @include mobile(){
+        font-size: 5rem;
+    }
+}
+
+.technologies{
+    margin-top: 15rem;
+    .feature_title{
+        padding: 0;
+        margin-bottom: 7rem;
+    }
+    .technology_items{
+        display: flex;
+        align-items: center;
+        gap: 6.5rem;
+        margin-bottom: 2.5rem;
+        @include mobile(){
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 3rem;
+            margin-bottom: 5.5rem;
+            &:nth-last-child(1){
+                margin-bottom: 0;
+            }
+        }
+    }
+    .technology_img{
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 2.7rem;
+        &>div{
+            width: 10rem;
+            height: 10rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: $gray_medium_thin;
+            border-radius: 50%;
+            @include mobile(){
+                width: 12.5rem;
+                height: 12.5rem;
+            }
+            img{
+                width: 7.5rem;
+                filter: grayscale(1);
+                transition: filter 0.3s ease;
+                @include mobile(){
+                    width: 9rem;
+                }
+            }
+            &:hover{
+                img{
+                    filter: grayscale(0);
+                }
+            }
+        }
+    }
+}
+
+
+.services_work{
+    margin-bottom: 15rem;
+    @include mobile(){
+        margin: 0 6.5rem 5rem;
+    }
+}
+.workspace{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 5rem;
+    margin-right: 6.5rem;
+    margin-bottom: 17.5rem;
+    @include mobile(){
+        margin-right: 0;
+        flex-direction: column;
+        gap: 10rem;
+        margin-top: 10rem;
+    }
+    .service_item{
+        width: 82.1rem;
+        @include mobile(){
+            width: 100%;
+        }
+        &:hover{
+            .service_img{
+                img{
+                    scale: 1.1;
+                }
+            }
+        }
+        a{
+            &.service_img{
+                width: 100%;
+                height: 60.1rem;
+                display: inline-block;
+                overflow: hidden;
+                @include mobile(){
+                    height: auto;  
+                }
+                img{
+                    width: 100%;
+                    margin-bottom: 4rem;
+                    transition: scale 0.5s ease-in;
+                }
+            }
+            .service_name{
+                font-size: 4.566rem;
+                color: $black;
+                @include mobile(){
+                    font-size: 5rem;
+                }
+            }
+            .service_type{
+                font-size: 2.435rem;
+                color: $black;
+                @include mobile(){
+                    font-size: 3rem;
+                }
+            }
+        }
+    }
+}
+
+.cta_work{
+    text-align: center;
+    .cta_text span::before{
+        @include mobile(){
+            top: 50%;
+        }
+    }
+}
+
+.h4{
+    font-size: 3.3rem;
+    color: $black;
+    line-height: 1;
+    @include mobile(){
+        font-size: 4rem;
+    }
+}
