@@ -22,6 +22,7 @@
 
 # form submissions (local dev)
 /data
+career-entries.json
 
 # misc
 .DS_Store

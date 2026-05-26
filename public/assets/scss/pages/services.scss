@@ -107,6 +107,48 @@
     margin-bottom: 5.8rem;
     width: 61.1rem;
     margin-left: 0 !important;
+    overflow: hidden;
+    &.swiper{
+        min-height: 6.5rem;
+        padding: 0.4rem 0;
+        box-sizing: content-box;
+        .swiper-wrapper{
+            gap: 0 !important;
+            align-items: center;
+        }
+        .swiper-slide{
+            width: 100% !important;
+            overflow: hidden;
+        }
+        .sliderBox{
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 2rem;
+            width: 80%;
+            max-width: 100%;
+        }
+        .swiper-item{
+            line-height: 1.35;
+            flex-shrink: 0;
+            white-space: nowrap;
+            overflow: visible;
+            padding: 0.15rem 0;
+        }
+        .swiper-slide:not(.swiper-slide-active) .lineLoader{
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .lineLoader::after{
+            animation: none;
+            width: 0%;
+        }
+        .swiper-slide-active .lineLoader::after{
+            animation: timer 5s ease-in forwards;
+        }
+    }
+}
     &>img{
         width: 35rem;
         position: absolute;

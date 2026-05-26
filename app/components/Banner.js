@@ -50,7 +50,14 @@ const Banner = ({ data = DEFAULT_DATA }) => {
           {title.line1}
           {title.line2 && <><br />{title.line2}</>}
         </div>
-        <p>{description.split("\n").map((line, i) => i > 0 ? <><br />{line}</> : line)}</p>
+        <p>
+          {description.split("\n").map((line, i) => (
+            <span key={i}>
+              {i > 0 && <br />}
+              {line}
+            </span>
+          ))}
+        </p>
         <CTA />
       </div>
 

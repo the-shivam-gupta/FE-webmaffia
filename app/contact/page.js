@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const INTERESTS = [
+const SERVICE_INTERESTS = [
   { id: "Web_design", value: "Web design", label: "Web design" },
   { id: "UI/UX_design", value: "UI/UX design", label: "UI/UX design" },
   { id: "Web_development", value: "Web development", label: "Web development" },
@@ -65,7 +65,7 @@ export default function ContactPage() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ type: "contact", ...form }),
       });
 
       if (!res.ok) throw new Error("Submission failed");
@@ -168,11 +168,11 @@ export default function ContactPage() {
 
           <label htmlFor="interests">You are interested in</label>
           <div className="input_checkox">
-            {INTERESTS.map(({ id, value, label }) => (
-              <label key={id} htmlFor={id} className="checkmark">
+            {SERVICE_INTERESTS.map(({ id, value, label }) => (
+              <label key={id} htmlFor={`contact_${id}`} className="checkmark">
                 <input
                   type="checkbox"
-                  id={id}
+                  id={`contact_${id}`}
                   checked={form.interests.includes(value)}
                   onChange={() => toggleCheckbox("interests", value)}
                 />
@@ -193,10 +193,10 @@ export default function ContactPage() {
           <label htmlFor="hear_about">How did you hear about us?</label>
           <div className="input_checkox">
             {HEAR_ABOUT.map(({ id, value, label }) => (
-              <label key={id} htmlFor={id} className="checkmark">
+              <label key={id} htmlFor={`contact_hear_${id}`} className="checkmark">
                 <input
                   type="checkbox"
-                  id={id}
+                  id={`contact_hear_${id}`}
                   checked={form.hear_about.includes(value)}
                   onChange={() => toggleCheckbox("hear_about", value)}
                 />

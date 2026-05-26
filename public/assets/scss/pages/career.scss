@@ -34,6 +34,41 @@
     }
 }
 
+.resume_box{
+    margin-bottom: 5rem;
+    label{
+        display: block;
+        font-size: 2rem;
+        color: $black;
+        padding-bottom: 1.5rem;
+        @include mobile(){
+            font-size: 3rem;
+        }
+    }
+    input[type="file"]{
+        border: 0;
+        background: transparent;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        &::file-selector-button{
+            margin-top: 2rem;
+            cursor: pointer;
+            border: 0.2rem solid $gray_dark;
+            border-radius: 50rem;
+            padding: 2rem 4rem;
+            color: $gray_dark;
+            transition: all 0.3s ease-in;
+            appearance: none;
+            background: transparent;
+            &:hover{
+                background: $black;
+                color: $white;
+            }
+        }
+    }
+}
+
 .career_accordion{
     margin-bottom: 23rem;
     margin-right: 12rem;

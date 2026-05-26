@@ -2035,7 +2035,7 @@ footer > a img {
 }
 .blog_listing .hero_section {
   padding-left: 6.5rem;
-  margin-bottom: 11rem;
+  margin-bottom: 21rem;
 }
 @media all and (max-width: 540px) {
   .blog_listing .hero_section {
@@ -2317,7 +2317,7 @@ footer > a img {
   padding-top: 10rem;
 }
 .sticky_article a {
-  display: inline-block;
+  display: block;
   margin-bottom: 2rem;
   position: relative;
   padding-bottom: 1rem;
@@ -2480,6 +2480,49 @@ footer > a img {
   margin-bottom: 5.8rem;
   width: 61.1rem;
   margin-left: 0 !important;
+  overflow: hidden;
+}
+/* Swiper slide transition — override legacy flex gap that breaks sliding */
+.service-swiper.swiper {
+  min-height: 6.5rem;
+  padding: 0.4rem 0;
+  box-sizing: content-box;
+}
+.service-swiper.swiper .swiper-wrapper {
+  gap: 0 !important;
+  align-items: center;
+}
+.service-swiper.swiper .swiper-slide {
+  width: 100% !important;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.service-swiper.swiper .sliderBox {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2rem;
+  width: 80%;
+  max-width: 100%;
+}
+.service-swiper.swiper .swiper-wrapper .swiper-item {
+  line-height: 1.35;
+  flex-shrink: 0;
+  white-space: nowrap;
+  overflow: visible;
+  padding: 0.15rem 0;
+}
+.service-swiper.swiper .swiper-slide:not(.swiper-slide-active) .lineLoader {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.service-swiper.swiper .swiper-wrapper .lineLoader::after {
+  animation: none;
+  width: 0%;
+}
+.service-swiper.swiper .swiper-slide-active .lineLoader::after {
+  animation: timer 5s ease-in forwards;
 }
 .service-swiper > img {
   width: 35rem;
@@ -2844,6 +2887,41 @@ footer > a img {
 }
 .career .contact_us form {
   margin-left: 0;
+}
+.resume_box {
+  margin-bottom: 5rem;
+}
+.contact_us .form .resume_box label {
+  color: #000;
+}
+.form .resume_box input {
+  border: 0;
+  background: transparent;
+  margin: 0;
+  padding: 0;
+}
+.form .resume_box input::file-selector-button {
+  margin-top: 2rem;
+  cursor: pointer;
+  border: 0.2rem solid #5b5b5b;
+  -webkit-border-radius: 50rem;
+  border-radius: 50rem;
+  padding: 2rem 4rem;
+  text-align: center;
+  display: inline-block;
+  color: #5b5b5b;
+  -webkit-transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: transparent;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.form .resume_box input::file-selector-button:hover {
+  background: #000;
+  color: #fff;
 }
 .career_accordion {
   margin-bottom: 23rem;
@@ -3460,6 +3538,40 @@ footer > a img {
 .work_detail .hero_section > div p {
   color: #fff;
 }
+.jashList p {
+  margin-bottom: 2rem;
+}
+.hoabl_detail .detail_challenge {
+  margin-bottom: 16.5rem;
+  gap: 20rem;
+}
+.hoabl_detail .detail_solution {
+  gap: 20rem;
+}
+.hoabl_detail .detail_challenge > div {
+  width: 30vw;
+}
+.hoabl_detail .detail_sections .hoabl_showcase img {
+  width: 100%;
+  height: auto;
+}
+@media all and (max-width: 540px) {
+  .hoabl_detail .detail_challenge > div {
+    width: 100%;
+  }
+  .hoabl_detail .detail_challenge {
+    margin-bottom: 16.5rem;
+    gap: 9rem;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+    -webkit-flex-direction: column-reverse;
+    -ms-flex-direction: column-reverse;
+    flex-direction: column-reverse;
+  }
+  .hoabl_detail .detail_solution {
+    gap: 9rem;
+  }
+}
 .detail_banner {
   position: absolute !important;
   top: 0;
@@ -3879,7 +3991,6 @@ footer > a img {
   align-items: flex-start;
   gap: 6.1rem;
   margin-right: 10.4rem;
-  position: relative;
 }
 @media all and (max-width: 540px) {
   .blog_section {
@@ -3914,7 +4025,6 @@ footer > a img {
     -webkit-flex-direction: column;
     -ms-flex-direction: column;
     flex-direction: column;
-    width: 100%;
   }
 }
 .blog_section .blog_set .blog_page {
@@ -3937,7 +4047,7 @@ footer > a img {
 .blog_section .blog_set .blog_page .blog_content {
   padding-bottom: 3.5rem;
   position: relative;
-  width: 100%;
+  width: 85.9rem;
 }
 .blog_section .blog_set .blog_page .blog_content ul {
   padding-left: 3.5rem;
@@ -3977,7 +4087,7 @@ footer > a img {
 }
 .blog_section .blog_set .blog_page .blog_content p {
   font-size: 2.2rem;
-  margin-bottom: 1.2rem;
+  margin-bottom: 3rem;
   line-height: 1.4;
   letter-spacing: 0.1rem;
   font-weight: 400;
@@ -4155,8 +4265,6 @@ footer > a img {
 .other_detail_blogs {
   margin-top: 2rem;
   margin-bottom: 15rem;
-  margin-left: 10rem;
-  margin-right: 10rem;
 }
 .other_detail_blogs .detail_title {
   font-size: 10rem;
@@ -4167,6 +4275,10 @@ footer > a img {
   .other_detail_blogs .detail_title br {
     display: none;
   }
+}
+.other_detail_blogs .other_blogs {
+  margin-left: 12rem;
+  margin-right: 14.4rem;
 }
 @media all and (max-width: 540px) {
   .other_detail_blogs .other_blogs {

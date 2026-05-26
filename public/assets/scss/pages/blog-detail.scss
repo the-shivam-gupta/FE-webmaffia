@@ -110,7 +110,6 @@
         gap: 11.9rem;
         @include mobile(){
             flex-direction: column;
-            width: 100%;
         }
         .blog_page{
             width: 103rem;
@@ -127,9 +126,7 @@
             .blog_content{
                 padding-bottom: 3.5rem;
                 position: relative;
-                width: 100%;
-                @include mobile(){
-                }
+                width: 85.9rem;
                 &::before{
                     content: '';
                     position: absolute;
@@ -151,7 +148,7 @@
                 }
                 p{
                     font-size: 2.2rem;
-                    margin-bottom: 1.2rem;
+                    margin-bottom: 3rem;
                     line-height: 1.4;
                     letter-spacing: .1rem;
                     font-weight: 400;
@@ -320,17 +317,13 @@
        }
     }
     .other_blogs{
-        margin-left: 10rem;
-        margin-right: 10rem;
+        margin-left: 12rem;
+        margin-right: 14.4rem;
         @include mobile(){
             margin-left: 0;
             margin-right: 0;
         }
     }
-}
-
-strong{
-    font-weight: 700;
 }
 
 @keyframes heart_beat {

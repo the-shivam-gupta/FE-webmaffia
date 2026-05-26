@@ -171,8 +171,10 @@ const Header = () => {
                     { href: "/digital-strategy", label: "Digital Strategy" },
                     { href: "/website-design-development-services", label: "Design and Development" },
                     { href: "/search-engine-optimization-services", label: "SEO" },
+                    { href: "/ai-powered-solutions-services", label: "AI-Powered Solutions" },
                     { href: "/social-media-marketing-strategy", label: "Social Media" },
                     { href: "/content-marketing-strategy", label: "Content Marketing" },
+                    { href: "/influencer-marketing", label: "Influencer Marketing" },
                     { href: "/app-store-optimization", label: "App Store Optimization" },
                   ].map(({ href, label }) => (
                     <li key={href}>
@@ -192,13 +194,9 @@ const Header = () => {
             </div>
 
             <div className="menu_link" data-number="04">
-              <a
-                href="https://www.webmaffia.com/blog/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <Link href="/blog" onClick={() => setMenuOpen(false)}>
                 Blog
-              </a>
+              </Link>
             </div>
 
             <div className="menu_link" data-number="04">
