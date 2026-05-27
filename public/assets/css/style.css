@@ -933,7 +933,7 @@ address a:hover {
   transform: translateY(-0.3rem);
 }
 .wrapper {
-  padding-top: 15.5rem !important;
+  padding-top: 22.5rem !important;
   overflow-x: hidden;
 }
 @media all and (max-width: 540px) {
@@ -1148,7 +1148,12 @@ p a:hover::after {
 }
 .main_horizontal {
   position: relative;
+  height: 94rem;
+  min-height: 94rem;
+  max-height: 94rem;
   padding-top: 15rem !important;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 @media all and (max-width: 540px) {
   .main_horizontal {
@@ -1156,16 +1161,19 @@ p a:hover::after {
   }
 }
 .horizontal_section {
-  width: 200%;
-  margin-bottom: 9.5rem;
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: 62vw;
   height: 94rem;
-  overflow: hidden;
+  margin-bottom: 0;
+  pointer-events: none;
 }
 @media all and (max-width: 540px) {
   .horizontal_section {
     height: 90vh;
-    width: 1081%;
+    width: 100%;
   }
 }
 .horizontal_section > .staticSection,
@@ -1182,12 +1190,10 @@ p a:hover::after {
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
+  position: relative;
   width: 100%;
   height: 100%;
+  pointer-events: auto;
 }
 @media all and (max-width: 540px) {
   .horizontal_section > .staticSection,
@@ -1201,11 +1207,13 @@ p a:hover::after {
 .staticSection {
   position: relative;
   left: 0;
-  z-index: 9999999 !important;
+  z-index: 2;
   background: #fff;
   height: 90vh;
   top: -14vh !important;
-  width: 62vw !important;
+  width: 100% !important;
+  overflow: hidden;
+  isolation: isolate;
 }
 .ourService-swiper {
   position: absolute;
@@ -1214,38 +1222,80 @@ p a:hover::after {
   width: 100% !important;
   height: 94rem;
   z-index: 2;
-  overflow: visible;
+  overflow: hidden;
 }
 .main_horizontal .ourService-swiper.testimonial_wrapper {
+  position: absolute !important;
+  top: 0;
+  left: 0;
   width: 100% !important;
   max-width: none;
+  height: 94rem;
   margin: 0 !important;
+  z-index: 2;
 }
-.ourService-swiper .swiper,
+.ourService-swiper .swiper {
+  height: 100%;
+  overflow: hidden;
+}
 .ourService-swiper .swiper-wrapper {
   height: 100%;
 }
 .ourService-swiper .swiper-slide {
   width: 100% !important;
   position: relative;
+  left: auto;
   right: -50vw;
-  overflow: visible;
+  overflow: hidden;
 }
-.main_horizontal > .our_work {
+.main_horizontal .ourService-swiper .horizontal_sliders {
+  z-index: auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+@media all and (min-width: 541px) {
+  .main_horizontal .ourService-swiper .horizontal_sliders > div {
+    width: 45%;
+    max-width: 45%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+  .main_horizontal .ourService-swiper .horizontal_sliders > div .sub_heading {
+    width: 100%;
+    max-width: 100%;
+  }
+  .main_horizontal .ourService-swiper .horizontal_sliders > div > p {
+    max-width: 36rem;
+    width: 100%;
+  }
+  .main_horizontal .ourService-swiper .horizontal_sliders.slider-7 > div {
+    width: 65%;
+    max-width: 65%;
+  }
+}
+.ml-setter > .our_work {
   position: relative;
-  z-index: 3;
-  margin-top: 94rem;
+  z-index: 1;
+  margin-top: 0;
 }
 @media all and (max-width: 540px) {
+  .main_horizontal {
+    height: 90vh;
+    min-height: 90vh;
+    max-height: 90vh;
+  }
+  .main_horizontal .ourService-swiper.testimonial_wrapper {
+    height: 90vh;
+    margin-bottom: 0 !important;
+  }
   .ourService-swiper {
     width: 136vw !important;
     height: 90vh;
   }
   .ourService-swiper .swiper-slide {
     top: 50vw;
-  }
-  .main_horizontal > .our_work {
-    margin-top: 90vh;
   }
 }
 .horizontal_sliders {
@@ -1267,6 +1317,9 @@ p a:hover::after {
   position: relative;
   top: 22.4rem;
   z-index: 999;
+}
+.horizontal_sliders:nth-child(1) {
+  top: 0;
 }
 @media all and (max-width: 540px) {
   .horizontal_sliders {
@@ -1361,17 +1414,29 @@ h2,
   mix-blend-mode: multiply;
   margin: 21rem 5rem 0 0;
 }
-.swiper-slide .horizontal_sliders {
-  width: 60% !important;
+.main_horizontal .staticSection .horizontal_sliders {
+  top: 0 !important;
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0);
 }
-.swiper-slide .horizontal_sliders.slider-6,
-.swiper-slide .horizontal_sliders.slider-7 {
-  width: 50% !important;
+.main_horizontal .ourService-swiper .horizontal_sliders {
+  top: 0 !important;
+  margin-left: 0;
+  -webkit-transform: translate(0, 36%);
+  -ms-transform: translate(0, 36%);
+  transform: translate(0, 36%);
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 @media all and (max-width: 540px) {
-  .swiper-slide .horizontal_sliders.slider-6,
-  .swiper-slide .horizontal_sliders.slider-7 {
-    width: 60% !important;
+  .main_horizontal .ourService-swiper .horizontal_sliders {
+    top: 10vh !important;
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    transform: translate(0, 0);
   }
 }
 .our_work {
@@ -1458,6 +1523,10 @@ h2,
   width: auto;
   margin-top: 9.5rem;
   margin-left: 8.5rem;
+}
+.features{
+  position: relative;
+  padding: 0 6.5rem 10rem;
 }
 .features picture {
   display: block;
@@ -1957,6 +2026,15 @@ h3,
   transform-origin: bottom right;
 }
 .main_horizontal .slide_cta {
+  position: absolute;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   bottom: 6rem;
   right: 40rem;
   width: 45rem;
@@ -1965,6 +2043,16 @@ h3,
 }
 .main_horizontal .slide_cta .cta_text {
   cursor: pointer;
+  border: none;
+  background: transparent;
+  padding: 0;
+  font: inherit;
+}
+.main_horizontal .slide_cta .swiper-button-prev {
+  color: rgba(0, 0, 0, 0.4);
+}
+.main_horizontal .slide_cta .swiper-button-prev span {
+  color: rgba(0, 0, 0, 0.4);
 }
 @media all and (max-width: 540px) {
   .main_horizontal .slide_cta {
@@ -4969,22 +5057,6 @@ html.active .copyright {
 }
 html.active .contact_us .contact_address address a {
   color: #fff;
-}
-.horizontal_sliders {
-  top: 0 !important;
-  -webkit-transform: translate(0, 36%);
-  -ms-transform: translate(0, 36%);
-  transform: translate(0, 36%);
-}
-.horizontal_sliders:nth-child(1) {
-  -webkit-transform: translate(0, 0);
-  -ms-transform: translate(0, 0);
-  transform: translate(0, 0);
-}
-@media all and (max-width: 540px) {
-  .horizontal_sliders {
-    top: 10vh !important;
-  }
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
   only screen and (min-device-pixel-ratio: 1.5) {

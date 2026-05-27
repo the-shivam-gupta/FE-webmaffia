@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRef, useCallback } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -10,8 +10,6 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import "../public/assets/scss/component/home-sections.scss";
 import Banner from "./components/Banner";
 import { useHomeScrollAnimations } from "./hooks/useHomeScrollAnimations";
-
-// ─── Data ────────────────────────────────────────────────────────────────────
 
 const SERVICES = [
   {
@@ -139,7 +137,6 @@ const TESTIMONIALS = [
     logo: { src: "/assets/images/amns-logo.webp", w: 114, h: 114 },
     speaker: "ASHISH",
   },
-  // Duplicate entries from original — replace with real data
   {
     quote: 'Demonstrating great professionalism, the Blackfish team proved to be amazingly adaptive to the client\'s needs. They\'re distinguished by their speed and flexibility.',
     author: "ASHISH KAUSHIK",
@@ -148,8 +145,6 @@ const TESTIMONIALS = [
     speaker: "ASHISH",
   },
 ];
-
-// ─── Page ─────────────────────────────────────────────────────────────────────
 
 const HOME_BANNER = {
   subheading: { enabled: true, text: "CREATIVE DIGITAL AGENCY" },
@@ -172,11 +167,9 @@ export default function Home() {
 
   return (
     <main className="wrapper home_wrapper opacity_0">
-      {/* ── Hero ── */}
       <div className="ml-setter">
         <Banner data={HOME_BANNER} />
 
-        {/* ── Services — matches PHP index.php structure ── */}
         <div className="main_horizontal" ref={mainHorizontalRef}>
           <div className="horizontal_section">
             <div className="staticSection hs1">
@@ -241,9 +234,9 @@ export default function Home() {
               </SwiperSlide>
             ))}
           </Swiper>
+        </div>
 
-          {/* ── Our Work (inside main_horizontal in PHP) ── */}
-          <section data-section="our_work" className="our_work">
+        <section data-section="our_work" className="our_work">
           <h2 className="sub_title">OUR WORK</h2>
           <div className="sub_heading">Clients</div>
           <div className="work_box">
@@ -258,11 +251,9 @@ export default function Home() {
               View All <span>Clients</span>
             </Link>
           </div>
-          </section>
-        </div>
+        </section>
       </div>
 
-      {/* ── Portfolio / Features Swiper ── */}
       <section data-section="features" className="features white_color">
         <Swiper
           modules={[Autoplay]}
@@ -310,7 +301,6 @@ export default function Home() {
       </section>
 
       <div className="ml-setter">
-        {/* ── Awards ── */}
         <section data-section="awards" className="our_work awards">
           <h2 className="sub_title">AWARDS</h2>
           <div className="sub_heading">
@@ -330,7 +320,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ── Testimonials ── */}
         <section data-section="testimonial" className="testimonial">
           <div className="testimonial_top">
             <div>

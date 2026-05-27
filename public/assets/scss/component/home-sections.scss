@@ -4,7 +4,7 @@
 @import '../../scss/fonts.scss';
 
 .wrapper{
-    padding-top: 15.5rem !important;
+    padding-top: 22.5rem !important;
     overflow-x: hidden;
     @include mobile(){
         padding-top: 21rem !important;
@@ -177,11 +177,24 @@ p{
     }
 }
 
-// Services horizontal block: layout lives in public/assets/css/style.css (PHP parity).
-// Do not add flex/flex-wrap on .main_horizontal — it breaks the overlay + GSAP scroll.
-
 .main_horizontal{
+    position: relative;
+    height: 94rem;
+    min-height: 94rem;
+    max-height: 94rem;
+    margin-top: 15rem !important;
+    overflow: hidden;
+    box-sizing: border-box;
+    @include mobile(){
+        margin-top: 0 !important;
+        height: 90vh;
+        min-height: 90vh;
+        max-height: 90vh;
+    }
     .slide_cta{
+        position: absolute;
+        display: flex;
+        align-items: center;
         bottom: 6rem;
         right: 40rem;
         width: 45rem;
@@ -189,6 +202,16 @@ p{
         z-index: 999;
         .cta_text{
             cursor: pointer;
+            border: none;
+            background: transparent;
+            padding: 0;
+            font: inherit;
+        }
+        .swiper-button-prev{
+            color: rgba(0, 0, 0, 0.4);
+            span{
+                color: rgba(0, 0, 0, 0.4);
+            }
         }
         @include mobile(){
             bottom: -12rem;
@@ -200,22 +223,121 @@ p{
     }
 }
 
-// Image + text side by side inside each slide (override global .flex column on desktop)
-.main_horizontal .horizontal_sliders.flex{
-    display: flex !important;
-    flex-direction: row-reverse !important;
-    flex-wrap: nowrap !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 100%;
-    max-width: 120rem;
-    margin-left: auto;
-    margin-right: auto;
+.horizontal_section{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    width: 62vw;
+    height: 94rem;
+    margin-bottom: 0;
+    pointer-events: none;
     @include mobile(){
-        flex-direction: column !important;
+        height: 90vh;
         width: 100%;
-        max-width: 100%;
     }
+    &>div{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        pointer-events: auto;
+        @include mobile(){
+            align-items: self-start;
+        }
+    }
+}
+
+.staticSection{
+    position: relative;
+    left: 0;
+    z-index: 2;
+    background: #fff;
+    height: 90vh;
+    top: -14vh !important;
+    width: 100% !important;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.ourService-swiper{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 94rem;
+    z-index: 2;
+    overflow: hidden;
+    &.testimonial_wrapper{
+        position: absolute !important;
+        top: 0;
+        left: 0;
+        width: 100% !important;
+        max-width: none;
+        height: 94rem;
+        margin: 0 !important;
+        z-index: 2;
+    }
+    .swiper{
+        height: 100%;
+        overflow: hidden;
+    }
+    .swiper-wrapper{
+        height: 100%;
+    }
+    .swiper-slide{
+        width: 100% !important;
+        position: relative;
+        right: -50vw;
+        overflow: hidden;
+    }
+    .horizontal_sliders{
+        z-index: auto;
+        justify-content: center;
+        @media (min-width: 541px) {
+            > div {
+                width: 45%;
+                max-width: 45%;
+                min-width: 0;
+                box-sizing: border-box;
+                flex-shrink: 0;
+
+                .sub_heading {
+                    width: 100%;
+                    max-width: 100%;
+                }
+
+                > p {
+                    max-width: 36rem;
+                    width: 100%;
+                }
+            }
+
+            &.slider-7 > div {
+                width: 65%;
+                max-width: 65%;
+            }
+        }
+    }
+    @include mobile(){
+        width: 136vw !important;
+        height: 90vh;
+        &.testimonial_wrapper{
+            height: 90vh;
+            margin-bottom: 0 !important;
+        }
+        .swiper-slide{
+            top: 50vw;
+        }
+    }
+}
+
+.ml-setter > .our_work{
+    position: relative;
+    z-index: 1;
+    margin-top: 0;
 }
 
 .horizontal_sliders{
@@ -228,18 +350,20 @@ p{
     top: 22.4rem;
     z-index: 999;
     @include mobile(){
+        margin-left: 0;
         align-items: center;
-        width: 100%;
-        max-width: 100%;
+        width: 138rem;
         flex-direction: column;
     }
     &:nth-child(1){
+        top: 0;
         @include mobile(){
             width: 75rem;
         }
     }
     &>img{
         width: 67.2rem;
+        mix-blend-mode: multiply;
         @include mobile(){
             margin-top: 1rem;
             margin-left: 0;
@@ -298,17 +422,6 @@ h2, .sub_heading{
         width: 67.2rem;
         mix-blend-mode:multiply;
         margin: 21rem 5rem 0 0;
-    }
-}
-
-.swiper-slide .horizontal_sliders{
-    width: 60% !important;
-    &.slider-6,
-    &.slider-7{
-        width: 50% !important;
-        @include mobile(){
-            width: 60% !important;
-        }
     }
 }
 
@@ -603,6 +716,7 @@ h2, .sub_heading{
     width: 30rem;
     bottom: 6rem;
     right: 40rem;
+    gap:5vw;
     @include mobile(){
         width: 50rem;
         bottom: -12rem;
@@ -743,23 +857,24 @@ h3, .h2{
 
 
 
-@media all and (min-width:1023px) {
+@media all and (min-width: 1023px) {
     .hs1 .sub_heading {
         width: 57%;
     }
-    
-    .hs2 .sub_heading,.hs3 .sub_heading {
-        width: 70%;
+
+    .hs2 .sub_heading,
+    .hs3 .sub_heading {
+        width: 45%;
     }
-    
-    .hs4 .sub_heading,.hs5 .sub_heading {
+
+    .hs4 .sub_heading,
+    .hs5 .sub_heading {
         width: 65%;
     }
-    
+
     .hs7 .sub_heading {
         width: 85%;
     }
-    
 }
 
 

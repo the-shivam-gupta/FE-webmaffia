@@ -6,7 +6,9 @@
 .main_horizontal .ourService-swiper .horizontal_sliders {
     top: 0 !important;
     transform: translate(0, 36%);
-    @include mobile(){
+    margin-left: 0;
+    @include mobile() {
         top: 10vh !important;
+        transform: translate(0, 0);
     }
 }
