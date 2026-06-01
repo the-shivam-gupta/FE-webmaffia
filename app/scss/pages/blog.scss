@@ -1,7 +1,7 @@
 .blog_listing{
     .hero_section{
         padding-left: 6.5rem;
-        margin-bottom: 11rem;
+        margin-bottom: 21rem;
         @include mobile(){
             margin-bottom: 14rem;
         }
@@ -15,12 +15,10 @@
         img{
             width: 73.8rem;
             right: -6.5rem;
-            margin-top: 30rem;
             position: relative;
             @include mobile(){
                 width: 100%;
                 margin: 0;
-                margin-top: 10rem;
                 right: -10rem;
             }
         }
@@ -38,9 +36,13 @@
     }
 }
 
+.blog_link{
+    margin-top: 2rem;
+}
+
 .our_blog{
     width: 156.5rem;
-    margin: -33rem auto 13.3rem;
+    margin: 0 auto 13.3rem;
     @include mobile(){
         margin: 0;
         padding: 0 6.5rem;
@@ -105,7 +107,7 @@
             height: 80%;
             background: $black_30;
             top: 1.1rem;
-            left: -65%;
+            left: -30%;
             transform: translate(-50%, -50%);
             @include mobile(){
                 top: 1.9rem;
@@ -125,7 +127,7 @@
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 13rem;
+    gap: 6rem;
     @include mobile(){
         gap: 9.9rem;
     }
@@ -149,42 +151,50 @@
         h5{
             letter-spacing: .5rem;
         }
-        a{
-            &>div{
+        > a:first-child{
+            display: block;
+
+            > div{
                 overflow: hidden;
+                width: 100%;
+                aspect-ratio: 698 / 479;
+
                 img{
                     width: 100%;
+                    height: 100% !important;
+                    object-fit: cover;
                     transition: scale 0.3s ease-in;
-                }      
-            }
-            &:hover{
-                &>div{
-                    img{
-                        scale: 1.1;
-                    }
                 }
+            }
+
+            &:hover > div img{
+                scale: 1.1;
             }
         }
         @include mobile(){
             width: 100%;
         }
-        &:nth-child(even){
-            margin-top: 3.9rem;
-            @include mobile(){
-                margin: 0;
-            }
-        }
         &>div a{
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
+            gap: 2rem;
             margin-top: 3.3rem;
-            @include mobile(){
+            h2,
+            .h5,
+            .blog_item_title{
+                width: 50rem;
+                @include mobile(){
+                    width: 100%;
+                }
+            }
+            @media all and (max-width: 900px){
                 flex-direction: column;
             }
             p{
                 margin-top: 0;
                 margin-bottom: 2.5rem;
+                width: 28rem;
                 @include mobile(){
                     margin-top: 3rem;
                     margin-bottom: 5rem;

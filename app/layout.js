@@ -1,16 +1,15 @@
 import { Albert_Sans } from "next/font/google";
-import "./globals.css";
-import "@/public/assets/css/style.css";
+import "./scss/main.scss";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ThemeInit from "./components/ThemeInit";
-import "../public/assets/scss/lib/slick.scss";
-import "@/public/assets/css/swiper-bundle.min.css";
 
 const albertSans = Albert_Sans({
   variable: "--font-albert-sans",
   subsets: ["latin"],
-  // weight: ["300", "400", "500", "600", "700", "800"],
 });
 
 export const metadata = {

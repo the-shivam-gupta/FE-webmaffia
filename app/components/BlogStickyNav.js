@@ -1,9 +1,40 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+
+const HEADER_OFFSET = 100;
 
 export default function BlogStickyNav({ links }) {
   const [activeHref, setActiveHref] = useState(links[0]?.href ?? "");
+
+  const scrollToSection = useCallback((href) => {
+    const id = href.replace("#", "");
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    const top =
+      el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    window.scrollTo({
+      top,
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+    });
+
+    setActiveHref(href);
+    window.history.replaceState(null, "", href);
+  }, []);
+
+  const handleLinkClick = useCallback(
+    (event, href) => {
+      event.preventDefault();
+      scrollToSection(href);
+    },
+    [scrollToSection]
+  );
 
   useEffect(() => {
     if (!links.length) return undefined;
@@ -15,7 +46,7 @@ export default function BlogStickyNav({ links }) {
       ".blog_section .blog_services"
     );
     const blogSection = document.querySelector(".blog_section");
-    const headerOffset = 100;
+    const headerOffset = HEADER_OFFSET;
 
     const stickyContainer = document.querySelector(
       ".sticky_article_container"
@@ -82,6 +113,7 @@ export default function BlogStickyNav({ links }) {
               key={link.href}
               href={link.href}
               className={`h6 sticky_link${activeHref === link.href ? " selected" : ""}`}
+              onClick={(event) => handleLinkClick(event, link.href)}
             >
               {link.label}
             </a>

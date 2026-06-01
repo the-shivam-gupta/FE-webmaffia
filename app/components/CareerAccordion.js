@@ -39,7 +39,7 @@ const OPENINGS = [
 function OpeningMeta() {
   return (
     <div>
-      <div>
+      {/* <div>
         <Image
           src="/assets/images/icons/time.webp"
           alt=""
@@ -56,7 +56,7 @@ function OpeningMeta() {
           height={38}
         />
         <div>6—24 months experience</div>
-      </div>
+      </div> */}
     </div>
   );
 }
@@ -117,15 +117,15 @@ export default function CareerAccordion() {
                 }
               >
                 <div className="accord_wrapper">
-                  <p>{job.description}</p>
+                  {/* <p>{job.description}</p> */}
                   <OpeningMeta />
-                  <a
+                  {/* <a
                     href="#career-apply"
                     className="cta_text"
                     onClick={(e) => e.stopPropagation()}
                   >
                     Apply <span>Now</span>
-                  </a>
+                  </a> */}
                 </div>
               </div>
             </div>

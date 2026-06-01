@@ -1,6 +1,6 @@
-@import '../../scss/mixins.scss';
-@import '../../scss/variables.scss';
-@import '../../scss/colors.scss';
+@import '../mixins';
+@import '../variables';
+@import '../colors';
 
 header{
     width: 100%;
@@ -120,6 +120,26 @@ header{
         padding: 10rem 6.5rem 8rem;
         top: -500rem;
         overflow-y: scroll;
+    }
+    .cta_text.close{
+        font-size: 1.8rem;
+        font-weight: 200;
+        position: absolute;
+        top: 6rem;
+        right: 6rem;
+        span{
+            color: $white;
+            &::before{
+                background: $white;
+                left: 2.3rem;
+            }
+        }
+        @include mobile(){
+            font-size: 3.6rem;
+            span::before{
+                left: 4.5rem;
+            }
+        }
     }
     form{
         opacity: 0;
@@ -242,22 +262,14 @@ header{
                     }
                 }
             }
-    &.is_open{
+        }
+    &.active{
         top: 0 !important;
         form{
             animation: animateForm 2s ease-in both;
             opacity: 0;
         }
     }
-                }
-                &::after{
-                    transform: translateY(-50%) rotate(-90deg);
-                    @include mobile(){
-                        transform: translateY(-50%) rotate(90deg);
-                    }
-                }
-            }
-        }
         .region_text{
             color: $white_30;
             margin-bottom: 3rem;
@@ -313,7 +325,6 @@ header{
                 }
             }
         }
-    }
     .mail_title{
         font-size: 4.8rem;
         line-height: 1;
@@ -321,6 +332,54 @@ header{
         display: block;
         margin-bottom: 4rem;
 
+    }
+}
+
+.menu_container{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    @include mobile(){
+        flex-direction: column;
+        gap: 5rem;
+    }
+    .left_container{
+        width: 34rem;
+        @include mobile(){
+            width: auto;
+        }
+    }
+    .menu_btn{
+        position: relative;
+        &::after{
+            content: '';
+            width: 3.5rem;
+            height: 3.5rem;
+            background: url("/assets/images/right.png") no-repeat;
+            background-size: 100%;
+            position: absolute;
+            left: 82%;
+            top: 2.6rem;
+            transform: translateY(-50%) rotate(90deg);
+            transition: all 0.4s ease-in;
+            @include mobile(){
+                width: 5rem;
+                height: 5rem;
+                top: 3rem;
+                left: 36%;
+            }
+        }
+        &:hover{
+            .sub_menu_content{
+                max-height: 50rem;
+            }
+            &::after{
+                transform: translateY(-50%) rotate(-90deg);
+                @include mobile(){
+                    transform: translateY(-50%) rotate(90deg);
+                }
+            }
+        }
     }
 }
 address{

@@ -103,8 +103,8 @@ export default function BlogDetailPage({
                     <Image
                       src={post.image}
                       alt={post.imageAlt || ""}
-                      width={1030}
-                      height={709}
+                      width={698}
+                      height={479}
                     />
                   </div>
                 </Link>

@@ -6,8 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
-import "../public/assets/scss/component/home-sections.scss";
+import { Autoplay, Navigation } from "swiper/modules";
 import Banner from "./components/Banner";
 import { useHomeScrollAnimations } from "./hooks/useHomeScrollAnimations";
 
@@ -159,11 +158,24 @@ const HOME_BANNER = {
 
 export default function Home() {
   const mainHorizontalRef = useRef(null);
-  useHomeScrollAnimations(mainHorizontalRef);
+  const serviceSwiperRef = useRef(null);
+
+  useHomeScrollAnimations(mainHorizontalRef, serviceSwiperRef);
 
   const refreshScroll = useCallback(() => {
     requestAnimationFrame(() => ScrollTrigger.refresh());
   }, []);
+
+  const onServicesSwiper = useCallback(
+    (swiper) => {
+      serviceSwiperRef.current = swiper;
+      if (typeof window !== "undefined" && window.innerWidth > 768 && swiper.autoplay) {
+        swiper.autoplay.stop();
+      }
+      refreshScroll();
+    },
+    [refreshScroll]
+  );
 
   return (
     <main className="wrapper home_wrapper opacity_0">
@@ -171,69 +183,84 @@ export default function Home() {
         <Banner data={HOME_BANNER} />
 
         <div className="main_horizontal" ref={mainHorizontalRef}>
-          <div className="horizontal_section">
-            <div className="staticSection hs1">
-              <section className="horizontal_sliders flex">
-                <div>
-                  <h2 className="sub_title">OUR SERVICES</h2>
-                  <div className="sub_heading">A glimpse of what we do</div>
-                  <p>
-                    Boosting brand awareness through impactful <br />
-                    digital campaigns, designing and developing <br />
-                    your website, ROI-driven performance marketing, <br />
-                    social media management, we do all this, and more.
-                  </p>
-                  <Link href="/services" className="cta_text">
-                    Take a <span>Look</span>
-                  </Link>
-                </div>
-              </section>
-            </div>
-          </div>
-
-          <Swiper
-            modules={[Autoplay]}
-            loop
-            slidesPerView={1}
-            spaceBetween={0}
-            speed={1000}
-            autoplay={{ delay: 2000, disableOnInteraction: false }}
-            onSwiper={refreshScroll}
-            className="ourService-swiper testimonial_wrapper hs2"
-          >
-            {SERVICES.map((s, index) => (
-              <SwiperSlide key={s.number}>
-                <section
-                  className={`horizontal_sliders flex${
-                    index === 4 ? " slider-6" : ""
-                  }${index === 5 ? " slider-7" : ""}`}
-                >
+            <div className="horizontal_section">
+              <div className="staticSection hs1">
+                <section className="horizontal_sliders flex">
                   <div>
-                    <h3 className="sub_title">{s.subtitle}</h3>
-                    <div className="sub_heading">
-                      {s.heading.split("\n").map((line, i) => (
-                        <span key={i}>
-                          {line}
-                          <br />
-                        </span>
-                      ))}
-                    </div>
-                    <p>{s.body}</p>
-                    <Link href={s.href} className="cta_text">
+                    <h2 className="sub_title">OUR SERVICES</h2>
+                    <div className="sub_heading">A glimpse of what we do</div>
+                    <p>
+                      Boosting brand awareness through impactful <br />
+                      digital campaigns, designing and developing <br />
+                      your website, ROI-driven performance marketing, <br />
+                      social media management, we do all this, and more.
+                    </p>
+                    <Link href="/services" className="cta_text">
                       Take a <span>Look</span>
                     </Link>
                   </div>
-                  <Image
-                    src={s.img.src}
-                    alt={s.subtitle}
-                    width={s.img.w}
-                    height={s.img.h}
-                    className="dark_img"
-                  />
                 </section>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+              </div>
+            </div>
+
+            <Swiper
+              modules={[Navigation]}
+              loop
+              slidesPerView={1}
+              spaceBetween={0}
+              speed={1000}
+              autoplay={{
+                delay: 2000,
+                disableOnInteraction: false,
+              }}
+              onSwiper={onServicesSwiper}
+              navigation={{
+                prevEl: ".service-button-prev",
+                nextEl: ".service-button-next",
+              }}
+              className="ourService-swiper testimonial_wrapper hs2"
+            >
+              {SERVICES.map((s, index) => (
+                <SwiperSlide key={s.number}>
+                  <section
+                    className={`horizontal_sliders flex${
+                      index === 4 ? " slider-6" : ""
+                    }${index === 5 ? " slider-7" : ""}`}
+                  >
+                    <div>
+                      <h3 className="sub_title">{s.subtitle}</h3>
+                      <div className="sub_heading">
+                        {s.heading.split("\n").map((line, i) => (
+                          <span key={i}>
+                            {line}
+                            <br />
+                          </span>
+                        ))}
+                      </div>
+                      <p>{s.body}</p>
+                      <Link href={s.href} className="cta_text">
+                        Take a <span>Look</span>
+                      </Link>
+                    </div>
+                    <Image
+                      src={s.img.src}
+                      alt={s.subtitle}
+                      width={s.img.w}
+                      height={s.img.h}
+                      className="dark_img"
+                    />
+                  </section>
+                </SwiperSlide>
+              ))}
+              <div className="slide_cta">
+                <div className="service-button-prev cta_text">
+                  View <span>Previous</span>
+                </div>
+                <div className="service-button-next cta_text">
+                  View <span>Next</span>
+                </div>
+              </div>
+            </Swiper>
         </div>
 
         <section data-section="our_work" className="our_work">

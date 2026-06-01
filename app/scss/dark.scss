@@ -42,6 +42,7 @@ html{
                 }
             }
         }
+        .ourService-swiper .slide_cta .service-button-prev span,
         .slide_cta .swiper-button-prev span{
             color: rgba(255, 255,255,0.2);
         }
@@ -70,6 +71,12 @@ html{
                     filter: invert(1);
                 }
             }
+        }
+        .staticSection{
+            background: $black !important;
+        }
+        .main_horizontal .horizontal_sliders .cta_text span::before{
+            background: rgba(255, 255, 255, 0.4);
         }
         .dark_img{
             filter: invert(1);
@@ -101,18 +108,27 @@ html{
                 .footer_title{
                     color: $black !important;
                 }
-                .contact_us .form label, .contact_us .form input, .form .cta_text span, .form label, .form input{
-                    color: $black !important;
+                .form{
+                    label,
+                    input{
+                        color: $black !important;
+                    }
+                    input{
+                        border-bottom-color: $gray_medium_dark;
+                        &:focus{
+                            border-bottom-color: $black;
+                        }
+                    }
+                    .cta_text span{
+                        color: $gray_dark !important;
+                        &::before{
+                            background: $gray_dark;
+                        }
+                    }
                 }
             }
             img{
                 filter: invert(1);
-            }
-        }
-        .form .cta_text span{
-            color: #5b5b5b !important;
-            &::before{
-                background: #5b5b5b ;
             }
         }
         .copyright{
@@ -120,6 +136,19 @@ html{
         }
         .contact_us .contact_address address a{
             color: $white;
+        }
+        .sticky_article a,
+        .sticky_article .sticky_link{
+            color: $white;
+            &::before{
+                background: $white;
+            }
+        }
+        .other_detail_blogs{
+            background: $white;
+            .detail_title{
+                color: $black !important;
+            }
         }
     }
 }
