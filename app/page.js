@@ -204,7 +204,7 @@ export default function Home() {
             </div>
 
             <Swiper
-              modules={[Navigation]}
+              modules={[Navigation, Autoplay]}
               loop
               slidesPerView={1}
               spaceBetween={0}
