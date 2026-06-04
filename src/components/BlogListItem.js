@@ -1,31 +1,31 @@
 import Image from "next/image";
 import Link from "next/link";
-import { blogHref } from "@/lib/blogs";
-
-const CARD_IMAGE = { width: 698, height: 479 };
+import { formatBlogDate, getStrapiImageUrl } from "@/lib/strapiPage";
 
 export default function BlogListItem({ post }) {
-  const href = blogHref(post.slug);
+  const href = `/blog/${post.slug}`;
+  const imageUrl = getStrapiImageUrl(post.image);
 
   return (
     <div className="blog_item">
       <Link href={href}>
-        <div>
+        <div className="blog_item_image">
           <Image
-            src={post.image}
-            alt={post.imageAlt || ""}
-            width={CARD_IMAGE.width}
-            height={CARD_IMAGE.height}
+            src={imageUrl}
+            alt={post.image?.alternativeText || post.heading || "Blog post"}
+            fill
+            sizes="(max-width: 900px) 100vw, 67rem"
+            className="blog_item_img"
           />
         </div>
       </Link>
       <div>
         <Link href={href}>
-          <h2 className="h5">{post.title}</h2>
-          <div>
-            <p>{post.excerpt}</p>
+          <div className="h5 blog_item_title">{post.heading}</div>
+          <div className="blog_para">
+            {post.excerpt ? <p>{post.excerpt}</p> : null}
             <div className="blogs_date">
-              <span>{post.date}</span>
+              <span>{formatBlogDate(post.date)}</span>
               <span>{post.readTime}</span>
             </div>
             <span className="link blog_link">READ MORE</span>

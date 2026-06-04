@@ -1,4 +1,10 @@
+"use client";
+
 import Image from "next/image";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+
+const SEO_CHART_SLIDES = ["/assets/images/work/seo_section_chart.png"];
 
 export default function HoablWebsiteCaseStudyPage() {
   return (
@@ -46,20 +52,20 @@ export default function HoablWebsiteCaseStudyPage() {
             data-section="detail_challenge"
             className="detail_challenge flex"
           >
-            <div>
+            <div className="challenge_content">
               <div className="sub_title">growwithhoabl.com</div>
-              <h2>
+              <h2 className="challenge_content__title">
                 The <br />
                 Challenge
               </h2>
-              <p>
+              <p className="challenge_content__para">
                 HoABL&apos;s ambition was to stand out in a competitive real
                 estate market dominated by static, traditional websites. Their
                 business model was entirely digital, demanding a website that
                 could mirror their progressive outlook while staying
                 lightweight, intelligent, and engaging.
               </p>
-              <h3>The key challenges included:</h3>
+              <h3 className="challenge_content__title_2">The key challenges<br /> included:</h3>
               <ul className="jashList">
                 <li>
                   <p>
@@ -164,24 +170,69 @@ export default function HoablWebsiteCaseStudyPage() {
             </div>
           </section>
 
-          <picture className="hoabl_showcase">
-            <source
-              media="(max-width: 540px)"
-              srcSet="/assets/images/hoabl/hoabl-mobile.png"
-            />
-            <Image
-              src="/assets/images/hoabl/hoabl-desktop.png"
-              alt=""
-              width={1920}
-              height={981}
-              className="dark_img"
-            />
-          </picture>
+          <div className="hoabl_showcase_wrapper">
+            <picture className="hoabl_showcase">
+              <source
+                media="(max-width: 540px)"
+                srcSet="/assets/images/hoabl/hoabl-mobile.png"
+              />
+              <Image
+                src="/assets/images/hoabl/hoabl-desktop.png"
+                alt=""
+                width={1920}
+                height={981}
+                className="dark_img"
+              />
+            </picture>
+            {/* Visit website button */}
+            <button className="visit_website_button">
+              <a href="https://growwithhoabl.com" target="_blank" rel="noopener noreferrer">
+                Check the website
+              </a>
+            </button>
+          </div>
         </div>
 
+        <section data-section="seo_section" className="seo_section">
+          <div>
+            <h2 className="challenge_content__title">300x Organic Growth with SEO</h2>
+            <h4>A data-led SEO approach that boosted visibility & qualified traffic</h4>
+            <p>HoABL achieved 300x growth in organic sessions through a data-driven SEO strategy focused on high-intent keywords, technical optimization, and scalable content planning. By improving search visibility and user engagement, the brand significantly increased qualified traffic and strengthened its digital presence across competitive markets.</p>
+          </div>
+          <div className="seo_slider">
+            <Swiper
+              modules={[Navigation]}
+              className="seo_slider_swiper"
+              slidesPerView={1}
+              speed={400}
+              navigation={{
+                prevEl: ".seo_slider .seo_slider_prev",
+                nextEl: ".seo_slider .seo_slider_next",
+              }}
+            >
+              {SEO_CHART_SLIDES.map((src) => (
+                <SwiperSlide key={src}>
+                  <div className="seo_slider_media">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={src} alt="SEO growth chart" className="seo_slider_img" />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+            <nav className="seo_slider_nav" aria-label="Chart navigation">
+              <button type="button" className="seo_slider_prev">
+                Previous
+              </button>
+              <button type="button" className="seo_slider_next">
+                Next
+              </button>
+            </nav>
+          </div>
+        </section>
+
         <section data-section="client_work" className="client_work">
-          <h2>
-            Don&apos;t just take our <br />
+          <h2 className="client_work__title">
+            Don't just take our <br />
             word for it
           </h2>
           <div className="client_para">Read what our client have to say</div>

@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getBlogStickyLinks, getRelatedBlogPosts } from "@/lib/blog-helpers";
 import BlogStickyNav from "./BlogStickyNav";
 
 const BLOG_SERVICES = [
@@ -27,10 +26,8 @@ export default function BlogDetailPage({
   relatedPosts: relatedPostsProp,
   children,
 }) {
-  const stickyLinks =
-    stickyLinksProp ?? (slug ? getBlogStickyLinks(slug) : []);
-  const relatedPosts =
-    relatedPostsProp ?? (slug ? getRelatedBlogPosts(slug, 2) : []);
+  const stickyLinks = stickyLinksProp ?? [];
+  const relatedPosts = relatedPostsProp ?? [];
 
   return (
     <main className="wrapper">
@@ -99,12 +96,13 @@ export default function BlogDetailPage({
             {relatedPosts.map((post) => (
               <div className="blog_item" key={post.href}>
                 <Link href={post.href}>
-                  <div>
+                  <div className="blog_item_image">
                     <Image
                       src={post.image}
                       alt={post.imageAlt || ""}
-                      width={698}
-                      height={479}
+                      fill
+                      sizes="(max-width: 900px) 100vw, 67rem"
+                      className="blog_item_img"
                     />
                   </div>
                 </Link>

@@ -83,7 +83,7 @@ const Header = () => {
   return (
     <>
       <header className={menuOpen ? "opacity_0 menu_active" : "opacity_0"}>
-        <Link href="https://www.webmaffia.com/" className="logo">
+        <Link href="/" className="logo">
           <Image
             src="/assets/images/icons/webmaffia.webp"
             alt="Webmaffia"

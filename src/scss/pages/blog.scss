@@ -67,18 +67,19 @@
     gap: 4rem;
     margin-bottom: 11.3rem;
     a{
-        &>div{
+        .main_blog_image{
+            position: relative;
             width: 89.6rem;
+            aspect-ratio: 896 / 614;
             overflow: hidden;
-            img{
-                width: 100%;
-                transition: scale 0.3s ease-in;
+
+            .main_blog_img{
+                object-fit: cover;
+                transition: transform 0.3s ease-in;
             }
         }
-        &:hover{
-            img{
-                scale: 1.1;
-            }
+        &:hover .main_blog_image .main_blog_img{
+            transform: scale(1.1);
         }
     }
     @include mobile(){
@@ -154,21 +155,20 @@
         > a:first-child{
             display: block;
 
-            > div{
-                overflow: hidden;
+            .blog_item_image{
+                position: relative;
                 width: 100%;
                 aspect-ratio: 698 / 479;
+                overflow: hidden;
 
-                img{
-                    width: 100%;
-                    height: 100% !important;
+                .blog_item_img{
                     object-fit: cover;
-                    transition: scale 0.3s ease-in;
+                    transition: transform 0.3s ease-in;
                 }
             }
 
-            &:hover > div img{
-                scale: 1.1;
+            &:hover .blog_item_image .blog_item_img{
+                transform: scale(1.1);
             }
         }
         @include mobile(){
@@ -195,6 +195,11 @@
                 margin-top: 0;
                 margin-bottom: 2.5rem;
                 width: 28rem;
+                overflow: hidden;
+                display: -webkit-box;
+                line-clamp: 5;
+                -webkit-line-clamp: 5;
+                -webkit-box-orient: vertical;
                 @include mobile(){
                     margin-top: 3rem;
                     margin-bottom: 5rem;

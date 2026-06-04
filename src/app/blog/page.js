@@ -1,10 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import BlogListItem from "@/components/BlogListItem";
-import { FEATURED_BLOG, OTHER_BLOGS, blogHref } from "@/lib/blogs";
+import { formatBlogDate, getBlog, getStrapiImageUrl } from "@/lib/strapiPage";
 
-export default function BlogPage() {
-  const featuredHref = blogHref(FEATURED_BLOG.slug);
+export default async function BlogPage() {
+  const blogs = await getBlog();
+
+  const featuredBlog = blogs[0];
+  const featuredHref = featuredBlog ? `/blog/${featuredBlog.slug}` : "/blog";
+  const otherBlogs = blogs.slice(1);
 
   return (
     <main className="wrapper">
@@ -37,31 +41,38 @@ export default function BlogPage() {
         </section>
 
         <section className="our_blog">
+          {featuredBlog ? (
           <div className="main_blog">
             <Link href={featuredHref}>
-              <div>
+              <div className="main_blog_image">
                 <Image
-                  src={FEATURED_BLOG.image}
-                  alt={FEATURED_BLOG.imageAlt}
-                  width={FEATURED_BLOG.imageWidth}
-                  height={FEATURED_BLOG.imageHeight}
+                  src={getStrapiImageUrl(featuredBlog.image)}
+                  alt={featuredBlog.image?.alternativeText || featuredBlog.heading || "Featured blog post"}
+                  fill
+                  sizes="(max-width: 900px) 100vw, 89.6rem"
+                  className="main_blog_img"
+                  priority
                 />
               </div>
             </Link>
             <Link href={featuredHref}>
-              <h2 className="h5">{FEATURED_BLOG.title}</h2>
-              <p>{FEATURED_BLOG.excerpt}</p>
+              <h2 className="h5">{featuredBlog.heading}</h2>
+              <p>{featuredBlog.excerpt}</p>
               <div className="blogs_date">
-                <span>{FEATURED_BLOG.date}</span>
-                <span>{FEATURED_BLOG.readTime}</span>
+              <span>{formatBlogDate(featuredBlog.date)}</span>
+                  <span>{featuredBlog.readTime}</span>
               </div>
               <span className="link blog_link">READ MORE</span>
             </Link>
           </div>
+          ) : null}
 
           <div className="other_blogs">
-            {OTHER_BLOGS.map((post) => (
-              <BlogListItem key={post.slug} post={post} />
+            {otherBlogs.map((blog) => (
+              <BlogListItem 
+              key={blog.id} 
+              post={blog}
+               />
             ))}
           </div>
         </section>

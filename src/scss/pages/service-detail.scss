@@ -228,10 +228,19 @@
     }
 }
 
-.h4{
-    font-size: 3.3rem;
-    color: $black;
+h4{
+    font-size: 3.8rem;
     line-height: 1;
+    letter-spacing: .8rem;
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+}
+
+.h4{
+    color: $black;
+    font-size: 4.2rem;
+    line-height: 1.1;
+    letter-spacing: .8rem;
     @include mobile(){
         font-size: 4rem;
     }

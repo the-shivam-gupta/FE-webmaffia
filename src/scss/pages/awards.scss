@@ -97,11 +97,11 @@
     }
 }
 
-h3, .h3{
-    font-size: 6.4rem;
+h3{
+    font-size: 4.2rem;
     margin-bottom: 1.5rem;
-    line-height: 1.2;
-    letter-spacing: 0;
+    line-height: 1.1;
+    letter-spacing: 0.8rem;
     @include mobile(){
         font-size: 10rem;
     }

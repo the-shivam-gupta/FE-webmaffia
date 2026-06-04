@@ -417,10 +417,10 @@ p{
 
 h2, .sub_heading{
     width: 100%;
-    line-height: 1;
-    font-size: 13.5rem;
-    margin-bottom: 5rem;
-    letter-spacing: 1rem;
+    font-size: 6.4rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    letter-spacing: 0;
     color: $black;
     @include mobile(){
         font-size: 10rem;
@@ -708,7 +708,6 @@ h2, .sub_heading{
         font-size: 3.5rem;
         margin-bottom: 5.5rem;
         color: $black;
-        max-width: 80rem;
         span{
             font-size: 1.801rem;
             color: $gray_dark;
@@ -865,7 +864,7 @@ h5, .h5{
 }
 
 .h6{
-    font-size: 2.6rem;
+    font-size: 2.1rem;
     line-height: 1.1;
     color: $black;
     width: auto;

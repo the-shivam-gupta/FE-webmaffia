@@ -9,6 +9,12 @@ export const metadata = {
 
 const WORK_ITEMS = [
   {
+    name: "HoABL",
+    title: "Website Design - Development",
+    url: "/case-study/hoabl-website-case-study",
+    image: "/assets/images/work/listing/hoabl.webp",
+  },
+  {
     name: "Lupin US",
     title: "Website Design - Development - SEO",
     url: "https://www.lupin.com/US",

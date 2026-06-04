@@ -1,32 +1,69 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const HEADER_OFFSET = 100;
+const MANUAL_SCROLL_LOCK_MS = 900;
 
 export default function BlogStickyNav({ links }) {
   const [activeHref, setActiveHref] = useState(links[0]?.href ?? "");
+  const isManualScrollRef = useRef(false);
+  const manualScrollTimerRef = useRef(null);
 
-  const scrollToSection = useCallback((href) => {
-    const id = href.replace("#", "");
-    const el = document.getElementById(id);
-    if (!el) return;
-
-    const top =
-      el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
-
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-
-    window.scrollTo({
-      top,
-      behavior: prefersReducedMotion ? "auto" : "smooth",
-    });
-
-    setActiveHref(href);
-    window.history.replaceState(null, "", href);
+  const setActiveHrefIfChanged = useCallback((href) => {
+    setActiveHref((prev) => (prev === href ? prev : href));
   }, []);
+
+  const lockManualScroll = useCallback(() => {
+    isManualScrollRef.current = true;
+
+    if (manualScrollTimerRef.current) {
+      clearTimeout(manualScrollTimerRef.current);
+    }
+
+    manualScrollTimerRef.current = setTimeout(() => {
+      isManualScrollRef.current = false;
+      manualScrollTimerRef.current = null;
+    }, MANUAL_SCROLL_LOCK_MS);
+  }, []);
+
+  const scrollToSection = useCallback(
+    (href) => {
+      const id = href.replace("#", "");
+      const el = document.getElementById(id);
+      if (!el) return;
+
+      lockManualScroll();
+      setActiveHrefIfChanged(href);
+
+      const top =
+        el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
+
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+      window.scrollTo({
+        top,
+        behavior: prefersReducedMotion ? "auto" : "smooth",
+      });
+
+      window.history.replaceState(null, "", href);
+
+      if (!prefersReducedMotion && "onscrollend" in window) {
+        const onScrollEnd = () => {
+          isManualScrollRef.current = false;
+          if (manualScrollTimerRef.current) {
+            clearTimeout(manualScrollTimerRef.current);
+            manualScrollTimerRef.current = null;
+          }
+        };
+
+        window.addEventListener("scrollend", onScrollEnd, { once: true });
+      }
+    },
+    [lockManualScroll, setActiveHrefIfChanged]
+  );
 
   const handleLinkClick = useCallback(
     (event, href) => {
@@ -80,7 +117,7 @@ export default function BlogStickyNav({ links }) {
       .filter(Boolean);
 
     const onScroll = () => {
-      if (!sections.length) return;
+      if (!sections.length || isManualScrollRef.current) return;
       const offset = window.innerHeight * 0.25;
       let current = sections[0].href;
 
@@ -89,7 +126,7 @@ export default function BlogStickyNav({ links }) {
           current = section.href;
         }
       }
-      setActiveHref(current);
+      setActiveHrefIfChanged(current);
     };
 
     onScroll();
@@ -98,8 +135,11 @@ export default function BlogStickyNav({ links }) {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("scroll", onStickyPosition);
       stickyArticle?.classList.remove("active");
+      if (manualScrollTimerRef.current) {
+        clearTimeout(manualScrollTimerRef.current);
+      }
     };
-  }, [links]);
+  }, [links, setActiveHrefIfChanged]);
 
   if (!links.length) return null;
 
@@ -108,14 +148,15 @@ export default function BlogStickyNav({ links }) {
       <div className="sticky_top" />
       <div className="sticky_article_container">
         <div className="sticky_article">
-          {links.map((link) => (
+          {links.map((link, index) => (
             <a
               key={link.href}
               href={link.href}
               className={`h6 sticky_link${activeHref === link.href ? " selected" : ""}`}
               onClick={(event) => handleLinkClick(event, link.href)}
             >
-              {link.label}
+              <span className="sticky_link_num">{index + 1}.</span>
+              <span className="sticky_link_text">{link.label}</span>
             </a>
           ))}
         </div>
