@@ -250,6 +250,27 @@
     }
 }
 
+.hoabl_contact_section{
+    margin: 10rem auto 0;
+    height: 110vh;
+
+    @include mobile(){
+        margin: 15rem 6.5rem 10rem;
+    }
+
+    .footer_container{
+        width: 100%;
+
+        .form{
+            width: 48%;
+
+            @include mobile(){
+                width: 100%;
+            }
+        }
+    }
+}
+
 .client_work{
     @include mobile(){
         margin: 0 6.5rem;

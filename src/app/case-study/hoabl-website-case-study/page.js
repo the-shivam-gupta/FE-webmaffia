@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
+import ContactFormSection from "@/components/ContactFormSection";
 
 const SEO_CHART_SLIDES = ["/assets/images/work/seo_section_chart.png"];
 
@@ -267,6 +268,14 @@ export default function HoablWebsiteCaseStudyPage() {
               height={877}
             />
           </div>
+        </section>
+
+        <section data-section="contact_section" className="hoabl_contact_section">
+          <ContactFormSection
+            variant="light"
+            showIllustration
+            idPrefix="hoabl"
+          />
         </section>
       </div>
     </main>

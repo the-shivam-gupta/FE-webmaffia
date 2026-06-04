@@ -1,4 +1,115 @@
+.footer_container {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+
+  @include mobile() {
+    flex-direction: column;
+  }
+
+  .footer_title_wrap {
+    flex-shrink: 0;
+  }
+
+  .footer_contact_illustration {
+    position: absolute;
+    width: 57.6rem;
+    height: auto;
+    margin-top: 4rem;
+
+    @include mobile() {
+      width: 100%;
+      max-width: 50rem;
+    }
+  }
+
+  .footer_title {
+    width: auto;
+    font-size: 13.5rem;
+    margin-bottom: 5rem;
+    letter-spacing: 0.5rem;
+    line-height: 1;
+
+    @include mobile() {
+      br {
+        display: none;
+      }
+    }
+  }
+
+  .form {
+    width: 48%;
+
+    @include mobile() {
+      width: 100%;
+      margin-top: 4rem;
+    }
+
+    label {
+      display: block;
+      font-size: 2rem;
+      padding-bottom: 1.5rem;
+
+      @include mobile() {
+        font-size: 3rem;
+      }
+    }
+
+    input {
+      display: block;
+      width: 90%;
+      background: transparent;
+      border: none;
+      border-bottom: 0.2rem solid $gray;
+      border-radius: 0;
+      font-size: 2rem;
+      padding: 0 0 1rem;
+      line-height: 1.3;
+      margin-bottom: 4.5rem;
+      appearance: none;
+
+      @include mobile() {
+        font-size: 3rem;
+      }
+    }
+
+    .cta_text {
+      font-size: 4.8rem;
+    }
+  }
+
+  &--light {
+    .footer_title {
+      color: $black !important;
+    }
+
+    .form {
+      label {
+        color: $black;
+      }
+
+      input {
+        color: $black;
+        border-bottom-color: $gray_medium_dark;
+
+        &:focus {
+          border-bottom-color: $black;
+        }
+      }
+
+      .cta_text span {
+        color: $black;
+
+        &::before {
+          background: $black;
+        }
+      }
+    }
+  }
+}
+
 footer {
+  position: relative;
   background: $black;
   padding: 16rem 15.5rem 10rem 6.5rem;
 
@@ -7,80 +118,28 @@ footer {
   }
 
   .footer_container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-
-    @include mobile() {
-      flex-direction: column;
-    }
-
     .footer_title {
       color: $white !important;
-      width: auto;
-      font-size: 13.5rem;
-      margin-bottom: 5rem;
-      letter-spacing: 0.5rem;
-      line-height: 1;
-
-      @include mobile() {
-        br {
-          display: none;
-        }
-      }
     }
 
     .form {
-      width: 48%;
-
-      @include mobile() {
-        width: 100%;
-        margin-top: 4rem;
-      }
-
       label {
-        display: block;
-        font-size: 2rem;
         color: $white;
-        padding-bottom: 1.5rem;
-
-        @include mobile() {
-          font-size: 3rem;
-        }
       }
 
       input {
-        display: block;
-        width: 100%;
-        background: transparent;
-        border: none;
-        border-bottom: 0.2rem solid $gray;
-        border-radius: 0;
         color: $white;
-        font-size: 2rem;
-        padding: 0 0 1rem;
-        line-height: 1.3;
-        margin-bottom: 4.5rem;
-        appearance: none;
-
-        @include mobile() {
-          font-size: 3rem;
-        }
 
         &:focus {
           border-bottom-color: $white;
         }
       }
 
-      .cta_text {
-        font-size: 4.8rem;
+      .cta_text span {
+        color: $white;
 
-        span {
-          color: $white;
-
-          &::before {
-            background: $white;
-          }
+        &::before {
+          background: $white;
         }
       }
     }
