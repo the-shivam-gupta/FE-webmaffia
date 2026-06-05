@@ -127,12 +127,28 @@ html{
                     }
                 }
             }
+            .footer_nav,
+            .footer_info {
+                .footer_col {
+                    border-left-color: $gray_light;
+                }
+
+                .footer_col_title,
+                .footer_links a,
+                .footer_brand,
+                .region_text,
+                address a,
+                .footer_contact_item {
+                    color: $black;
+                }
+
+                .copyright {
+                    color: $black_60;
+                }
+            }
             img{
                 filter: invert(1);
             }
-        }
-        .copyright{
-            color: $black_10;
         }
         .contact_us .contact_address address a{
             color: $white;
