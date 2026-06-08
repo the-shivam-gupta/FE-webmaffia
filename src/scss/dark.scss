@@ -146,6 +146,16 @@ html{
                     color: $black_60;
                 }
             }
+
+            .footer_links .link {
+                &::after {
+                    background: $black_60;
+                }
+
+                &:hover {
+                    color: $black;
+                }
+            }
             img{
                 filter: invert(1);
             }

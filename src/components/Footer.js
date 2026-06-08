@@ -37,7 +37,7 @@ const Footer = () => {
             <div className="footer_social_icons">
               {SOCIAL_LINKS.map(({ href, src, alt }) => (
                 <a key={href} href={href} target="_blank" rel="noopener noreferrer" aria-label={alt}>
-                  <Image src={src} alt={alt} width={36} height={34} />
+                  <Image src={src} alt={alt} width={35} height={35} />
                 </a>
               ))}
             </div>
@@ -45,12 +45,12 @@ const Footer = () => {
         </div>
 
         <div className="footer_col footer_col--work">
-          <div className="footer_col_title">Our Work</div>
           <div className="footer_col_content">
+            <div className="footer_col_title">Our Work</div>
             <ul className="footer_links footer_links--spaced">
               {WORK_LINKS.map(({ href, label }) => (
                 <li key={href}>
-                  <Link href={href}>{label}</Link>
+                  <Link href={href} className="link">{label}</Link>
                 </li>
               ))}
             </ul>
@@ -58,12 +58,12 @@ const Footer = () => {
         </div>
 
         <div className="footer_col footer_col--services">
-          <div className="footer_col_title">Our Services</div>
           <div className="footer_col_content">
+            <div className="footer_col_title">Our Services</div>
             <ul className="footer_links">
               {SERVICE_LINKS.map(({ href, label }) => (
                 <li key={href}>
-                  <Link href={href}>{label}</Link>
+                  <Link href={href} className="link">{label}</Link>
                 </li>
               ))}
             </ul>
