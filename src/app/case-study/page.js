@@ -35,7 +35,7 @@ const WORK_ITEMS = [
   {
     name: "L'exotique",
     title: "Website Design - Development",
-    url: "https://waycool.in/brands/lexotique",
+    url: "/case-study/lexotique-case-study",
     image: "/assets/images/work/listing/L'exotique.webp",
   },
   {

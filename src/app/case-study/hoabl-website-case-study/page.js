@@ -10,7 +10,7 @@ const SEO_CHART_SLIDES = ["/assets/images/work/seo_section_chart.png"];
 export default function HoablWebsiteCaseStudyPage() {
   return (
     <main className="wrapper">
-      <div className="ml-setter work_detail hoabl_detail">
+      <div className="ml-setter hoabl_detail">
         <section data-section="hero_section" className="hero_section flex">
           <picture className="detail_banner">
             <source
