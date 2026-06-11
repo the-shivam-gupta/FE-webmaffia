@@ -242,26 +242,54 @@
         font-size: 3.6rem;
         font-weight: $exlight;
         line-height: 1;
-        color: $black_40;
+        color: $black_60;
         background: none;
         border: none;
         padding: 0 0 1rem;
         cursor: pointer;
         position: relative;
+        transition: color 0.3s ease;
+
+        &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 0.3rem;
+            background: $black;
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.3s ease;
+        }
+
+        &:hover {
+            color: $black;
+        }
 
         &--active {
             color: $black;
             font-weight: 400;
 
             &::after {
-                content: "";
-                position: absolute;
-                left: 0;
-                bottom: 0;
-                width: 100%;
-                height: 0.3rem;
-                background: $black;
+                transform: scaleX(1);
             }
+        }
+    }
+
+    .creative_content {
+        animation: creativeContentFadeIn 0.35s ease;
+    }
+
+    @keyframes creativeContentFadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(1rem);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
         }
     }
 
@@ -305,12 +333,18 @@
         position: relative;
     }
 
-    .creative_reels_viewport {
+    .creative_posts {
+        position: relative;
+    }
+
+    .creative_reels_viewport,
+    .creative_posts_viewport {
         width: 100%;
         overflow: hidden;
     }
 
-    .creative_reels_swiper {
+    .creative_reels_swiper,
+    .creative_posts_swiper {
         width: 100%;
         overflow: hidden;
 
@@ -325,22 +359,45 @@
         }
     }
 
-    .creative_reel_card {
+    .creative_reel_card,
+    .creative_post_card {
         position: relative;
         display: block;
-        width: 100%;
+        width: 48rem;
+        max-width: 100%;
         border-radius: 2rem;
         overflow: hidden;
         line-height: 0;
     }
 
-    .creative_reel_img {
-        display: block;
+    .creative_reel_media {
+        position: relative;
         width: 100%;
-        height: auto;
         aspect-ratio: 480 / 854;
-        object-fit: cover;
+        overflow: hidden;
         border-radius: 2rem;
+    }
+
+    .creative_post_media {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+        border-radius: 2rem;
+    }
+
+    .creative_reel_img,
+    .creative_post_img {
+        object-fit: contain;
+    }
+
+    .creative_reel_video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+        pointer-events: none;
     }
 
     .creative_reel_play {
@@ -358,7 +415,8 @@
         }
     }
 
-    .creative_reels_nav {
+    .creative_reels_nav,
+    .creative_posts_nav {
         display: flex;
         justify-content: flex-end;
         align-items: center;
@@ -367,7 +425,9 @@
     }
 
     .creative_reels_prev,
-    .creative_reels_next {
+    .creative_reels_next,
+    .creative_posts_prev,
+    .creative_posts_next {
         font-size: 2.6rem;
         font-weight: $exlight;
         line-height: 1;
@@ -542,7 +602,6 @@
 
         .seo_slider_media {
             width: 100%;
-            aspect-ratio: 1599 / 984;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -552,10 +611,10 @@
         .seo_slider_img,
         .swiper-slide img {
             display: block;
-            width: 100% !important;
-            height: 100% !important;
+            width: auto !important;
             max-width: 100%;
-            object-fit: contain !important;
+            height: auto !important;
+            object-fit: contain;
         }
 
         .seo_slider_nav {

@@ -1,0 +1,248 @@
+.campaigns {
+    margin-bottom: 10rem;
+}
+
+.campaign_page {
+    margin: auto 6.5rem;
+
+    .hero_section {
+        &.campaign_hero {
+            align-items: center;
+        }
+
+        .campaign_content {
+            h1 {
+                line-height: 1.1;
+            }
+
+            p {
+                width: 60%;
+                margin: 2rem 0;
+            }
+
+            ul {
+                width: 60%;
+                margin: 2rem 0;
+                padding-left: 2.4rem;
+                list-style: disc;
+                list-style-position: outside;
+
+                @include mobile() {
+                    width: 100%;
+                }
+
+                li {
+                    margin-bottom: 0.8rem;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+
+            .campaign_award {
+                display: flex;
+                align-items: flex-start;
+                gap: 1.6rem;
+                width: 60%;
+                margin-bottom: 2rem;
+
+                img {
+                    width: 3rem;
+                    height: 3rem;
+                }
+
+                @include mobile() {
+                    width: 100%;
+                }
+
+                p {
+                    width: auto;
+                    flex: 1;
+                    margin-bottom: 0;
+                }
+            }
+
+            .campaign_award_icon {
+                flex-shrink: 0;
+                width: 4.8rem;
+                height: 4.8rem;
+                object-fit: contain;
+
+                @include mobile() {
+                    width: 4rem;
+                    height: 4rem;
+                }
+            }
+        }
+
+        .campaign_hero_media {
+            position: relative;
+            margin-top: 0;
+            right: 6.5rem;
+            flex-shrink: 0;
+            line-height: 0;
+
+            @include mobile() {
+                right: 0;
+                margin-top: 2.2rem;
+                margin-left: 2rem;
+                margin-right: 0;
+            }
+        }
+
+        .campaign_hero_poster {
+            display: block;
+            width: 67.2rem;
+            max-width: 100%;
+            height: auto;
+            border-radius: 1.2rem;
+
+            @include mobile() {
+                width: 100%;
+            }
+        }
+
+        .campaign_hero_play {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 0;
+            border: none;
+            background: none;
+            cursor: pointer;
+            line-height: 0;
+
+            img {
+                width: 11.8rem;
+                height: 11.8rem;
+
+                @include mobile() {
+                    width: 8rem;
+                    height: 8rem;
+                }
+            }
+        }
+    }
+}
+
+.campaign_video_modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem;
+
+    @include mobile() {
+        padding: 2rem;
+    }
+
+    &--closing {
+        .campaign_video_modal_backdrop {
+            animation: campaignModalBackdropOut 0.35s ease forwards;
+        }
+
+        .campaign_video_modal_content {
+            animation: campaignModalContentOut 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+    }
+}
+
+.campaign_video_modal_backdrop {
+    position: absolute;
+    inset: 0;
+    border: none;
+    background: rgba($black, 0.85);
+    cursor: pointer;
+    animation: campaignModalBackdropIn 0.35s ease forwards;
+}
+
+.campaign_video_modal_content {
+    position: relative;
+    z-index: 1;
+    width: min(120rem, 100%);
+    border-radius: 1.2rem;
+    overflow: hidden;
+    background: $black;
+    box-shadow: 0 2rem 6rem rgba($black, 0.35);
+    animation: campaignModalContentIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.campaign_video_modal_close {
+    position: absolute;
+    top: 1.6rem;
+    right: 1.6rem;
+    z-index: 2;
+    width: 4.4rem;
+    height: 4.4rem;
+    border: none;
+    border-radius: 50%;
+    background: rgba($white, 0.15);
+    color: $white;
+    font-size: 3rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+
+    &:hover {
+        background: rgba($white, 0.25);
+    }
+}
+
+.campaign_video_modal_player {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: calc(100vh - 8rem);
+    background: $black;
+}
+
+@keyframes campaignModalBackdropIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes campaignModalBackdropOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes campaignModalContentIn {
+    from {
+        opacity: 0;
+        transform: scale(0.94) translateY(2rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes campaignModalContentOut {
+    from {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(0.96) translateY(1.2rem);
+    }
+}

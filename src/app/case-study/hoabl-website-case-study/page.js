@@ -1,11 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import CaseStudySeoSection from "@/components/CaseStudySeoSection";
 import ContactFormSection from "@/components/ContactFormSection";
 
-const SEO_CHART_SLIDES = ["/assets/images/work/seo_section_chart.png"];
+const SEO_CHART_SLIDES = [
+  "/assets/images/work/hoabl-Organic-Traffic-Organic-Users.png",
+  "/assets/images/work/hoabl-Brand-Keywords-Clicks.png",
+  "/assets/images/work/hoabl-Brand-Keywords-Impressions.png",
+  "/assets/images/work/hoabl-Non-Brand-Keywords-Clicks.png",
+  "/assets/images/work/hoabl-Non-Brand-Keywords-Impressions.png",
+];
 
 export default function HoablWebsiteCaseStudyPage() {
   return (
@@ -15,7 +20,7 @@ export default function HoablWebsiteCaseStudyPage() {
           <picture className="detail_banner">
             <source
               media="(max-width: 540px)"
-              srcSet="/assets/images/hoabl/hoabl-banner_mobile.png"
+              srcSet="/assets/images/hoabl/hoabl-banner.png"
             />
             <Image
               src="/assets/images/hoabl/hoabl-banner.png"
@@ -23,6 +28,7 @@ export default function HoablWebsiteCaseStudyPage() {
               width={1920}
               height={981}
               priority
+              unoptimized
             />
           </picture>
           <div>
@@ -100,7 +106,7 @@ export default function HoablWebsiteCaseStudyPage() {
             </div>
             <picture>
               <Image
-                src="/assets/images/work/detail-img-1.webp"
+                src="/assets/images/work/case-study/hoabl_challenge-image.svg"
                 alt=""
                 width={572}
                 height={756}
@@ -110,7 +116,7 @@ export default function HoablWebsiteCaseStudyPage() {
           </section>
 
           <section data-section="detail_solution" className="detail_solution flex">
-            <picture>
+            {/* <picture>
               <Image
                 src="/assets/images/work/detail-img-2.webp"
                 alt=""
@@ -118,56 +124,56 @@ export default function HoablWebsiteCaseStudyPage() {
                 height={835}
                 className="dark_img"
               />
-            </picture>
+            </picture> */}
             <div>
               <div className="sub_title">growwithhoabl.com</div>
               <h2>
-                The <br />
+                The 
                 Solution
               </h2>
-              <p>
+              <h4>
                 Our approach combined strategic design thinking, advanced
-                <br />
+                
                 technology, and precise execution.
-              </p>
+              </h4>
               <ul className="jashList">
                 <li>
                   <p>
-                    Design & Experience: We created a clean, immersive <br />
+                    Design & Experience: We created a clean, immersive 
                     interface with subtle motion, intuitive navigation, and
-                    modern layouts — capturing <br />
+                    modern layouts — capturing 
                     the premium, future-forward essence of the brand.
                   </p>
                 </li>
                 <li>
                   <p>
                     Technology & Development: Built on React and a Headless{" "}
-                    <br />
+                    
                     CMS, the platform leverages AI-driven property
                     recommendations, an integrated chatbot,
-                    <br /> and real-time analytics. Every component was
+                     and real-time analytics. Every component was
                     optimized for Core Web Vitals, speed,
-                    <br /> and responsiveness.
+                     and responsiveness.
                   </p>
                 </li>
                 <li>
                   <p>
                     Scalability & Optimization: Designed modularly, the system
-                    <br />
+                    
                     allows easy integration of upcoming digital features — from
                     virtual tours to personalized
-                    <br /> dashboards — ensuring the site evolves with the
+                     dashboards — ensuring the site evolves with the
                     brand.
                   </p>
                 </li>
+                <li>
+                  <p>
+                    The result was a smart, data-backed website that not only
+                    enhanced engagement but also positioned HoABL as a tech-driven
+                    pioneer in the real estate space.
+                  </p>
+                </li>
               </ul>
-              <br />
-              <br />
-              <p>
-                The result was a smart, data-backed website that not only
-                enhanced engagement but also positioned HoABL as a tech-driven
-                pioneer in the real estate space.
-              </p>
             </div>
           </section>
 
@@ -194,46 +200,16 @@ export default function HoablWebsiteCaseStudyPage() {
           </div>
         </div>
 
-        <section data-section="seo_section" className="seo_section">
-          <div>
-            <h2 className="challenge_content__title">300x Organic Growth with SEO</h2>
-            <h4>A data-led SEO approach that boosted visibility & qualified traffic</h4>
-            <p>HoABL achieved 300x growth in organic sessions through a data-driven SEO strategy focused on high-intent keywords, technical optimization, and scalable content planning. By improving search visibility and user engagement, the brand significantly increased qualified traffic and strengthened its digital presence across competitive markets.</p>
-          </div>
-          <div className="seo_slider">
-            <Swiper
-              modules={[Navigation]}
-              className="seo_slider_swiper"
-              slidesPerView={1}
-              speed={400}
-              navigation={{
-                prevEl: ".seo_slider .seo_slider_prev",
-                nextEl: ".seo_slider .seo_slider_next",
-              }}
-            >
-              {SEO_CHART_SLIDES.map((src) => (
-                <SwiperSlide key={src}>
-                  <div className="seo_slider_media">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={src} alt="SEO growth chart" className="seo_slider_img" />
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-            <nav className="seo_slider_nav" aria-label="Chart navigation">
-              <button type="button" className="seo_slider_prev">
-                Previous
-              </button>
-              <button type="button" className="seo_slider_next">
-                Next
-              </button>
-            </nav>
-          </div>
-        </section>
+        <CaseStudySeoSection
+          title="300x Organic Growth with SEO"
+          subtitle="A data-led SEO approach that boosted visibility & qualified traffic"
+          description="HoABL achieved 300x growth in organic sessions through a data-driven SEO strategy focused on high-intent keywords, technical optimization, and scalable content planning. By improving search visibility and user engagement, the brand significantly increased qualified traffic and strengthened its digital presence across competitive markets."
+          chartSlides={SEO_CHART_SLIDES}
+        />
 
         <section data-section="client_work" className="client_work">
           <h2 className="client_work__title">
-            Don't just take our <br />
+            Don't just take our <br/>
             word for it
           </h2>
           <div className="client_para">Read what our client have to say</div>

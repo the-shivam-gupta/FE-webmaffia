@@ -1,18 +1,38 @@
 "use client";
 
 import Image from "next/image";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import CaseStudyCreativeSection from "@/components/CaseStudyCreativeSection";
 import ContactFormSection from "@/components/ContactFormSection";
 
-const SEO_CHART_SLIDES = ["/assets/images/work/seo_section_chart.png"];
+const CREATIVE_POSTS = [
+  {
+    src: "/assets/images/work/case-study/posts/lexotque-post1.jpg",
+    alt: "Lexotique post 1",
+  },
+  {
+    src: "/assets/images/work/case-study/posts/lexotque-post2.jpg",
+    alt: "Lexotique post 2",
+  },
+  {
+    src: "/assets/images/work/case-study/posts/lexotque-post3.jpg",
+    alt: "Lexotique post 3",
+  },
+];
 
 const CREATIVE_REELS = [
   { src: "/assets/images/work/leaxotique.png", alt: "Lexotique reel" },
-  { src: "/assets/images/work/apple.png", alt: "Light your healthy side reel" },
+  {
+    src: "/assets/images/work/apple.png",
+    alt: "Light your healthy side reel",
+    video: "/assets/videos/Video-901.mp4",
+  },
   { src: "/assets/images/work/mix-fruits.png", alt: "Mix fruits reel" },
   { src: "/assets/images/work/leaxotique.png", alt: "Lexotique reel" },
-  { src: "/assets/images/work/apple.png", alt: "Light your healthy side reel" },
+  {
+    src: "/assets/images/work/apple.png",
+    alt: "Light your healthy side reel",
+    video: "/assets/videos/Video-901.mp4",
+  },
   { src: "/assets/images/work/mix-fruits.png", alt: "Mix fruits reel" },
 ];
 
@@ -145,100 +165,11 @@ export default function LexotiqueCaseStudyPage() {
           </section>
         </div>
 
-        <section data-section="creative_section" className="creative_section">
-          <div className="creative_section_header">
-            <div className="creative_section_intro">
-              <h2>Creatives</h2>
-              <div className="creative_tabs" role="tablist" aria-label="Creative content type">
-                <button type="button" className="creative_tab" role="tab" aria-selected="false">
-                  Posts
-                </button>
-                <button
-                  type="button"
-                  className="creative_tab creative_tab--active"
-                  role="tab"
-                  aria-selected="true"
-                >
-                  Reels
-                </button>
-              </div>
-            </div>
-            <a
-              href={INSTAGRAM_URL}
-              className="creative_instagram_link"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Check the On Instagram
-              <Image
-                src="/assets/images/footer/instagram.svg"
-                alt=""
-                width={24}
-                height={24}
-                aria-hidden="true"
-              />
-            </a>
-          </div>
-
-          <div className="creative_reels">
-            <div className="creative_reels_viewport">
-              <Swiper
-                modules={[Navigation]}
-                className="creative_reels_swiper"
-                slidesPerView="auto"
-                spaceBetween={24}
-                speed={400}
-                watchOverflow
-                breakpoints={{
-                  0: { spaceBetween: 20 },
-                  768: { spaceBetween: 20 },
-                  1024: { spaceBetween: 24 },
-                }}
-                navigation={{
-                  prevEl: ".creative_reels .creative_reels_prev",
-                  nextEl: ".creative_reels .creative_reels_next",
-                }}
-              >
-              {CREATIVE_REELS.map(({ src, alt }, index) => (
-                <SwiperSlide key={`${src}-${index}`}>
-                  <a
-                    href={INSTAGRAM_URL}
-                    className="creative_reel_card"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`View ${alt} on Instagram`}
-                  >
-                    <Image
-                      src={src}
-                      alt={alt}
-                      width={480}
-                      height={854}
-                      className="creative_reel_img"
-                    />
-                    <Image
-                      src="/assets/icons/video-icon.svg"
-                      alt=""
-                      width={121}
-                      height={121}
-                      className="creative_reel_play"
-                      aria-hidden="true"
-                    />
-                  </a>
-                </SwiperSlide>
-              ))}
-              </Swiper>
-            </div>
-
-            <nav className="creative_reels_nav" aria-label="Reels navigation">
-              <button type="button" className="creative_reels_prev cta_text">
-                <span>Previous</span>
-              </button>
-              <button type="button" className="creative_reels_next cta_text">
-                <span>Next</span>
-              </button>
-            </nav>
-          </div>
-        </section>
+        <CaseStudyCreativeSection
+          instagramUrl={INSTAGRAM_URL}
+          posts={CREATIVE_POSTS}
+          reels={CREATIVE_REELS}
+        />
 
         <section data-section="client_work" className="client_work">
           <h2 className="client_work__title">
