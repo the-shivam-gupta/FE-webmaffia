@@ -18,10 +18,12 @@ export default function CaseStudySeoSection({
   description,
   chartSlides,
   chartAlt = "SEO growth chart",
+  tagLine,
 }) {
   return (
     <section data-section="seo_section" className="seo_section">
       <div>
+        <div className="sub_title">{tagLine}</div>
         <h2 className="challenge_content__title">{title}</h2>
         <h4>{subtitle}</h4>
         <p>{description}</p>

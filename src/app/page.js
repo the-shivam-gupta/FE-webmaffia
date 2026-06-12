@@ -8,6 +8,7 @@ import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import Banner from "@/components/Banner";
+import CTA from "@/components/CTA";
 import { useHomeScrollAnimations } from "./hooks/useHomeScrollAnimations";
 
 const SERVICES = [
@@ -145,14 +146,29 @@ const TESTIMONIALS = [
   },
 ];
 
-const HOME_BANNER = {
-  subheading: { enabled: true, text: "CREATIVE DIGITAL AGENCY" },
-  title: { line1: "A digital-first", line2: "creative agency" },
+const bannerData = {
+  imagePosition: "right",
+  subheading: {
+    enabled: true,
+    text: "CREATIVE DIGITAL AGENCY",
+  },
+  title: {
+    line1: "A digital-first",
+    line2: "creative agency",
+  },
   description:
-    "Yes, that's what we maffians pride ourselves on doing.\nCreative is our forte, digital is our medium. And our objective\nfor every campaign is the same as yours \u2013 ROI.",
+    "Yes, that's what we maffians pride ourselves on doing.\nCreative is our forte, digital is our medium. And our objective\nfor every campaign is the same as yours – ROI.",
   images: {
-    banner: { url: "/assets/images/home_banner.svg", alt: "award winning agency" },
-    bannerMobile: { url: "/assets/images/home_mobile_banner.svg", alt: "award winning agency" },
+    banner: {
+      url: "/assets/images/home_banner.svg",
+      alt: "award winning agency",
+      width: 788,
+      height: 693,
+    },
+    bannerMobile: {
+      url: "/assets/images/home_mobile_banner.svg",
+      alt: "award winning agency",
+    },
   },
 };
 
@@ -180,7 +196,9 @@ export default function Home() {
   return (
     <main className="wrapper home_wrapper opacity_0">
       <div className="ml-setter">
-        <Banner data={HOME_BANNER} />
+        <Banner data={bannerData}>
+          <CTA />
+        </Banner>
 
         <div className="main_horizontal" ref={mainHorizontalRef}>
             <div className="horizontal_section">

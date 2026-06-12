@@ -10,9 +10,9 @@ export default function TwoBaconilCampaignPage() {
             <div className="ml-setter campaign_page">
                 <section data-section="hero_section" className="hero_section campaign_hero flex">
                     <div className="campaign_content">
-                        <div className="sub_title"></div>
+                        <div className="sub_title">2baconil</div>
                         <h1>
-                            2baconil – 12 Weeks, Not 12 Months
+                            #12 Weeks, Not 12 Months
                         </h1>
                         <h4>What We Did</h4>
                         <p>

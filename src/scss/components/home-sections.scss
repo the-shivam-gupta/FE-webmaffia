@@ -37,7 +37,8 @@
             margin-bottom: 0;
             margin: 0 6.5rem;
         }
-        p{
+        p,
+        h4{
             white-space: pre-line;
         }
     }
@@ -67,7 +68,7 @@
     letter-spacing: 1rem;
     line-height: 1;
     margin-bottom: 2rem;
-    margin-left: 0;
+    margin-left: 1rem;
     color: $black;
     font-weight: $light;
     @include mobile(){

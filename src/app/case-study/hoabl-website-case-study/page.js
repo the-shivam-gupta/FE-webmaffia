@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Banner from "@/components/Banner";
 import CaseStudySeoSection from "@/components/CaseStudySeoSection";
 import ContactFormSection from "@/components/ContactFormSection";
 
@@ -12,47 +13,42 @@ const SEO_CHART_SLIDES = [
   "/assets/images/work/hoabl-Non-Brand-Keywords-Impressions.png",
 ];
 
+const bannerData = {
+  imagePosition: "background",
+  priority: true,
+  unoptimized: true,
+  subheading: {
+    enabled: true,
+    text: "growwithhoabl.com",
+  },
+  title: {
+    line1: "HoABL",
+  },
+  subtitle: {
+    enabled: true,
+    text: "Redefining Real Estate Through\na Digital-First Lens",
+  },
+  description:
+    "HoABL set out to revolutionize the real estate experience through technology — a fully\ndigital-first, AI-driven model aimed at a new generation of investors and homeowners.\nOur mandate was to build a progressive, tech-savvy website that reflected this innovation,\noffered an intuitive user experience, and established HoABL as a leader in modern real estate.",
+  images: {
+    banner: {
+      url: "/assets/images/hoabl/hoabl-banner.png",
+      alt: "",
+      width: 1920,
+      height: 981,
+    },
+    bannerMobile: {
+      url: "/assets/images/hoabl/hoabl-banner.png",
+      alt: "",
+    },
+  },
+};
+
 export default function HoablWebsiteCaseStudyPage() {
   return (
     <main className="wrapper">
       <div className="ml-setter hoabl_detail">
-        <section data-section="hero_section" className="hero_section flex">
-          <picture className="detail_banner">
-            <source
-              media="(max-width: 540px)"
-              srcSet="/assets/images/hoabl/hoabl-banner.png"
-            />
-            <Image
-              src="/assets/images/hoabl/hoabl-banner.png"
-              alt=""
-              width={1920}
-              height={981}
-              priority
-              unoptimized
-            />
-          </picture>
-          <div>
-            <div className="sub_title">growwithhoabl.com</div>
-            <h1>
-              HoABL
-              <br />
-              Redefining Real Estate Through a Digital-First Lens
-            </h1>
-            <p>
-              HoABL set out to revolutionize the real estate experience through
-              technology — a fully
-              <br />
-              digital-first, AI-driven model aimed at a new generation of
-              investors and homeowners.
-              <br />
-              Our mandate was to build a progressive, tech-savvy website that
-              reflected this innovation,
-              <br />
-              offered an intuitive user experience, and established HoABL as a
-              leader in modern real estate.
-            </p>
-          </div>
-        </section>
+        <Banner data={bannerData} />
 
         <div className="detail_sections">
           <section
@@ -127,8 +123,9 @@ export default function HoablWebsiteCaseStudyPage() {
             </picture> */}
             <div>
               <div className="sub_title">growwithhoabl.com</div>
-              <h2>
+              <h2 className="challenge_content__title">
                 The 
+                <br />
                 Solution
               </h2>
               <h4>
@@ -201,9 +198,10 @@ export default function HoablWebsiteCaseStudyPage() {
         </div>
 
         <CaseStudySeoSection
-          title="300x Organic Growth with SEO"
+          tagLine="SEO Section"
+          title="300% Organic Growth with SEO"
           subtitle="A data-led SEO approach that boosted visibility & qualified traffic"
-          description="HoABL achieved 300x growth in organic sessions through a data-driven SEO strategy focused on high-intent keywords, technical optimization, and scalable content planning. By improving search visibility and user engagement, the brand significantly increased qualified traffic and strengthened its digital presence across competitive markets."
+          description="HoABL achieved 300% growth in organic sessions through a data-driven SEO strategy focused on high-intent keywords, technical optimization, and scalable content planning. By improving search visibility and user engagement, the brand significantly increased qualified traffic and strengthened its digital presence across competitive markets."
           chartSlides={SEO_CHART_SLIDES}
         />
 

@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Banner from "@/components/Banner";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import CareerAccordion from "@/components/CareerAccordion";
@@ -30,6 +30,32 @@ const ROLE_INTERESTS = [
     label: "Video Creation",
   },
 ];
+
+const bannerData = {
+  imagePosition: "right",
+  subheading: {
+    enabled: true,
+    text: "CAREER",
+  },
+  title: {
+    line1: "Be a part of",
+    line2: "webmaffia",
+  },
+  description:
+    "Are you passionate about crafting exceptional\ndigital experiences? Join our team at Web Maffia\nand embark on an exciting journey where creativity\nmeets innovation. We're seeking talented\nIndividuals who are eager to push the boundaries\nof web design and development. Explore our\ncurrent openings below and take the first step\ntowards shaping the future of the web with us.",
+  images: {
+    banner: {
+      url: "/assets/images/career-banner.svg",
+      alt: "join our team at webmaffia",
+      width: 871,
+      height: 767,
+    },
+    bannerMobile: {
+      url: "/assets/images/hero-mobile.webp",
+      alt: "join our team at webmaffia",
+    },
+  },
+};
 
 const RESUME_ACCEPT =
   ".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document";
@@ -103,38 +129,7 @@ export default function CareerPage() {
   return (
     <main className="wrapper">
       <div className="ml-setter career">
-        <section data-section="hero_section" className="hero_section flex">
-          <div>
-            <div className="sub_title">CAREER</div>
-            <h1>
-              Be a part of <br />
-              webmaffia <br />
-            </h1>
-            <p>
-              Are you passionate about crafting exceptional <br />
-              digital experiences? Join our team at Web Maffia <br />
-              and embark on an exciting journey where creativity <br />
-              meets innovation. We&apos;re seeking talented <br />
-              Individuals who are eager to push the boundaries <br />
-              of web design and development. Explore our <br />
-              current openings below and take the first step <br />
-              towards shaping the future of the web with us.
-            </p>
-          </div>
-          <picture>
-            <source
-              media="(max-width: 540px)"
-              srcSet="/assets/images/hero-mobile.webp"
-            />
-            <Image
-              src="/assets/images/career-banner.svg"
-              alt="join our team at webmaffia"
-              width={871}
-              height={767}
-              className="dark_img"
-            />
-          </picture>
-        </section>
+        <Banner data={bannerData} />
 
         <section className="contact_us">
           <CareerAccordion />

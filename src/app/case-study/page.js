@@ -1,10 +1,32 @@
-import Image from "next/image";
+import Banner from "@/components/Banner";
 import WorkListSection from "@/components/WorkListSection";
 
 export const metadata = {
   title: "Project Portfolio and Successfull Campaigns by Webmaffia",
   description:
     "Discover Webmaffia's diverse project portfolio showcasing innovative, successful campaigns across industries. See how we drive results for our clients.",
+};
+
+const bannerData = {
+  imagePosition: "right",
+  subheading: {
+    enabled: true,
+    text: "STORIES WE TELL",
+  },
+  title: {
+    line1: "Explore our",
+    line2: "latest work",
+  },
+  description:
+    "Here are some of the client collaborations we're\nmost proud of. Leveraging cutting-edge\ntechnologies, we drive innovation in our projects,\ndelivering solutions that exceed expectations.\nGet inspired.",
+  images: {
+    banner: {
+      url: "/assets/images/number/2.webp",
+      alt: "",
+      width: 672,
+      height: 566,
+    },
+  },
 };
 
 const WORK_ITEMS = [
@@ -140,31 +162,7 @@ export default function CaseStudyPage() {
   return (
     <main className="wrapper">
       <div className="ml-setter work_list">
-        <section data-section="hero_section" className="hero_section flex">
-          <div>
-            <div className="sub_title">STORIES WE TELL</div>
-            <h1>
-              Explore our <br />
-              latest work
-            </h1>
-            <p>
-              Here are some of the client collaborations we&apos;re <br />
-              most proud of. Leveraging cutting-edge <br />
-              technologies, we drive innovation in our projects, <br />
-              delivering solutions that exceed expectations. <br />
-              Get inspired.
-            </p>
-          </div>
-          <picture>
-            <Image
-              src="/assets/images/number/2.webp"
-              alt=""
-              width={672}
-              height={566}
-              className="dark_img"
-            />
-          </picture>
-        </section>
+        <Banner data={bannerData} />
 
         <WorkListSection items={WORK_ITEMS} />
       </div>

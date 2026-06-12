@@ -1,71 +1,91 @@
-import CTA from "./CTA";
+import Image from "next/image";
 
-const DEFAULT_DATA = {
-  subheading: {
-    enabled: true,
-    text: "CREATIVE DIGITAL AGENCY",
-  },
-  title: {
-    line1: "A digital-first",
-    line2: "creative agency",
-  },
-  description:
-    "Yes, that\u2019s what we maffians pride ourselves on doing.\nCreative is our forte, digital is our medium. And our objective\nfor every campaign is the same as yours \u2013 ROI.",
-  background: {
-    color1: "",
-    color2: "",
-    opacity: 0.8,
-  },
-  images: {
-    banner: {
-      url: "/assets/images/home_banner.svg",
-      alt: "award winning agency",
-    },
-    bannerMobile: {
-      url: "/assets/images/home_mobile_banner.svg",
-      alt: "award winning agency",
-    },
-    petal: {
-      url: "",
-      alt: "",
-    },
-  },
-};
-
-const Banner = ({ data = DEFAULT_DATA }) => {
+export default function Banner({
+  data,
+  className = "hero_section flex",
+  dataSection = "hero_section",
+  children,
+}) {
   const {
+    imagePosition = "right",
     subheading,
+    subtitle,
     title,
     description,
-    images: { banner, bannerMobile },
+    descriptions,
+    images,
+    priority = false,
+    unoptimized = false,
   } = data;
 
-  return (
-    <section data-section="hero_section" className="hero_section flex">
-      <div>
-        {subheading.enabled && (
-          <h1 className="sub_title">{subheading.text}</h1>
-        )}
-        <div className="h1">
-          {title.line1}
-          {title.line2 && <><br />{title.line2}</>}
-        </div>
-        <p>{description}</p>
-        <CTA />
-      </div>
+  const banner = images?.banner;
+  const bannerMobile = images?.bannerMobile;
+  const body = descriptions?.length
+    ? descriptions
+    : description
+      ? [description]
+      : [];
 
-      <picture>
+  const image = banner?.url ? (
+    <picture
+      className={imagePosition === "background" ? "detail_banner" : undefined}
+    >
+      {bannerMobile?.url ? (
         <source media="(max-width: 540px)" srcSet={bannerMobile.url} />
-        <img
-          src={banner.url}
-          alt={banner.alt}
-          width={788}
-          height={693}
-          className="dark_img"
-        />
-      </picture>
+      ) : null}
+      <Image
+        src={banner.url}
+        alt={banner.alt ?? ""}
+        width={banner.width ?? 871}
+        height={banner.height ?? 767}
+        className="dark_img"
+        priority={priority}
+        unoptimized={unoptimized}
+      />
+    </picture>
+  ) : null;
+
+  const content = (
+    <div>
+      {subheading?.enabled ? (
+        <div className="sub_title">{subheading.text}</div>
+      ) : null}
+      <h1>
+        {title.line1}
+        {title.line2 ? (
+          <>
+            <br />
+            {title.line2}
+          </>
+        ) : null}
+        {title.line3 ? (
+          <>
+            <br />
+            {title.line3}
+          </>
+        ) : null}
+      </h1>
+      {subtitle?.enabled ? <h4>{subtitle.text}</h4> : null}
+      {children}
+      {body.map((text, index) => (
+        <p key={index}>{text}</p>
+      ))}
+    </div>
+  );
+
+  return (
+    <section data-section={dataSection} className={className}>
+      {imagePosition === "background" ? (
+        <>
+          {image}
+          {content}
+        </>
+      ) : (
+        <>
+          {content}
+          {image}
+        </>
+      )}
     </section>
   );
-};
-
-export default Banner;
+}

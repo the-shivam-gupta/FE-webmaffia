@@ -9,17 +9,16 @@ export default function TataHousingCampaignPage() {
             <div className="ml-setter campaign_page">
                 <section data-section="hero_section" className="hero_section campaign_hero flex">
                     <div className="campaign_content">
-                        <div className="sub_title">STORIES WE TELL</div>
+                        <div className="sub_title">Tata Housing | Diwali Campaign</div>
                         <h1>
-                            Explore our <br />
-                            latest work
+                            #GharWohJahan
                         </h1>
                         <p>
-                            The campaign was rooted in the truest spirit of Diwali light, warmth, togetherness, and the feeling of being exactly where you belong. At its heart, #GharWohJahan captured what a home really means during the most celebratory time of the year. Not a property. A feeling. The place where every corner glows, every moment is wrapped in love, and every memory is made.
+                        Diwali is the one time of year when the pull of home is undeniable. We built the entire campaign around that feeling.
                         </p>
-                        <p>The idea was simple but deeply resonant Diwali is the one time of year when people feel the pull of home the strongest. Across six creatives, TATA Housing tapped into everything the festival represents the joy of family reuniting, the laughter and beautiful chaos of togetherness, the warmth of lighting diyas in your own space, and even the quiet, reflective moments after the celebrations settle.</p>
-                        <p>Blending Hindi and English seamlessly, the messaging felt personal and culturally rooted, while consistently reinforcing TATA Housing's promise of sustainable, safe, and community-friendly living. It spoke directly to the aspirational homebuyer, the one who imagines hosting family in their own living room, celebrating in a space that truly feels theirs, built by a brand they trust.</p>
-                        <p>More than a real estate campaign, it was an emotion. Because TATA Housing wasn't selling apartments they were selling the place where your best Diwali memories happen. #GharWohJahan.</p>
+                        <p>#GharWohJahan didn't sell apartments. It sold belonging - the warmth of your own diya, the chaos of family filling your living room, the quiet after the celebrations settle. Across six creatives, every piece of content tapped into what Diwali really means to the aspirational Indian homebuyer.</p>
+                        <p>The messaging blended Hindi and English naturally - culturally rooted, emotionally resonant, and consistently tied to Tata Housing's core promise of safe, sustainable, community-first living.</p>
+                        <p>The result was a campaign that didn't feel like real estate advertising. It felt like a memory you hadn't made yet.</p>
                     </div>
                     <CampaignHeroVideo poster={CAMPAIGN_POSTER} videoSrc={CAMPAIGN_VIDEO} />
                 </section>

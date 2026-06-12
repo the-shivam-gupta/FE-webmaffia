@@ -1,6 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
+import Banner from "@/components/Banner";
 import ServiceTagSwiper from "@/components/ServiceTagSwiper";
+
+const bannerData = {
+  imagePosition: "right",
+  subheading: {
+    enabled: true,
+    text: "OUR SERVICES",
+  },
+  title: {
+    line1: "Creating a",
+    line2: "platform for your",
+    line3: "purpose",
+  },
+  description:
+    "Transforming visions into captivating digital landscapes,\nwe crafts tailored solutions that elevate brands and engage\naudiences. With a focus on innovation and precision, we\nbring your online presence to life, delivering seamless user\nexperiences that resonate and inspire.",
+};
 
 const SERVICE_SECTIONS = [
   {
@@ -171,24 +187,7 @@ export default function ServicesPage() {
   return (
     <main className="wrapper">
       <div className="services ml-setter">
-        <section data-section="hero_section" className="hero_section flex">
-          <div>
-            <h1 className="sub_title">OUR SERVICES</h1>
-            <div className="h1">
-              Creating a
-              <br />
-              platform for your <br />
-              purpose
-            </div>
-            <p>
-              Transforming visions into captivating digital landscapes, <br />
-              we crafts tailored solutions that elevate brands and engage <br />
-              audiences. With a focus on innovation and precision, we <br />
-              bring your online presence to life, delivering seamless user <br />
-              experiences that resonate and inspire.
-            </p>
-          </div>
-        </section>
+        <Banner data={bannerData} />
 
         <div>
           {SERVICE_SECTIONS.map((service) => (

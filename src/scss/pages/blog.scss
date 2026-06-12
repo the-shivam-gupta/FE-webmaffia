@@ -14,8 +14,6 @@
         }
         img{
             width: 73.8rem;
-            right: -6.5rem;
-            position: relative;
             @include mobile(){
                 width: 100%;
                 margin: 0;

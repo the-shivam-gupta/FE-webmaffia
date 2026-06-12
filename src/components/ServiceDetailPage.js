@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import Banner from "@/components/Banner";
 
 function TechnologyBlock({ technologies }) {
   if (!technologies) return null;
@@ -42,32 +43,38 @@ export default function ServiceDetailPage({ config }) {
     ? hero.description
     : [hero.description];
 
+  const bannerData = {
+    imagePosition: "right",
+    priority: true,
+    subheading: {
+      enabled: true,
+      text: hero.subtitle,
+    },
+    title: {
+      line1: hero.title,
+    },
+    images: {
+      banner: {
+        url: hero.image,
+        alt: "",
+        width: hero.imageWidth ?? 871,
+        height: hero.imageHeight ?? 767,
+      },
+      bannerMobile: {
+        url: "/assets/images/hero-mobile.webp",
+        alt: "",
+      },
+    },
+  };
+
   return (
     <main className="wrapper">
       <div className="ml-setter service_detail">
-        <section data-section="hero_section" className={heroClass}>
-          <div>
-            <div className="sub_title">{hero.subtitle}</div>
-            <h1>{hero.title}</h1>
-            {descriptions.map((text, i) => (
-              <p key={i}>{text}</p>
-            ))}
-          </div>
-          <picture>
-            <source
-              media="(max-width: 540px)"
-              srcSet="/assets/images/hero-mobile.webp"
-            />
-            <Image
-              src={hero.image}
-              alt=""
-              width={hero.imageWidth ?? 871}
-              height={hero.imageHeight ?? 767}
-              className="dark_img"
-              priority
-            />
-          </picture>
-        </section>
+        <Banner data={bannerData} className={heroClass}>
+          {descriptions.map((text, i) => (
+            <p key={i}>{text}</p>
+          ))}
+        </Banner>
 
         {sections?.length > 0 && (
           <div className="services_parent">

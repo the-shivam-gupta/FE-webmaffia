@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Banner from "@/components/Banner";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -15,6 +16,31 @@ const SERVICE_INTERESTS = [
   { id: "Front_end_developer", value: "Front-end developer", label: "Front-end developer" },
   { id: "Full_stack_developer", value: "Full-stack developer", label: "Full-stack developer" },
 ];
+
+const bannerData = {
+  imagePosition: "right",
+  subheading: {
+    enabled: true,
+    text: "CONTACT",
+  },
+  title: {
+    line1: "Start reaching",
+    line2: "your digital",
+    line3: "goals",
+  },
+  images: {
+    banner: {
+      url: "/assets/images/contact-banner.svg",
+      alt: "",
+      width: 871,
+      height: 767,
+    },
+    bannerMobile: {
+      url: "/assets/images/hero-mobile.webp",
+      alt: "",
+    },
+  },
+};
 
 const HEAR_ABOUT = [
   { id: "referral", value: "Referral", label: "Referral" },
@@ -80,38 +106,18 @@ export default function ContactPage() {
   return (
     <main className="wrapper">
       <div className="ml-setter contact_us">
-        <section data-section="hero_section" className="hero_section flex">
-          <div>
-            <div className="sub_title">CONTACT</div>
-            <h1>
-              Start reaching <br />
-              your digital <br />
-              goals
-            </h1>
-            <p>
-              We&apos;re excited to work with you soon! Please drop <br />
-              an email with your details & requirements to<br />
-              <a href="mailto:veera@webmaffia.com">veera@webmaffia.com</a>
-            </p>
-            <p>
-              You can also fill this form & we&apos;ll get back in 2 <br />
-              business days.
-            </p>
-          </div>
-          <picture>
-            <source
-              media="(max-width: 540px)"
-              srcSet="/assets/images/hero-mobile.webp"
-            />
-            <Image
-              src="/assets/images/contact-banner.svg"
-              alt=""
-              width={871}
-              height={767}
-              className="dark_img"
-            />
-          </picture>
-        </section>
+        <Banner data={bannerData}>
+          <p>
+            We&apos;re excited to work with you soon! Please drop <br />
+            an email with your details & requirements to
+            <br />
+            <a href="mailto:veera@webmaffia.com">veera@webmaffia.com</a>
+          </p>
+          <p>
+            You can also fill this form & we&apos;ll get back in 2 <br />
+            business days.
+          </p>
+        </Banner>
 
         <form className="form" onSubmit={handleSubmit}>
           <label htmlFor="name">Your Name</label>

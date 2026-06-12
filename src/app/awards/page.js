@@ -1,4 +1,32 @@
 import Image from "next/image";
+import Banner from "@/components/Banner";
+
+const bannerData = {
+  imagePosition: "right",
+  priority: true,
+  subheading: {
+    enabled: true,
+    text: "AWARDS",
+  },
+  title: {
+    line1: "Glory in",
+    line2: "Achievement",
+  },
+  description:
+    "Transforming visions into captivating digital landscapes,\nwe crafts tailored solutions that elevate brands and engage\naudiences. With a focus on innovation and precision, we\nbring your online presence to life, delivering seamless user\nexperiences that resonate and inspire.",
+  images: {
+    banner: {
+      url: "/assets/images/contact-hero.webp",
+      alt: "",
+      width: 871,
+      height: 767,
+    },
+    bannerMobile: {
+      url: "/assets/images/hero-mobile.webp",
+      alt: "",
+    },
+  },
+};
 
 const AWARDS = [
   {
@@ -84,36 +112,7 @@ export default function AwardsPage() {
   return (
     <main className="wrapper">
       <div className="ml-setter awards_page">
-        <section data-section="hero_section" className="hero_section flex">
-          <div>
-            <div className="sub_title">AWARDS</div>
-            <h1>
-              Glory in <br />
-              Achievement
-            </h1>
-            <p>
-              Transforming visions into captivating digital landscapes, <br />
-              we crafts tailored solutions that elevate brands and engage <br />
-              audiences. With a focus on innovation and precision, we <br />
-              bring your online presence to life, delivering seamless user <br />
-              experiences that resonate and inspire.
-            </p>
-          </div>
-          <picture>
-            <source
-              media="(max-width: 540px)"
-              srcSet="/assets/images/hero-mobile.webp"
-            />
-            <Image
-              src="/assets/images/contact-hero.webp"
-              alt=""
-              width={871}
-              height={767}
-              className="dark_img"
-              priority
-            />
-          </picture>
-        </section>
+        <Banner data={bannerData} />
 
         <section className="award_section">
           <div className="awards_box">

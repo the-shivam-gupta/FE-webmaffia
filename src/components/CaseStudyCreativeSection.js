@@ -5,6 +5,17 @@ import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 
+const CREATIVE_SWIPER_SETTINGS = {
+  slidesPerView: "auto",
+  slidesPerGroup: 1,
+  spaceBetween: 20,
+  speed: 400,
+  watchOverflow: true,
+  breakpoints: {
+    1024: { spaceBetween: 24 },
+  },
+};
+
 export default function CaseStudyCreativeSection({
   instagramUrl,
   posts = [],
@@ -64,15 +75,7 @@ export default function CaseStudyCreativeSection({
             <Swiper
               modules={[Navigation]}
               className="creative_posts_swiper"
-              slidesPerView="auto"
-              spaceBetween={24}
-              speed={400}
-              watchOverflow
-              breakpoints={{
-                0: { spaceBetween: 20 },
-                768: { spaceBetween: 20 },
-                1024: { spaceBetween: 24 },
-              }}
+              {...CREATIVE_SWIPER_SETTINGS}
               navigation={{
                 prevEl: ".creative_posts .creative_posts_prev",
                 nextEl: ".creative_posts .creative_posts_next",
@@ -117,15 +120,7 @@ export default function CaseStudyCreativeSection({
             <Swiper
               modules={[Navigation]}
               className="creative_reels_swiper"
-              slidesPerView="auto"
-              spaceBetween={24}
-              speed={400}
-              watchOverflow
-              breakpoints={{
-                0: { spaceBetween: 20 },
-                768: { spaceBetween: 20 },
-                1024: { spaceBetween: 24 },
-              }}
+              {...CREATIVE_SWIPER_SETTINGS}
               navigation={{
                 prevEl: ".creative_reels .creative_reels_prev",
                 nextEl: ".creative_reels .creative_reels_next",

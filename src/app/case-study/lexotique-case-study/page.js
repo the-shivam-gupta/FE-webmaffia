@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Banner from "@/components/Banner";
 import CaseStudyCreativeSection from "@/components/CaseStudyCreativeSection";
 import ContactFormSection from "@/components/ContactFormSection";
 
@@ -17,57 +18,101 @@ const CREATIVE_POSTS = [
     src: "/assets/images/work/case-study/posts/lexotque-post3.jpg",
     alt: "Lexotique post 3",
   },
+  {
+    src: "/assets/images/work/case-study/posts/lexotque-post4.jpg",
+    alt: "Lexotique post 3",
+  },
+  {
+    src: "/assets/images/work/case-study/posts/lexotque-post5.jpg",
+    alt: "Lexotique post 3",
+  },
+  {
+    src: "/assets/images/work/case-study/posts/lexotque-post6.jpg",
+    alt: "Lexotique post 3",
+  },
+  {
+    src: "/assets/images/work/case-study/posts/lexotque-post7.jpg",
+    alt: "Lexotique post 3",
+  },
+  {
+    src: "/assets/images/work/case-study/posts/lexotque-post8.jpg",
+    alt: "Lexotique post 3",
+  },
+  {
+    src: "/assets/images/work/case-study/posts/lexotque-post9.jpg",
+    alt: "Lexotique post 3",
+  },
 ];
 
+const STRAPI_MEDIA_URL =
+  process.env.NEXT_PUBLIC_STRAPI_URL ?? "https://cms.webmaffia.com";
+
 const CREATIVE_REELS = [
-  { src: "/assets/images/work/leaxotique.png", alt: "Lexotique reel" },
+  {
+    src: "/assets/images/work/leaxotique.png",
+    alt: "Lexotique reel 1",
+    video: `${STRAPI_MEDIA_URL}/uploads/lexotique_reel1_59a7693d96.mp4`,
+  },
   {
     src: "/assets/images/work/apple.png",
-    alt: "Light your healthy side reel",
-    video: "/assets/videos/Video-901.mp4",
+    alt: "Lexotique reel 2",
+    video: `${STRAPI_MEDIA_URL}/uploads/lexotique_reel2_4f36659e37.mp4`,
   },
-  { src: "/assets/images/work/mix-fruits.png", alt: "Mix fruits reel" },
-  { src: "/assets/images/work/leaxotique.png", alt: "Lexotique reel" },
+  {
+    src: "/assets/images/work/mix-fruits.png",
+    alt: "Lexotique reel 3",
+    video: `${STRAPI_MEDIA_URL}/uploads/lexotique_reel3_87c3add828.mp4`,
+  },
+  {
+    src: "/assets/images/work/leaxotique.png",
+    alt: "Lexotique reel 4",
+    video: `${STRAPI_MEDIA_URL}/uploads/lexotique_reel4_4bc64a92c6.mp4`,
+  },
   {
     src: "/assets/images/work/apple.png",
-    alt: "Light your healthy side reel",
-    video: "/assets/videos/Video-901.mp4",
+    alt: "Lexotique reel 5",
+    video: `${STRAPI_MEDIA_URL}/uploads/lexotique_reel5_053f807486.mp4`,
   },
-  { src: "/assets/images/work/mix-fruits.png", alt: "Mix fruits reel" },
+  {
+    src: "/assets/images/work/mix-fruits.png",
+    alt: "Lexotique reel 6",
+    video: `${STRAPI_MEDIA_URL}/uploads/lexotique_reel6_fb0f720908.mp4`,
+  },
 ];
 
 const INSTAGRAM_URL = "https://www.instagram.com/lexotique.fruits/";
+
+const bannerData = {
+  imagePosition: "background",
+  priority: true,
+  title: {
+    line1: "LEXOTIQUE",
+  },
+  description:
+    "Lexotique reimagines the way fresh fruits are perceived — shifting from a basic necessity to a symbol of quality, care, and conscious living. We set out to design a digital experience that captures this vision — highlighting farm-fresh produce, hygiene-first practices, and a sense of natural luxury — establishing Lexotic as a brand that delivers freshness you can see and trust.",
+  images: {
+    banner: {
+      url: "/assets/images/lexotic.png",
+      alt: "",
+      width: 1920,
+      height: 981,
+    },
+    bannerMobile: {
+      url: "/assets/images/hoabl/hoabl-banner_mobile.png",
+      alt: "",
+    },
+  },
+};
 
 export default function LexotiqueCaseStudyPage() {
   return (
     <main className="wrapper">
       <div className="ml-setter lexotique_detail">
-        <section data-section="hero_section" className="hero_section flex">
-          <picture className="detail_banner">
-            <source
-              media="(max-width: 540px)"
-              srcSet="/assets/images/hoabl/hoabl-banner_mobile.png"
-            />
-            <Image
-              src="/assets/images/lexotic.png"
-              alt=""
-              width={1920}
-              height={981}
-              priority
-            />
-          </picture>
-          <div>
-            <h1>
-              LEXOTIQUE
-            </h1>
-            <h4>Elevating Everyday Fruits into a <br /> Premium Experience</h4>
-            <p>
-              Lexotique reimagines the way fresh fruits are perceived — shifting from a basic necessity to a symbol of quality, care, and conscious living.
-              We set out to design a digital experience that captures this vision — highlighting farm-fresh produce, hygiene-first practices, and a sense of natural luxury — establishing Lexotic as a brand that delivers
-              freshness you can see and trust.
-            </p>
-          </div>
-        </section>
+        <Banner data={bannerData}>
+          <h4>
+            Elevating Everyday Fruits into a <br /> Premium Experience
+          </h4>
+        </Banner>
 
         <div className="detail_sections">
           <section

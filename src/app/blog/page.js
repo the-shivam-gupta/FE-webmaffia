@@ -1,7 +1,32 @@
 import Image from "next/image";
 import Link from "next/link";
+import Banner from "@/components/Banner";
 import BlogListItem from "@/components/BlogListItem";
 import { formatBlogDate, getBlog, getStrapiImageUrl } from "@/lib/strapiPage";
+
+const bannerData = {
+  imagePosition: "right",
+  priority: true,
+  subheading: {
+    enabled: true,
+    text: "OUR BLOGS",
+  },
+  title: {
+    line1: "Creating a",
+    line2: "platform for your",
+    line3: "purpose",
+  },
+  description:
+    "Transforming visions into captivating digital landscapes,\nwe crafts tailored solutions that elevate brands and engage\naudiences. With a focus on innovation and precision, we\nbring your online presence to life, delivering seamless user\nexperiences that resonate and inspire.",
+  images: {
+    banner: {
+      url: "/assets/images/blogs/blog-banner.svg",
+      alt: "",
+      width: 788,
+      height: 693,
+    },
+  },
+};
 
 export default async function BlogPage() {
   const blogs = await getBlog();
@@ -13,32 +38,7 @@ export default async function BlogPage() {
   return (
     <main className="wrapper">
       <div className="blog_listing">
-        <section data-section="hero_section" className="hero_section flex">
-          <div>
-            <div className="sub_title">OUR BLOGS</div>
-            <h1>
-              Creating a
-              <br />
-              platform for your <br />
-              purpose
-            </h1>
-            <p>
-              Transforming visions into captivating digital landscapes, <br />
-              we crafts tailored solutions that elevate brands and engage <br />
-              audiences. With a focus on innovation and precision, we <br />
-              bring your online presence to life, delivering seamless user <br />
-              experiences that resonate and inspire.
-            </p>
-          </div>
-          <Image
-            src="/assets/images/blogs/blog-banner.svg"
-            alt=""
-            width={788}
-            height={693}
-            className="dark_img"
-            priority
-          />
-        </section>
+        <Banner data={bannerData} />
 
         <section className="our_blog">
           {featuredBlog ? (

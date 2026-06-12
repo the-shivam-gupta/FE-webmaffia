@@ -1,10 +1,39 @@
 import Image from "next/image";
 import Link from "next/link";
+import Banner from "@/components/Banner";
 
 export const metadata = {
   title: "About Webmaffia - Taking Marketing to Another Level",
   description:
     "An award-winning digital agency with a strong foothold in creative thinking & execution, Webmaffia is growing in creative strength with every passing year.",
+};
+
+const bannerData = {
+  imagePosition: "right",
+  subheading: {
+    enabled: true,
+    text: "ABOUT US",
+  },
+  title: {
+    line1: "Discover our",
+    line2: "true essence",
+  },
+  descriptions: [
+    "An award-winning digital agency with a strong\nfoothold in Creative Thinking and Execution,\nWebmaffia is growing in creative strength with\nevery passing year.",
+    "Our creative Maffians brainstorm with just one\nmission, and that is to make sure your brand\ntriggers a connect, emotional and/or rational, by\nstanding out from the rest. With thorough research\nand understanding, we conceptualize an insightful\nand unique communication approach for your\nbrand.",
+  ],
+  images: {
+    banner: {
+      url: "/assets/images/about_banner.svg",
+      alt: "learn more about webmaffia",
+      width: 871,
+      height: 767,
+    },
+    bannerMobile: {
+      url: "/assets/images/home_mobile_banner.svg",
+      alt: "learn more about webmaffia",
+    },
+  },
 };
 
 const ABOUT_AWARDS = [
@@ -22,46 +51,11 @@ export default function AboutPage() {
   return (
     <main className="wrapper about_wrapper">
       <div className="ml-setter about_us">
-        <section
-          data-section="about_us"
+        <Banner
+          data={bannerData}
+          dataSection="about_us"
           className="hero_section banner_para flex"
-        >
-          <div>
-            <h1 className="sub_title">ABOUT US</h1>
-            <div className="h1">
-              Discover our <br />
-              true essence
-            </div>
-            <p>
-              An award-winning digital agency with a strong <br />
-              foothold in Creative Thinking and Execution, <br />
-              Webmaffia is growing in creative strength with <br />
-              every passing year.
-            </p>
-            <p>
-              Our creative Maffians brainstorm with just one <br />
-              mission, and that is to make sure your brand <br />
-              triggers a connect, emotional and/or rational, by <br />
-              standing out from the rest. With thorough research <br />
-              and understanding, we conceptualize an insightful <br />
-              and unique communication approach for your <br />
-              brand.
-            </p>
-          </div>
-          <picture>
-            <source
-              media="(max-width: 540px)"
-              srcSet="/assets/images/home_mobile_banner.svg"
-            />
-            <Image
-              src="/assets/images/about_banner.svg"
-              alt="learn more about webmaffia"
-              width={871}
-              height={767}
-              className="dark_img"
-            />
-          </picture>
-        </section>
+        />
 
         <section className="about_container" data-section="">
           <Image

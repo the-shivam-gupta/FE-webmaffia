@@ -109,8 +109,8 @@
 }
 
 $footer_nav_text: 1.875rem;
-$footer_info_text: 1.25rem;
-$footer_info_line_height: 137.658%;
+$footer_info_text: 1.8rem;
+$footer_info_line_height: 1;
 
 footer {
   position: relative;
@@ -219,6 +219,8 @@ footer {
       margin-bottom: 5rem;
       width: 100%;
       text-align: left;
+      font-size: 2.5rem;
+      font-weight: 500;
     }
 
     .footer_col--social .footer_col_title {
@@ -268,12 +270,15 @@ footer {
         transition: opacity 0.3s ease-in;
 
         &:hover {
-          opacity: 0.7;
+          img{
+            filter: brightness(1);
+          }
         }
         img{
           width: 35px;
           height: 35px;
           filter: brightness(0.5);
+          transition: filter 0.3s ease;
         }
       }
     }
