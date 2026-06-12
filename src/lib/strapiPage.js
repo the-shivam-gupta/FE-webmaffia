@@ -1,4 +1,3 @@
-const STRAPI_URL = process.env.STRAPI_API_URL;
 const STRAPI_TOKEN = process.env.STRAPI_API_TOKEN;
 const FALLBACK_IMAGE = "/assets/images/blogs/blog_list_1.webp";
 
@@ -6,6 +5,63 @@ const MONTHS = {
     jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5,
     jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11,
 };
+
+function getStrapiApiBaseUrl() {
+    const raw = process.env.STRAPI_API_URL?.trim();
+    if (!raw) return "";
+
+    try {
+        const url = new URL(raw);
+        return url.origin;
+    } catch {
+        return raw.replace(/\/admin(?:\/.*)?$/i, "").replace(/\/$/, "");
+    }
+}
+
+function getStrapiPublicBaseUrl() {
+    const publicUrl =
+        process.env.NEXT_PUBLIC_STRAPI_URL?.trim() ||
+        process.env.STRAPI_PUBLIC_URL?.trim() ||
+        getStrapiApiBaseUrl();
+
+    return publicUrl.replace(/\/$/, "");
+}
+
+function normalizeStrapiAssetUrl(url) {
+    if (!url) return "";
+
+    const publicBase = getStrapiPublicBaseUrl();
+    const localAssetPattern = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?/i;
+
+    if (localAssetPattern.test(url) && publicBase) {
+        try {
+            const parsed = new URL(url);
+            return `${publicBase}${parsed.pathname}${parsed.search}`;
+        } catch {
+            return url;
+        }
+    }
+
+    if (url.startsWith("http")) return url;
+
+    if (publicBase) {
+        return `${publicBase}${url.startsWith("/") ? url : `/${url}`}`;
+    }
+
+    return url;
+}
+
+export function rewriteStrapiHtmlUrls(html) {
+    if (!html) return html;
+
+    const publicBase = getStrapiPublicBaseUrl();
+    if (!publicBase) return html;
+
+    return html.replace(
+        /https?:\/\/(?:localhost|127\.0\.0\.1)(?::\d+)?(\/[^"'\s>]*)/gi,
+        `${publicBase}$1`
+    );
+}
 
 function slugify(text) {
     return String(text)
@@ -60,11 +116,23 @@ function normalizeBlogPost(post) {
         slug: resolveSlug(post),
         excerpt: post.excerpt ?? getFirstParagraph(post.description),
         readTime: post.readTime ?? post.timeToRead,
+        description: rewriteStrapiHtmlUrls(post.description),
+        image: post.image
+            ? {
+                ...post.image,
+                url: normalizeStrapiAssetUrl(post.image.url),
+            }
+            : post.image,
     };
 }
 
 async function fetchBlogsRaw() {
-    const response = await fetch(`${STRAPI_URL}/api/blogs?populate=*`, {
+    const strapiBaseUrl = getStrapiApiBaseUrl();
+    if (!strapiBaseUrl) {
+        throw new Error("STRAPI_API_URL is not configured");
+    }
+
+    const response = await fetch(`${strapiBaseUrl}/api/blogs?populate=*`, {
         headers: {
             Authorization: `Bearer ${STRAPI_TOKEN}`,
             "Content-Type": "application/json",
@@ -119,8 +187,5 @@ export function getStrapiImageUrl(image) {
     const url = image.url;
     if (!url) return FALLBACK_IMAGE;
 
-    if (url.startsWith("http")) return url;
-
-    const base = process.env.NEXT_PUBLIC_STRAPI_URL;
-    return `${base}${url}`;
+    return normalizeStrapiAssetUrl(url) || FALLBACK_IMAGE;
 }

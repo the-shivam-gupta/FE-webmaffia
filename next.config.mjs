@@ -3,10 +3,15 @@ const nextConfig = {
   images: {
     dangerouslyAllowLocalIP: process.env.NODE_ENV === "development",
     remotePatterns: [
+      // {
+      //   protocol: "http",
+      //   hostname: "localhost",
+      //   port: "1337",
+      //   pathname: "/uploads/**",
+      // },
       {
-        protocol: "http",
-        hostname: "localhost",
-        port: "1337",
+        protocol: "https",
+        hostname: "cms.webmaffia.com",
         pathname: "/uploads/**",
       },
     ],
