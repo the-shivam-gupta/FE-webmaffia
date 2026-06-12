@@ -1,4 +1,4 @@
-const STRAPI_URL = process.env.STRAPI_API_URL || "http://localhost:1337";
+const STRAPI_URL = process.env.STRAPI_API_URL;
 const STRAPI_TOKEN = process.env.STRAPI_API_TOKEN;
 const FALLBACK_IMAGE = "/assets/images/blogs/blog_list_1.webp";
 
@@ -121,6 +121,6 @@ export function getStrapiImageUrl(image) {
 
     if (url.startsWith("http")) return url;
 
-    const base = process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
+    const base = process.env.NEXT_PUBLIC_STRAPI_URL;
     return `${base}${url}`;
 }
