@@ -196,9 +196,8 @@ export default function Home() {
   return (
     <main className="wrapper home_wrapper opacity_0">
       <div className="ml-setter">
-        <Banner data={bannerData}>
+        <Banner data={bannerData} />
           <CTA />
-        </Banner>
 
         <div className="main_horizontal" ref={mainHorizontalRef}>
             <div className="horizontal_section">
@@ -247,13 +246,7 @@ export default function Home() {
                   >
                     <div>
                       <h3 className="sub_title">{s.subtitle}</h3>
-                      <div className="sub_heading">
-                        {s.heading.split("\n").map((line, i) => (
-                          <span key={i}>
-                            {line}
-                            <br />
-                          </span>
-                        ))}
+                      <div className="sub_heading">{s.heading}
                       </div>
                       <p>{s.body}</p>
                       <Link href={s.href} className="cta_text">

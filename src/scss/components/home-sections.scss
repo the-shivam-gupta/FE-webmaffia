@@ -181,12 +181,13 @@ p{
     }
 }
 
+// FIX: 94rem -> 100vh so the pinned section always equals exactly one screen
 .main_horizontal{
     position: relative;
-    height: 94rem;
-    min-height: 94rem;
-    max-height: 94rem;
-    margin-top: 15rem !important;
+    height: 100vh;
+    min-height: 100vh;
+    max-height: 100vh;
+    // margin-top: 15rem !important; // see note below re: pin + margin
     overflow: hidden;
     box-sizing: border-box;
     @include mobile(){
@@ -199,13 +200,14 @@ p{
     }
 }
 
+// FIX: 94rem -> 100vh to match .main_horizontal
 .horizontal_section{
     position: absolute;
     top: 0;
     left: 0;
     z-index: 3;
     width: 62vw;
-    height: 94rem;
+    height: 100vh;
     margin-bottom: 0;
     pointer-events: none;
     @include mobile(){
@@ -233,13 +235,17 @@ p{
     }
 }
 
+// FIX: 90vh -> 100% (fills the 100vh .horizontal_section), and removed the
+// `top: -14vh !important` that was pulling content above the overflow:hidden
+// boundary and getting clipped. Vertical centering already comes from
+// `.horizontal_section > div` (display:flex; align-items:center) above.
 .staticSection{
     position: relative;
     left: 0;
     z-index: 2;
     background: #fff;
-    height: 90vh;
-    top: -14vh !important;
+    height: 100%;
+    top: 0;
     width: 100% !important;
     overflow: hidden;
     isolation: isolate;
@@ -256,7 +262,8 @@ p{
     top: 0;
     left: 0;
     width: 100% !important;
-    height: 94rem;
+    // FIX: 94rem -> 100vh
+    height: 100vh;
     z-index: 2;
     overflow: hidden;
     &.testimonial_wrapper{
@@ -265,7 +272,8 @@ p{
         left: 0;
         width: 100% !important;
         max-width: none;
-        height: 94rem;
+        // FIX: 94rem -> 100vh
+        height: 100vh;
         margin: 0 !important;
         z-index: 2;
     }
@@ -308,8 +316,14 @@ p{
     .swiper-wrapper{
         height: 100%;
     }
+    // FIX: re-added height:100% + flex centering so .horizontal_sliders is
+    // vertically centered within the full-screen slide instead of sitting
+    // flush at top:0
     .swiper-slide{
         width: 100% !important;
+        height: 100%;
+        display: flex;
+        align-items: center;
         position: relative;
         right: -50vw;
         overflow: hidden;
@@ -324,7 +338,7 @@ p{
     .horizontal_sliders{
         z-index: auto;
         justify-content: center;
-        width: 60% !important;
+        // width: 60% !important;
         @media (min-width: 541px) {
             > div {
                 width: 45%;
@@ -339,19 +353,9 @@ p{
                 }
 
                 > p {
-                    max-width: 36rem;
+                    max-width: 80%;
                     width: 100%;
                 }
-            }
-
-            &.slider-6,
-            &.slider-7{
-                width: 50% !important;
-            }
-
-            &.slider-7 > div {
-                width: 65%;
-                max-width: 65%;
             }
         }
         @include mobile(){
@@ -378,14 +382,17 @@ p{
     margin-top: 0;
 }
 
+// FIX: removed `top: 22.4rem` (dead — always overridden by &:nth-child(1))
+// and removed the now-redundant `top: 0` from &:nth-child(1). With
+// `.swiper-slide` centering vertically via flex, this section no longer
+// needs any top offset.
 .horizontal_sliders{
     width: auto;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: center;
     flex-direction: row-reverse;
-    margin-left: 9.5rem;
+    // margin-left: 9.5rem;
     position: relative;
-    top: 22.4rem;
     z-index: 999;
     @include mobile(){
         margin-left: 0;
@@ -394,7 +401,6 @@ p{
         flex-direction: column;
     }
     &:nth-child(1){
-        top: 0;
         @include mobile(){
             width: 75rem;
         }
@@ -420,7 +426,7 @@ h2, .sub_heading{
     width: 100%;
     font-size: 6.4rem;
     margin-bottom: 1.5rem;
-    line-height: 1.2;
+    line-height: 1;
     letter-spacing: 0;
     color: $black;
     @include mobile(){
@@ -470,7 +476,6 @@ h2, .sub_heading{
     }
     .work_box{
         width: 164.9rem;
-        margin-left: 8.5rem;
         display: flex;
         align-items: flex-start;
         flex-wrap: wrap;
@@ -516,8 +521,6 @@ h2, .sub_heading{
 .cta_box{
     width: auto;
     margin-top: 9.5rem;
-    margin-left: 8.5rem;
-
 }
 
 
