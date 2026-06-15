@@ -17,8 +17,9 @@
         }
 
         .campaign_content {
-            flex: 1 1 45%;
-            min-width: 0;
+            // flex: 1 1 45%;
+            // min-width: 0;
+            position: relative;
             padding-right: 2rem;
 
             @include mobile() {
@@ -28,11 +29,11 @@
 
             h1 {
                 line-height: 1.1;
-                max-width: 100%;
+                max-width: 60%;
             }
 
             p {
-                width: 80%;
+                width: 60%;
                 margin: 2rem 0;
             }
 
@@ -56,54 +57,130 @@
                 }
             }
 
-            .campaign_award {
+            .campaign_awards {
                 display: flex;
-                align-items: flex-start;
-                gap: 1.6rem;
-                width: 60%;
-                margin-bottom: 2rem;
-
-                img {
-                    width: 3rem;
-                    height: 3rem;
-                }
+                gap: 10rem;
+                width: 100%;
+                margin-top: 1.6rem;
 
                 @include mobile() {
-                    width: 100%;
-                }
-
-                p {
-                    width: auto;
-                    flex: 1;
-                    margin-bottom: 0;
+                    gap: 4rem;
+                    max-width: 100%;
                 }
             }
 
-            .campaign_award_icon {
-                flex-shrink: 0;
-                width: 4.8rem;
-                height: 4.8rem;
-                object-fit: contain;
+            .campaign_award_card {
+                display: flex;
+                align-items: center;
+                gap: 3.2rem;
+                padding: 2.4rem 0;
+
+                &:last-child {
+                    padding-bottom: 0;
+                }
 
                 @include mobile() {
-                    width: 4rem;
-                    height: 4rem;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 2.4rem;
+                    padding: 3.2rem 0;
+                }
+
+                &__media {
+                    flex-shrink: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 20rem;
+                    height: 20rem;
+
+                    > span {
+                        display: flex !important;
+                        align-items: center;
+                        justify-content: center;
+                        width: 100%;
+                        height: 100%;
+                    }
+
+                    @include mobile() {
+                        width: 12rem;
+                        height: 12rem;
+                    }
+                }
+
+                &__img {
+                    width: auto !important;
+                    height: auto !important;
+                    max-width: 100%;
+                    max-height: 100%;
+                    object-fit: contain;
+                }
+
+                &__body {
+                    flex: 1;
+                    min-width: 0;
+                }
+
+                &__meta {
+                    display: flex;
+                    align-items: center;
+                    gap: 1.2rem;
+                    margin-bottom: 1rem;
+                }
+
+                &__type {
+                    font-size: 1.4rem;
+                    font-weight: 500;
+                    line-height: 1;
+                    letter-spacing: 0.12rem;
+                    text-transform: uppercase;
+                    color: $black;
+                }
+
+                &__year {
+                    font-size: 1.4rem;
+                    line-height: 1;
+                    color: rgba($black, 0.4);
+
+                    &::before {
+                        content: "·";
+                        margin-right: 1.2rem;
+                        color: rgba($black, 0.25);
+                    }
+                }
+
+                &__title {
+                    font-size: 2.4rem;
+                    font-weight: 400;
+                    line-height: 1.25;
+                    letter-spacing: 0.04rem;
+                    margin: 0 0 0.8rem;
+
+                    @include mobile() {
+                        font-size: 3.2rem;
+                    }
+                }
+
+                &__desc {
+                    width: 100%;
+                    margin: 0;
+                    font-size: 1.8rem;
+                    line-height: 1.45;
+                    color: rgba($black, 0.72);
+
+                    @include mobile() {
+                        font-size: 2.4rem;
+                    }
                 }
             }
         }
 
         .campaign_hero_media {
-            position: relative;
-            flex: 0 1 55%;
-            max-width: min(67.2rem, 55%);
-            margin-top: 0;
-            line-height: 0;
-
-            @include mobile() {
-                margin-top: 2.2rem;
-                margin-left: 2rem;
-                margin-right: 0;
-            }
+            position: absolute;
+            top: 21rem;
+            right: 5rem;
+            // flex: 0 1 45%;
+            // max-width: min(67.2rem, 55%);
         }
 
         .campaign_hero_poster {
@@ -195,7 +272,7 @@
     height: 4.4rem;
     border: none;
     border-radius: 50%;
-    background: rgba($white, 0.15);
+    background: #000;
     color: $white;
     font-size: 3rem;
     line-height: 1;
@@ -206,7 +283,7 @@
     transition: background 0.2s ease;
 
     &:hover {
-        background: rgba($white, 0.25);
+        background: #242121;
     }
 }
 

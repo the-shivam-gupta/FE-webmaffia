@@ -181,6 +181,12 @@ export function getRelatedStrapiPosts(slug, count = 2) {
     );
 }
 
+export function getStrapiAssetUrl(asset) {
+    if (!asset?.url) return "";
+
+    return normalizeStrapiAssetUrl(asset.url) || "";
+}
+
 export function getStrapiImageUrl(image) {
     if (!image) return FALLBACK_IMAGE;
 
@@ -188,4 +194,53 @@ export function getStrapiImageUrl(image) {
     if (!url) return FALLBACK_IMAGE;
 
     return normalizeStrapiAssetUrl(url) || FALLBACK_IMAGE;
+}
+
+const CASE_STUDY_POPULATE = [
+    "populate[banner][populate]=*",
+    "populate[contentBlock][populate][image][populate]=*",
+    "populate[showcase][populate]=*",
+    "populate[testimonial][populate]=*",
+    "populate[sections][on][case-study.seo][populate][graphs][populate]=*",
+    "populate[sections][on][case-study.creatives][populate][reels][populate]=*",
+    "populate[sections][on][case-study.creatives][populate][posts][populate][media][populate]=*",
+    "populate[sections][on][case-study.creatives][populate][button]=*",
+].join("&");
+
+async function fetchCaseStudiesRaw() {
+    const strapiBaseUrl = getStrapiApiBaseUrl();
+    if (!strapiBaseUrl) {
+        throw new Error("STRAPI_API_URL is not configured");
+    }
+
+    const response = await fetch(
+        `${strapiBaseUrl}/api/case-studies?${CASE_STUDY_POPULATE}`,
+        {
+            headers: {
+                Authorization: `Bearer ${STRAPI_TOKEN}`,
+                "Content-Type": "application/json",
+            },
+            next: { revalidate: 60 },
+        }
+    );
+
+    if (!response.ok) {
+        throw new Error("Failed to fetch case studies");
+    }
+
+    const data = await response.json();
+    return data.data;
+}
+
+export async function getCaseStudies() {
+    return fetchCaseStudiesRaw();
+}
+
+export async function getCaseStudyBySlug(slug) {
+    const caseStudies = await getCaseStudies();
+    return (
+        caseStudies.find(
+            (entry) => entry.slug === slug || entry.documentId === slug
+        ) ?? null
+    );
 }

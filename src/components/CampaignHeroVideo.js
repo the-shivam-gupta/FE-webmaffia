@@ -8,7 +8,7 @@ const MODAL_ANIMATION_MS = 350;
 export default function CampaignHeroVideo({
   poster,
   videoSrc,
-  playIcon = "/assets/images/icons/video.svg",
+  playIcon = "/assets/icons/video-icon.svg",
 }) {
   const videoRef = useRef(null);
   const closeTimerRef = useRef(null);

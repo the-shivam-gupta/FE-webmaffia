@@ -2,7 +2,8 @@ import Image from "next/image";
 import CampaignHeroVideo from "@/components/CampaignHeroVideo";
 
 const CAMPAIGN_POSTER = "/assets/images/work/campaign/2baconil_campaign.png";
-const CAMPAIGN_VIDEO = "/assets/videos/2baconil-campaign.mp4";
+const CAMPAIGN_VIDEO =
+    "https://cms.webmaffia.com/uploads/BSLMF_Not_So_Taxing_Campaign_Case_Study_734787a5ed.mp4";
 
 const CAMPAIGN_AWARDS = [
     {
@@ -21,13 +22,13 @@ const CAMPAIGN_AWARDS = [
     },
 ];
 
-export default function TwoBaconilCampaignPage() {
+export default function BirlaSunLifeCampaignPage() {
     return (
         <main className="wrapper campaigns">
             <div className="ml-setter campaign_page">
                 <section data-section="hero_section" className="hero_section campaign_hero flex">
                     <div className="campaign_content">
-                        <div className="sub_title">2baconil</div>
+                        <div className="sub_title">Birla Sun Life</div>
                         <h1>
                             #12 Weeks, Not 12 Months
                         </h1>

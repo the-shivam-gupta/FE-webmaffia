@@ -33,7 +33,7 @@ const WORK_ITEMS = [
   {
     name: "HoABL",
     title: "Website Design - Development",
-    url: "/case-study/hoabl-website-case-study",
+    url: "/case-study/hoabl",
     image: "/assets/images/work/listing/hoabl.webp",
   },
   {
@@ -57,7 +57,7 @@ const WORK_ITEMS = [
   {
     name: "L'exotique",
     title: "Website Design - Development",
-    url: "/case-study/lexotique-case-study",
+    url: "/case-study/lexotique",
     image: "/assets/images/work/listing/L'exotique.webp",
   },
   {

@@ -1,4 +1,23 @@
 import Image from "next/image";
+import { Fragment } from "react";
+
+function renderMultilineText(text) {
+  const lines = String(text ?? "")
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean);
+
+  if (lines.length <= 1) {
+    return text;
+  }
+
+  return lines.map((line, index) => (
+    <Fragment key={index}>
+      {index > 0 ? <br /> : null}
+      {line}
+    </Fragment>
+  ));
+}
 
 export default function Banner({
   data,
@@ -65,7 +84,9 @@ export default function Banner({
           </>
         ) : null}
       </h1>
-      {subtitle?.enabled ? <h4>{subtitle.text}</h4> : null}
+      {subtitle?.enabled ? (
+        <h4>{renderMultilineText(subtitle.text)}</h4>
+      ) : null}
       {children}
       {body.map((text, index) => (
         <p key={index}>{text}</p>

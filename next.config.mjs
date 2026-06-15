@@ -23,6 +23,21 @@ const nextConfig = {
         destination: "/case-study",
         permanent: true,
       },
+      {
+        source: "/case-study/hoabl-website-case-study",
+        destination: "/case-study/hoabl",
+        permanent: true,
+      },
+      {
+        source: "/case-study/lexotique-case-study",
+        destination: "/case-study/lexotique",
+        permanent: true,
+      },
+      {
+        source: "/case-study/ecovero-case-study",
+        destination: "/case-study/ecovero",
+        permanent: true,
+      },
     ];
   },
 };
