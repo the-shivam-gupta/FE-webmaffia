@@ -222,9 +222,7 @@ const Header = () => {
                     rel="noopener noreferrer"
                   >
                     403 A Wing, Cello Triumph,
-                    <br />
                     IB Patel Rd, Jay Prakash Nagar,
-                    <br />
                     Goregaon (E), Mumbai - 400063
                   </a>
                 </address>
@@ -233,6 +231,26 @@ const Header = () => {
                   <a href="tel:+919867625909">+91 9867625909</a>
                 </div>
               </div>
+
+              <div className="country_region">
+                  <div className="region_text">Bangaluru</div>
+                  <address>
+                    <a
+                      href="https://maps.app.goo.gl/iPvLshVht1xP6hT1A"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Brigade Exotica - Burgundy
+                      Unit 2503,
+                      Old Madras Road,
+                      Bengaluru - 560049
+                    </a>
+                  </address>
+                  <div className="contact_info">
+                    <a href="mailto:veera@webmaffia.com">veera@webmaffia.com</a>
+                    <a href="tel:+919867625909">+91 9867625909</a>
+                  </div>
+                </div>
 
               <div className="country_region">
                 <div className="region_text">Dubai (UAE)</div>

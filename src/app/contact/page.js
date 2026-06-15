@@ -246,21 +246,40 @@ export default function ContactPage() {
                   </div>
                 </div>
                 <div className="country_region">
-                  <div className="region_text">Dubai (UAE)</div>
+                  <div className="region_text">Bangaluru</div>
                   <address>
                     <a
-                      href="https://maps.app.goo.gl/2qVqKVXrwNok34KH6"
+                      href="https://maps.app.goo.gl/iPvLshVht1xP6hT1A"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      JLT Cluster H <br />
-                      Dubai, United Arab Emirates
+                      Brigade Exotica - Burgundy <br />
+                      Unit 2503, <br />
+                      Old Madras Road, <br />
+                      Bengaluru - 560049
                     </a>
                   </address>
                   <div className="contact_info">
                     <a href="mailto:veera@webmaffia.com">veera@webmaffia.com</a>
-                    <a href="tel:+971562722998">+971 56 272 2998</a>
+                    <a href="tel:+919867625909">+91 9867625909</a>
                   </div>
+                </div>
+                <div className="country_region">
+                  <div className="region_text">Dubai (UAE)</div>
+                  <address>
+                    <div className="contact_persons_row">
+                    <div className="contact_info">
+                      <span className="contact_person">Veera Ghyara Roy <br />Co-Founder</span>
+                        <a href="mailto:veera@webmaffia.com">veera@webmaffia.com</a>
+                        <a href="tel:+971562722998">+971 56 272 2998</a>
+                      </div>
+                      <div className="contact_info">
+                      <span className="contact_person">Sheetal Gandhi <br />Regional Expansion Lead</span>
+                        <a href="mailto:sheetal.gandhi@webmaffia.com">sheetal.gandhi@webmaffia.com</a>
+                        <a href="tel:+971544949429">+971 544949429</a>
+                      </div>
+                    </div>
+                  </address>
                 </div>
               </div>
             </div>

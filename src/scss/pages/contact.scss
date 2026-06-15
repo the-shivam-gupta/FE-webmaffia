@@ -80,6 +80,7 @@
         address{
             padding: 0;
             a{
+                font-size: 2.1rem;
                 color: $black;
             }
         }
@@ -141,6 +142,16 @@
     }
 }
 
+.contact_persons_row{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5rem;
+}
+
+.contact_person{
+    font-size: 2.1rem;
+}
+
 .contact_address{
     display: flex;
     justify-content: space-between;
@@ -178,7 +189,7 @@
             }
             a{
                 display: block;
-                font-size: 2.712rem;
+                font-size: 2.1rem;
                 @include mobile(){
                     font-size: 3rem;
                     letter-spacing: 0.1rem;
