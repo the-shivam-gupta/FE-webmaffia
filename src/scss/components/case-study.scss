@@ -56,7 +56,6 @@
     li {
       position: relative;
       list-style: none;
-      max-width: 60%;
 
       &::before {
         content: "";
@@ -618,7 +617,7 @@
     }
 
     h4 {
-      max-width: 40%;
+      max-width: 60%;
 
       @include mobile() {
         max-width: 100%;
@@ -626,7 +625,7 @@
     }
 
     p {
-      max-width: 35%;
+      max-width: 45%;
       margin-top: 6rem;
 
       @include mobile() {
@@ -639,7 +638,7 @@
     z-index: 1;
     position: absolute;
     right: 0;
-    bottom: -2rem;
+    bottom: 0;
     width: 80rem;
 
     @include mobile() {
@@ -673,18 +672,13 @@
       position: relative;
       width: 100%;
       aspect-ratio: 1672 / 941;
-      overflow: hidden;
       line-height: 0;
     }
 
     .seo_slider_img,
     .swiper-slide img {
-      display: block;
-      width: auto !important;
-      max-width: 100%;
-      height: auto !important;
       object-fit: contain;
-      object-position: top center;
+      object-position: center;
     }
 
     .seo_slider_nav {
@@ -736,7 +730,8 @@
 
   .case_study_contact_section {
     margin: 10rem auto 0;
-    height: 110vh;
+    min-height: 110vh;
+    overflow: visible;
 
     @include mobile() {
       margin: 15rem 6.5rem 10rem;

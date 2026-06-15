@@ -2,20 +2,9 @@
 
 import Image from "next/image";
 import Banner from "@/components/Banner";
+import ServiceSelect from "@/components/ServiceSelect";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-
-const SERVICE_INTERESTS = [
-  { id: "Web_design", value: "Web design", label: "Web design" },
-  { id: "UI/UX_design", value: "UI/UX design", label: "UI/UX design" },
-  { id: "Web_development", value: "Web development", label: "Web development" },
-  { id: "SEO_specialist", value: "SEO specialist", label: "SEO specialist" },
-  { id: "Social_media_manager", value: "Social media manager", label: "Social media manager" },
-  { id: "Back_end_developer", value: "Back-end developer", label: "Back-end developer" },
-  { id: "UllUX_Intern", value: "UI/UX Intern", label: "Ul/UX Intern" },
-  { id: "Front_end_developer", value: "Front-end developer", label: "Front-end developer" },
-  { id: "Full_stack_developer", value: "Full-stack developer", label: "Full-stack developer" },
-];
 
 const bannerData = {
   imagePosition: "right",
@@ -60,9 +49,8 @@ export default function ContactPage() {
     organization: "",
     email: "",
     mobile: "",
-    url: "",
+    service: "",
     message: "",
-    interests: [],
     hear_about: [],
   });
 
@@ -163,29 +151,12 @@ export default function ContactPage() {
             required
           />
 
-          <label htmlFor="url">Website/Social Media Link</label>
-          <input
-            type="text"
-            name="url"
-            id="url"
-            value={form.url}
+          <label htmlFor="service">Services Interested In</label>
+          <ServiceSelect
+            id="service"
+            value={form.service}
             onChange={handleChange}
           />
-
-          <label htmlFor="interests">You are interested in</label>
-          <div className="input_checkox">
-            {SERVICE_INTERESTS.map(({ id, value, label }) => (
-              <label key={id} htmlFor={`contact_${id}`} className="checkmark">
-                <input
-                  type="checkbox"
-                  id={`contact_${id}`}
-                  checked={form.interests.includes(value)}
-                  onChange={() => toggleCheckbox("interests", value)}
-                />
-                <span>{label}</span>
-              </label>
-            ))}
-          </div>
 
           <label htmlFor="message">What&apos;s in your mind</label>
           <input

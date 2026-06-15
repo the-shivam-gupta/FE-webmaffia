@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import ServiceSelect from "@/components/ServiceSelect";
 
 export default function ContactFormSection({
   variant = "dark",
@@ -13,7 +14,7 @@ export default function ContactFormSection({
     organization: "",
     email: "",
     mobile: "",
-    url: "",
+    service: "",
   });
 
   const fieldId = (name) => (idPrefix ? `${idPrefix}_${name}` : name);
@@ -111,14 +112,11 @@ export default function ContactFormSection({
           required
         />
 
-        <label htmlFor={fieldId("url")}>Website/Social Media Link</label>
-        <input
-          type="url"
-          name="url"
-          id={fieldId("url")}
-          value={formData.url}
+        <label htmlFor={fieldId("service")}>Services Interested In</label>
+        <ServiceSelect
+          id={fieldId("service")}
+          value={formData.service}
           onChange={handleChange}
-          required
         />
 
         <button type="submit" className="cta_text">
