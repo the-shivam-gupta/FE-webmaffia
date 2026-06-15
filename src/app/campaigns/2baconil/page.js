@@ -71,9 +71,9 @@ export default function TwoBaconilCampaignPage() {
                                             <span className="campaign_award_card__type">
                                                 {award.type}
                                             </span>
-                                            <span className="campaign_award_card__year">
+                                            {/* <span className="campaign_award_card__year">
                                                 {award.year}
-                                            </span>
+                                            </span> */}
                                         </div>
                                         <h3 className="campaign_award_card__title">
                                             {award.title}

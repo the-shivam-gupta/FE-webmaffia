@@ -229,10 +229,13 @@
 
     .visit_website_button {
       position: absolute;
-      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      top: 45%;
       border-radius: 1.075rem;
-      border: 0.056rem solid #d9d9d9;
+      border: 0.056rem solid #000;
       padding: 1rem 2rem;
+      background-color: black;
       transition: all 0.3s ease;
 
       a {
@@ -240,15 +243,15 @@
         font-weight: 400;
         line-height: 1;
         letter-spacing: 0.05rem;
-        color: #000;
+        color: #fff;
         transition: color 0.3s ease;
       }
 
       &:hover {
-        background-color: #000;
+        background-color: #fff;
 
         a {
-          color: #fff;
+          color: #000;
         }
       }
     }
@@ -635,7 +638,7 @@
   .seo_slider {
     z-index: 1;
     position: absolute;
-    right: 30rem;
+    right: 0;
     bottom: -2rem;
     width: 80rem;
 

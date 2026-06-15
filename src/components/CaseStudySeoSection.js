@@ -23,9 +23,9 @@ export default function CaseStudySeoSection({
   return (
     <section data-section="seo_section" className="seo_section">
       <div>
-        <div className="sub_title">{tagLine}</div>
-        <h2 className="challenge_content__title">{title}</h2>
-        <h4>{subtitle}</h4>
+        <h2 className="challenge_content__title">{tagLine}</h2>
+        <h4>{title}<br />{subtitle}</h4>
+        <h4></h4>
         <p>{description}</p>
       </div>
       <div className="seo_slider">
