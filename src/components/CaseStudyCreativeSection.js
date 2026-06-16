@@ -98,7 +98,7 @@ export default function CaseStudyCreativeSection({
       <section data-section="creative_section" className="creative_section">
         <div className="creative_section_header">
           <div className="creative_section_intro">
-            <h2>Creatives</h2>
+            <h2 className="challenge_content__title">Creatives</h2>
             <div className="creative_tabs" role="tablist" aria-label="Creative content type">
               <button
                 type="button"
@@ -178,6 +178,7 @@ export default function CaseStudyCreativeSection({
                             sizes="48rem"
                             className="creative_post_img"
                           />
+                          <span className="creative_card_label">View Full Screen</span>
                         </div>
                       </button>
                     </SwiperSlide>
@@ -237,6 +238,7 @@ export default function CaseStudyCreativeSection({
                               className="creative_reel_img"
                             />
                           )}
+                          <span className="creative_card_label">View Full Screen</span>
                         </div>
                       </button>
                     </SwiperSlide>
@@ -270,9 +272,9 @@ export default function CaseStudyCreativeSection({
             onClick={handleClose}
             aria-label="Close preview"
           />
-            <div
-              className={`creative_lightbox_content${activeItem.type === "post" ? " creative_lightbox_content--post" : ""}`}
-            >
+          <div
+            className={`creative_lightbox_content${activeItem.type === "post" ? " creative_lightbox_content--post" : ""}`}
+          >
             <button
               type="button"
               className="creative_lightbox_close"

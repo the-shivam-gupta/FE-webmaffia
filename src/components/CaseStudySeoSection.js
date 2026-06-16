@@ -12,21 +12,39 @@ function normalizeSlide(slide, chartAlt) {
   return { alt: chartAlt, ...slide };
 }
 
+function SectionTitle({ heading, className }) {
+  const text = String(heading ?? "").trim();
+  if (!text) return null;
+
+  const words = text.split(/\s+/);
+  if (words.length <= 1) {
+    return <h2 className={className}>{text}</h2>;
+  }
+
+  const lastWord = words.pop();
+
+  return (
+    <h2 className={className}>
+      {words.join(" ")}
+      <br />
+      {lastWord}
+    </h2>
+  );
+}
+
 export default function CaseStudySeoSection({
-  title,
-  subtitle,
+  heading,
+  subHeading,
   description,
   chartSlides,
   chartAlt = "SEO growth chart",
-  tagLine,
 }) {
   return (
     <section data-section="seo_section" className="seo_section">
       <div>
-        <h2 className="challenge_content__title">{tagLine}</h2>
-        <h4>{title}<br />{subtitle}</h4>
-        <h4></h4>
-        <p>{description}</p>
+        <SectionTitle heading={heading} className="challenge_content__title" />
+        {subHeading ? <h4>{subHeading}</h4> : null}
+        {description ? <p>{description}</p> : null}
       </div>
       <div className="seo_slider">
         <Swiper

@@ -54,10 +54,13 @@ function ContentBlockSection({
 }) {
   const isSolution = isSolutionBlock(block, index);
   const sectionClass = isSolution ? "detail_solution flex" : "detail_challenge flex";
-  const { intro, items } = parseSimpleBulletItems(block.description);
-  const titledItems = parseTitledBulletItems(block.description);
+  const { intro, items, outro: simpleOutro } = parseSimpleBulletItems(block.description);
+  const { items: titledItems, outro: titledOutro } = parseTitledBulletItems(
+    block.description
+  );
   const useTitledList =
     isSolution && titledItems.some((item) => item.body);
+  const outro = useTitledList ? titledOutro : simpleOutro;
   const hasBulletList = useTitledList
     ? titledItems.length > 0
     : items.length > 0;
@@ -100,6 +103,7 @@ function ContentBlockSection({
         ) : !block.subHeading && block.description ? (
           <p className="challenge_content__para">{block.description.trim()}</p>
         ) : null}
+        {outro ? <p className="challenge_content__para">{outro}</p> : null}
       </div>
       <ContentBlockImage image={block.image} />
     </section>
@@ -169,9 +173,8 @@ export default function CaseStudyDetailPage({ caseStudy }) {
             return (
               <CaseStudySeoSection
                 key={`seo-${index}`}
-                tagLine={section.tagLine}
-                title={section.title}
-                subtitle={section.subtitle}
+                heading={section.heading}
+                subHeading={section.subHeading}
                 description={section.description}
                 chartSlides={section.chartSlides}
               />

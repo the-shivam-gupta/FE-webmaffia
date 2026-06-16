@@ -185,8 +185,11 @@ export default function Home() {
   const onServicesSwiper = useCallback(
     (swiper) => {
       serviceSwiperRef.current = swiper;
-      if (typeof window !== "undefined" && window.innerWidth > 768 && swiper.autoplay) {
-        swiper.autoplay.stop();
+      const isCompact = window.innerWidth <= 1024;
+      if (isCompact) {
+        swiper.autoplay?.start();
+      } else {
+        swiper.autoplay?.stop();
       }
       refreshScroll();
     },
@@ -196,8 +199,9 @@ export default function Home() {
   return (
     <main className="wrapper home_wrapper opacity_0">
       <div className="ml-setter">
-        <Banner data={bannerData} />
+        <Banner data={bannerData}>
           <CTA />
+        </Banner>
 
         <div className="main_horizontal" ref={mainHorizontalRef}>
             <div className="horizontal_section">
@@ -231,6 +235,13 @@ export default function Home() {
                 disableOnInteraction: false,
               }}
               onSwiper={onServicesSwiper}
+              onResize={(swiper) => {
+                if (window.innerWidth <= 1024) {
+                  swiper.autoplay?.start();
+                } else {
+                  swiper.autoplay?.stop();
+                }
+              }}
               navigation={{
                 prevEl: ".service-button-prev",
                 nextEl: ".service-button-next",
@@ -264,10 +275,10 @@ export default function Home() {
                 </SwiperSlide>
               ))}
               <div className="slide_cta">
-                <div className="service-button-prev cta_text">
+                <div className="service-button-prev swiper-button-prev cta_text">
                   View <span>Previous</span>
                 </div>
-                <div className="service-button-next cta_text">
+                <div className="service-button-next swiper-button-next cta_text">
                   View <span>Next</span>
                 </div>
               </div>

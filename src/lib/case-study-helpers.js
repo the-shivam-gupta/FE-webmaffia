@@ -15,6 +15,21 @@ export function splitBannerTitle(heading) {
   return { line1: text };
 }
 
+export function normalizeOverlayColor(color) {
+  const value = String(color ?? "").trim();
+  if (!value) return "";
+
+  if (/^#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(value)) {
+    return value;
+  }
+
+  if (/^([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(value)) {
+    return `${value}`;
+  }
+
+  return "";
+}
+
 export function buildCaseStudyBannerData(banner) {
   if (!banner) return null;
 
@@ -23,6 +38,8 @@ export function buildCaseStudyBannerData(banner) {
 
   return {
     imagePosition: banner.imagePosition || "background",
+    overlay: Boolean(banner.overlay),
+    overlayColor: normalizeOverlayColor(banner.overlayColor),
     priority: true,
     unoptimized: true,
     subheading: banner.tagLine
@@ -52,27 +69,41 @@ export function buildCaseStudyBannerData(banner) {
   };
 }
 
-export function parseSimpleBulletItems(description) {
-  if (!description) return { intro: "", items: [] };
+export function extractTrailingOutro(content) {
+  const outroMatch = content.match(/\n\s*\n(?!\s*-)([\s\S]+)$/);
 
-  const trimmed = description.trim();
-  const parts = trimmed.split(/(?:^|\n)\s*-\s+/);
+  if (!outroMatch) {
+    return { content, outro: "" };
+  }
+
+  return {
+    content: content.slice(0, outroMatch.index).trim(),
+    outro: outroMatch[1].trim(),
+  };
+}
+
+export function parseSimpleBulletItems(description) {
+  if (!description) return { intro: "", items: [], outro: "" };
+
+  const { content, outro } = extractTrailingOutro(description.trim());
+  const parts = content.split(/(?:^|\n)\s*-\s+/);
 
   if (parts.length <= 1) {
-    return { intro: trimmed, items: [] };
+    return { intro: content, items: [], outro };
   }
 
   return {
     intro: parts[0].trim(),
     items: parts.slice(1).map((item) => item.trim()).filter(Boolean),
+    outro,
   };
 }
 
 export function parseTitledBulletItems(description) {
-  if (!description) return [];
+  if (!description) return { items: [], outro: "" };
 
-  return description
-    .trim()
+  const { content, outro } = extractTrailingOutro(description.trim());
+  const items = content
     .split(/(?:^|\n)-\s+/)
     .slice(1)
     .map((block) => {
@@ -82,6 +113,8 @@ export function parseTitledBulletItems(description) {
       return { title, body };
     })
     .filter((item) => item.title || item.body);
+
+  return { items, outro };
 }
 
 export function isSolutionBlock(block, index) {
@@ -108,9 +141,8 @@ export function mapCaseStudySections(sections = []) {
     if (section.__component === "case-study.seo") {
       return {
         type: "seo",
-        tagLine: "Search Engine Optimization",
-        title: section.subHeading || section.heading,
-        subtitle: section.heading || section.subHeading,
+        heading: section.heading,
+        subHeading: section.subHeading,
         description: section.description,
         chartSlides: (section.graphs ?? []).map((graph) =>
           getStrapiImageUrl(graph)

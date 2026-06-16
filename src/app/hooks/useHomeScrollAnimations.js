@@ -17,7 +17,7 @@ export function useHomeScrollAnimations(mainHorizontalRef, serviceSwiperRef) {
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
-      mm.add("(min-width: 541px)", () => {
+      mm.add("(min-width: 1025px)", () => {
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: el,

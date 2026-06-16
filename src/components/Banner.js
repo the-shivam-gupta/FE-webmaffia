@@ -27,6 +27,8 @@ export default function Banner({
 }) {
   const {
     imagePosition = "right",
+    overlay = false,
+    overlayColor = "",
     subheading,
     subtitle,
     title,
@@ -46,22 +48,33 @@ export default function Banner({
       : [];
 
   const image = banner?.url ? (
-    <picture
-      className={imagePosition === "background" ? "detail_banner" : undefined}
+    <div
+      className={`banner_media${imagePosition === "background" ? " banner_media--background" : ""}`}
     >
-      {bannerMobile?.url ? (
-        <source media="(max-width: 540px)" srcSet={bannerMobile.url} />
+      <picture
+        className={imagePosition === "background" ? "detail_banner" : undefined}
+      >
+        {bannerMobile?.url ? (
+          <source media="(max-width: 540px)" srcSet={bannerMobile.url} />
+        ) : null}
+        <Image
+          src={banner.url}
+          alt={banner.alt ?? ""}
+          width={banner.width ?? 871}
+          height={banner.height ?? 767}
+          className="dark_img"
+          priority={priority}
+          unoptimized={unoptimized}
+        />
+      </picture>
+      {overlay ? (
+        <span
+          className="banner_media__overlay"
+          style={overlayColor ? { backgroundColor: overlayColor } : undefined}
+          aria-hidden="true"
+        />
       ) : null}
-      <Image
-        src={banner.url}
-        alt={banner.alt ?? ""}
-        width={banner.width ?? 871}
-        height={banner.height ?? 767}
-        className="dark_img"
-        priority={priority}
-        unoptimized={unoptimized}
-      />
-    </picture>
+    </div>
   ) : null;
 
   const content = (
@@ -87,10 +100,10 @@ export default function Banner({
       {subtitle?.enabled ? (
         <h4>{renderMultilineText(subtitle.text)}</h4>
       ) : null}
-      {children}
       {body.map((text, index) => (
         <p key={index}>{text}</p>
       ))}
+      {children}
     </div>
   );
 

@@ -1,6 +1,6 @@
 .case_study_detail {
   .hero_section {
-    height: 100rem;
+    height: 90rem;
 
     @include mobile() {
       height: auto;
@@ -46,7 +46,7 @@
 
     &__title_2 {
       font-size: 6.4rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 4rem;
       line-height: 1.2;
       letter-spacing: 0;
     }
@@ -69,7 +69,7 @@
       }
 
       p {
-        margin: 0 0 2rem 4rem;
+        margin: 0 0 6rem 4rem;
       }
     }
   }
@@ -107,12 +107,19 @@
     }
   }
 
-  .detail_banner {
+  .banner_media--background {
     position: absolute !important;
     top: 0;
     left: 0;
     width: 100%;
     margin-left: 0 !important;
+    z-index: 0;
+
+    .detail_banner {
+      position: relative !important;
+      width: 100%;
+      margin-left: 0 !important;
+    }
 
     img {
       width: 100% !important;
@@ -120,6 +127,15 @@
 
     @include mobile() {
       position: relative !important;
+    }
+  }
+
+  .detail_banner {
+    display: block;
+    width: 100%;
+
+    img {
+      width: 100% !important;
     }
   }
 
@@ -257,10 +273,27 @@
   }
 
   .creative_section {
-    margin: 0 26rem 16rem 10.1rem;
+    background-color: #fafafa;
+    margin-left: -6.5rem;
+    margin-right: -6.5rem;
+    padding: 10rem 26rem 12rem 10.1rem;
+    margin-bottom: 16rem;
 
     @include mobile() {
-      margin: 0 6.5rem 12rem;
+      margin-left: 0;
+      margin-right: 0;
+      padding: 8rem 6.5rem 12rem;
+      margin-bottom: 12rem;
+    }
+  }
+
+  .creative_section_intro {
+    h2 {
+      line-height: 1;
+      font-size: 13.5rem;
+      margin: 0;
+      letter-spacing: 1rem;
+      color: $black;
     }
   }
 
@@ -346,7 +379,6 @@
   }
 
   .creative_content {
-    --creative-card-height: min(56rem, calc(100svh - 40rem));
     --creative-visible-count: 1;
     --creative-slide-gap: 20px;
     animation: creativeContentFadeIn 0.35s ease;
@@ -362,10 +394,6 @@
 
     @media screen and (min-width: 1440px) {
       --creative-visible-count: 4;
-    }
-
-    @include mobile() {
-      --creative-card-height: min(36rem, calc(100svh - 46rem));
     }
   }
 
@@ -458,6 +486,7 @@
     display: block;
     width: 100%;
     max-width: 100%;
+    margin: 0;
     padding: 0;
     border: none;
     background: none;
@@ -468,26 +497,33 @@
     text-align: left;
   }
 
-  .creative_reel_card {
-    width: min(100%, calc(var(--creative-card-height) * 480 / 854));
-    margin: 0 auto;
-  }
-
-  .creative_reel_media {
-    position: relative;
-    width: 100%;
-    height: var(--creative-card-height);
-    overflow: hidden;
-    border-radius: 2rem;
-  }
-
+  .creative_reel_media,
   .creative_post_media {
     position: relative;
-    width: min(100%, var(--creative-card-height));
-    aspect-ratio: 1 / 1;
-    margin: 0 auto;
+    width: 100%;
+    aspect-ratio: 480 / 854;
+    height: auto;
     overflow: hidden;
     border-radius: 2rem;
+  }
+
+  .creative_card_label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    padding: 1.6rem 2rem;
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1.2;
+    color: $white;
+    text-align: center;
+    background: linear-gradient(to bottom, transparent 10%, #000 90%);
+    border-radius: 0 0 2rem 2rem;
+    box-shadow: 0 -0.4rem 1.6rem rgba($black, 0.25);
+    pointer-events: none;
+    box-sizing: border-box;
   }
 
   .creative_reel_img,
@@ -522,7 +558,7 @@
   .creative_reels_nav,
   .creative_posts_nav {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     gap: 12rem;
     margin-top: 3rem;
@@ -617,7 +653,7 @@
     }
 
     h4 {
-      max-width: 60%;
+      max-width: 50%;
 
       @include mobile() {
         max-width: 100%;
@@ -793,7 +829,7 @@
   max-width: min(90vw, 120rem);
   max-height: calc(100vh - 16rem);
   border-radius: 1.2rem;
-  overflow: hidden;
+  overflow: visible;
   background: $black;
   box-shadow: 0 2rem 6rem rgba($black, 0.35);
   animation: creativeLightboxContentIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -818,23 +854,25 @@
   position: absolute;
   top: 1.6rem;
   right: 1.6rem;
-  z-index: 2;
-  width: 4.4rem;
-  height: 4.4rem;
+  z-index: 3;
+  width: 4.8rem;
+  height: 4.8rem;
   border: none;
   border-radius: 50%;
-  background: #000;
-  color: $white;
+  background: $white;
+  color: $black;
   font-size: 3rem;
   line-height: 1;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s ease;
+  box-shadow: 0 0.4rem 1.6rem rgba($black, 0.35);
+  transition: background 0.2s ease, color 0.2s ease;
 
   &:hover {
-    background: #242121;
+    background: $black;
+    color: $white;
   }
 }
 
@@ -843,6 +881,8 @@
   align-items: center;
   justify-content: center;
   line-height: 0;
+  overflow: hidden;
+  border-radius: 1.2rem;
 
   &--post {
     background: $black;

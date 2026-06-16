@@ -42,9 +42,21 @@ html{
                 }
             }
         }
-        .ourService-swiper .slide_cta .service-button-prev span,
-        .slide_cta .swiper-button-prev span{
-            color: rgba(255, 255,255,0.2);
+        .ourService-swiper .slide_cta,
+        .slide_cta{
+            .service-button-prev,
+            .swiper-button-prev{
+                color: rgba(255, 255, 255, 0.4);
+            }
+            .service-button-prev span,
+            .service-button-next span,
+            .swiper-button-prev span,
+            .swiper-button-next span{
+                color: rgba(255, 255, 255, 0.4);
+                &::before{
+                    background: rgba(255, 255, 255, 0.4);
+                }
+            }
         }
         .our_work .work_box a, .our_work .work_box .awards_work{
             img{
@@ -102,7 +114,7 @@ html{
             border-color: $white;
             color: $white;
         }
-        footer {
+        footer, .footer_info {
             background: $white;
             .footer_container{
                 .footer_title{
