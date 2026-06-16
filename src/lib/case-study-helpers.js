@@ -1,4 +1,9 @@
-import { getStrapiAssetUrl, getStrapiImageUrl } from "@/lib/strapiPage";
+import { getStrapiAssetUrl, getStrapiImageUrl, rewriteStrapiHtmlUrls } from "@/lib/strapiPage";
+
+export function isRichTextDescription(description) {
+  if (!description) return false;
+  return /<[a-z][\s\S]*>/i.test(String(description).trim());
+}
 
 export function splitBannerTitle(heading) {
   const text = String(heading ?? "").trim();
@@ -199,7 +204,7 @@ export function normalizeCaseStudy(caseStudy) {
       tagLine: block.tagLine,
       heading: block.heading,
       subHeading: block.subHeading,
-      description: block.description,
+      description: rewriteStrapiHtmlUrls(block.description),
       image: mapStrapiMediaAsset(block.image ?? block.sideImage ?? block.media),
     })),
     showcase: caseStudy.showcase

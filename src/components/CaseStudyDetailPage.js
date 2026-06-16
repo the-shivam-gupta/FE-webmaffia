@@ -6,6 +6,7 @@ import CaseStudyCreativeSection from "@/components/CaseStudyCreativeSection";
 import CaseStudySeoSection from "@/components/CaseStudySeoSection";
 import ContactFormSection from "@/components/ContactFormSection";
 import {
+  isRichTextDescription,
   isSolutionBlock,
   parseSimpleBulletItems,
   parseTitledBulletItems,
@@ -54,12 +55,14 @@ function ContentBlockSection({
 }) {
   const isSolution = isSolutionBlock(block, index);
   const sectionClass = isSolution ? "detail_solution flex" : "detail_challenge flex";
-  const { intro, items, outro: simpleOutro } = parseSimpleBulletItems(block.description);
+  const description = String(block.description ?? "").trim();
+  const isRichText = isRichTextDescription(description);
+  const { intro, items, outro: simpleOutro } = parseSimpleBulletItems(description);
   const { items: titledItems, outro: titledOutro } = parseTitledBulletItems(
-    block.description
+    description
   );
   const useTitledList =
-    isSolution && titledItems.some((item) => item.body);
+    !isRichText && isSolution && titledItems.some((item) => item.body);
   const outro = useTitledList ? titledOutro : simpleOutro;
   const hasBulletList = useTitledList
     ? titledItems.length > 0
@@ -80,30 +83,39 @@ function ContentBlockSection({
             <p className="challenge_content__para">{block.subHeading}</p>
           )
         ) : null}
-        {intro && hasBulletList && !useTitledList ? (
-          <h3 className="challenge_content__title_2">{intro}</h3>
-        ) : null}
-        {useTitledList && titledItems.length > 0 ? (
-          <ul className="jashList2">
-            {titledItems.map((item) => (
-              <li key={item.title}>
-                <h5>{item.title}</h5>
-                {item.body ? <p>{item.body}</p> : null}
-              </li>
-            ))}
-          </ul>
-        ) : items.length > 0 ? (
-          <ul className="jashList">
-            {items.map((item) => (
-              <li key={item}>
-                <p>{item}</p>
-              </li>
-            ))}
-          </ul>
-        ) : !block.subHeading && block.description ? (
-          <p className="challenge_content__para">{block.description.trim()}</p>
-        ) : null}
-        {outro ? <p className="challenge_content__para">{outro}</p> : null}
+        {isRichText ? (
+          <div
+            className="challenge_content__rich_text"
+            dangerouslySetInnerHTML={{ __html: description }}
+          />
+        ) : (
+          <>
+            {intro && hasBulletList && !useTitledList ? (
+              <h3 className="challenge_content__title_2">{intro}</h3>
+            ) : null}
+            {useTitledList && titledItems.length > 0 ? (
+              <ul className="jashList2">
+                {titledItems.map((item) => (
+                  <li key={item.title}>
+                    <h5>{item.title}</h5>
+                    {item.body ? <p>{item.body}</p> : null}
+                  </li>
+                ))}
+              </ul>
+            ) : items.length > 0 ? (
+              <ul className="jashList">
+                {items.map((item) => (
+                  <li key={item}>
+                    <p>{item}</p>
+                  </li>
+                ))}
+              </ul>
+            ) : !block.subHeading && description ? (
+              <p className="challenge_content__para">{description}</p>
+            ) : null}
+            {outro ? <p className="challenge_content__para">{outro}</p> : null}
+          </>
+        )}
       </div>
       <ContentBlockImage image={block.image} />
     </section>
