@@ -457,6 +457,23 @@ p{
     }
 }
 
+@media (min-width: 1025px) {
+    .main_horizontal{
+        --main-horizontal-offset: 15.5rem;
+    }
+
+    .horizontal_section,
+    .ourService-swiper,
+    .ourService-swiper.testimonial_wrapper{
+        top: var(--main-horizontal-offset);
+        height: calc(100vh - var(--main-horizontal-offset));
+    }
+
+    .ourService-swiper .swiper-slide{
+        overflow: visible;
+    }
+}
+
 @media (max-width: 1024px) {
     .main_horizontal{
         height: auto;

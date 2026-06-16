@@ -22,7 +22,7 @@ export function useHomeScrollAnimations(mainHorizontalRef, serviceSwiperRef) {
           scrollTrigger: {
             trigger: el,
             pin: true,
-            start: "0%",
+            start: "top top",
             end: "3000",
             scrub: 2,
             invalidateOnRefresh: true,
