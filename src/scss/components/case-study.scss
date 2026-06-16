@@ -460,7 +460,7 @@
     align-items: center;
     gap: 1.2rem;
     flex-shrink: 0;
-    margin-top: 2rem;
+    margin-top: 7rem;
     padding: 1.2rem 2rem;
     border: 0.1rem solid $black;
     border-radius: 0.8rem;
@@ -580,7 +580,8 @@
     width: 100%;
     height: var(--creative-card-height);
     overflow: hidden;
-    border-radius: 2rem;
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
     line-height: 0;
   }
 
@@ -590,7 +591,8 @@
     aspect-ratio: 1 / 1;
     margin: 0 auto;
     overflow: hidden;
-    border-radius: 2rem;
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
     line-height: 0;
   }
 
@@ -605,7 +607,8 @@
     color: $black;
     text-align: center;
     border: 0.1rem solid rgb(199, 199, 199);
-    border-radius: 2rem;
+    border-bottom-left-radius: 2rem;
+    border-bottom-right-radius: 2rem;
     pointer-events: none;
     box-sizing: border-box;
   }

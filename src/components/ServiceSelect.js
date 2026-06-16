@@ -3,10 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 
 export const SERVICE_OPTIONS = [
-  "Web Design",
-  "Web Development",
-  "SEO",
+  "Web Design & Development",
   "Social Media Management",
+  "AI Services",
+  "Digital Strategy",
+  "Search Engine Optimization",
+  "Video Content"
 ];
 
 export default function ServiceSelect({

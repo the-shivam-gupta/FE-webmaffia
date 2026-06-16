@@ -98,7 +98,7 @@ export default function Banner({
         ) : null}
       </h1>
       {subtitle?.enabled ? (
-        <h4>{renderMultilineText(subtitle.text)}</h4>
+        <h4 className="h4_text">{renderMultilineText(subtitle.text)}</h4>
       ) : null}
       {body.map((text, index) => (
         <p key={index}>{text}</p>

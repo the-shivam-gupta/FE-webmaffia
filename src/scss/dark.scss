@@ -105,6 +105,43 @@ html{
         .contact_us .form label, .contact_us .form input{
             color: $white;
         }
+        .case_study_detail .case_study_contact_section .footer_container--light {
+            .footer_title {
+                color: $white !important;
+            }
+
+            .form {
+                label,
+                input {
+                    color: $white !important;
+                }
+
+                input {
+                    border-bottom-color: $gray_medium_dark;
+
+                    &:focus {
+                        border-bottom-color: $white;
+                    }
+                }
+
+                .form_service_select__trigger {
+                    color: $white;
+                    border-bottom-color: $gray_medium_dark;
+
+                    &--placeholder span:first-child {
+                        color: $gray_medium_dark;
+                    }
+                }
+
+                .cta_text span {
+                    color: $white !important;
+
+                    &::before {
+                        background: $white;
+                    }
+                }
+            }
+        }
         .input_checkox .checkmark input:checked ~ span{
             background: $white;
             border-color: $white;

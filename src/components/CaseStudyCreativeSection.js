@@ -178,16 +178,16 @@ export default function CaseStudyCreativeSection({
                             sizes="48rem"
                             className="creative_post_img"
                           />
-                          <span className="creative_card_fullsize" aria-hidden="true">
+                          {/* <span className="creative_card_fullsize" aria-hidden="true">
                             <Image
                               src="/assets/icons/full-size.png"
                               alt=""
                               width={32}
                               height={32}
                             />
-                          </span>
+                          </span> */}
                         </div>
-                        {/* <span className="creative_card_label">View Full Screen</span> */}
+                        <span className="creative_card_label">View Full Screen</span>
                       </button>
                     </SwiperSlide>
                   ))}
@@ -246,16 +246,16 @@ export default function CaseStudyCreativeSection({
                               className="creative_reel_img"
                             />
                           )}
-                          <span className="creative_card_fullsize" aria-hidden="true">
+                          {/* <span className="creative_card_fullsize" aria-hidden="true">
                             <Image
                               src="/assets/icons/full-size.png"
                               alt=""
                               width={32}
                               height={32}
                             />
-                          </span>
+                          </span> */}
                         </div>
-                        {/* <span className="creative_card_label">View Full Screen</span> */}
+                        <span className="creative_card_label">View Full Screen</span>
                       </button>
                     </SwiperSlide>
                   ))}
