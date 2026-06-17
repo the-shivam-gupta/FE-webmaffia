@@ -10,11 +10,20 @@ const MODAL_ANIMATION_MS = 350;
 const CREATIVE_SWIPER_SETTINGS = {
   slidesPerView: "auto",
   slidesPerGroup: 1,
-  spaceBetween: 20,
-  speed: 400,
+  spaceBetween: 12,
+  speed: 450,
+  grabCursor: true,
   watchOverflow: true,
   breakpoints: {
-    1024: { spaceBetween: 24 },
+    541: {
+      spaceBetween: 10,
+    },
+    1024: {
+      spaceBetween: 20,
+    },
+    1440: {
+      spaceBetween: 24,
+    },
   },
 };
 

@@ -20,7 +20,7 @@
 }
 
 .services_parent{
-    margin: 0 12rem;
+    margin: 0 8rem 0rem;
     section{
         margin-bottom: 15rem;
         @include mobile(){
@@ -156,9 +156,9 @@
 
 
 .services_work{
-    margin-bottom: 15rem;
+    margin: 0 8rem 15rem;
     @include mobile(){
-        margin: 0 6.5rem 5rem;
+        margin: 0 4rem 10rem;
     }
 }
 .workspace{

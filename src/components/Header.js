@@ -46,9 +46,23 @@ const Header = () => {
 
   const setServicesSubmenuOpen = (open) => {
     setServicesOpen(open);
-    const content = servicesSubRef.current;
-    if (content) {
-      content.style.maxHeight = open ? `${content.scrollHeight}px` : "0";
+  };
+
+  const toggleServicesSubmenu = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setServicesOpen((open) => !open);
+  };
+
+  const handleServicesMouseEnter = () => {
+    if (window.matchMedia("(min-width: 541px)").matches) {
+      setServicesSubmenuOpen(true);
+    }
+  };
+
+  const handleServicesMouseLeave = () => {
+    if (window.matchMedia("(min-width: 541px)").matches) {
+      setServicesSubmenuOpen(false);
     }
   };
 
@@ -158,12 +172,20 @@ const Header = () => {
             <div
               className={`menu_link menu_btn${servicesOpen ? " active" : ""}`}
               data-number="02"
-              onMouseEnter={() => setServicesSubmenuOpen(true)}
-              onMouseLeave={() => setServicesSubmenuOpen(false)}
+              onMouseEnter={handleServicesMouseEnter}
+              onMouseLeave={handleServicesMouseLeave}
             >
               <Link href="/services" onClick={() => setMenuOpen(false)}>
                 Services
               </Link>
+
+              <button
+                type="button"
+                className="menu_btn_toggle"
+                aria-expanded={servicesOpen}
+                aria-label={servicesOpen ? "Close services menu" : "Open services menu"}
+                onClick={toggleServicesSubmenu}
+              />
 
               <div className="sub_menu_content" ref={servicesSubRef}>
                 <ul className="sub_menu">

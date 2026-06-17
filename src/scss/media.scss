@@ -31,8 +31,9 @@
         height: 31.6rem;
     }
     .awards .work_box a, .awards .work_box .awards_work{
-        width: 25.1%;
-        height: 28rem;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
     }
     .menu_wrapper{
         top: -150rem;
@@ -159,8 +160,11 @@
         .our_work .work_box a, .our_work .work_box .awards_work{
             height: 33.6rem;
         }
-        .awards  .work_box a{
-            height: 31.6rem;
+        .awards  .work_box a,
+        .awards .work_box .awards_work{
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1;
         }
     }
 }
@@ -186,8 +190,9 @@
         height: 30rem;
     }
     .awards .work_box a, .awards .work_box .awards_work{
-        width: 50%;
-        height: 28rem;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
     }
     .main_horizontal{
         padding-left: 0 !important;

@@ -36,9 +36,6 @@
             &:nth-child(odd){
                 justify-content: flex-end;
                 gap: 9.5rem;
-                @include mobile(){
-                    gap: 0;
-                }
                 p{
                     @include mobile(){
                         padding-right: 15rem;
@@ -55,11 +52,6 @@
                 @include mobile(){
                     flex-direction: column-reverse;
                     align-items: flex-start;
-                }
-                &>div{
-                    @include mobile(){
-                        padding-left: 15rem;
-                    }
                 }
                 .service-swiper{
                     &>img{

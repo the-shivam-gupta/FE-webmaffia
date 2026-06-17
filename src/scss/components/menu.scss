@@ -175,34 +175,38 @@ header{
                 padding: 0;
                 font-family: inherit;
                 letter-spacing: inherit;
+                text-decoration: none;
                 &::after{
                     content: '';
                     position: absolute;
                     width: 105%;
+                    height: 0.2rem;
                     left: -0.5rem;
-                    bottom: 38%;
-                    height: 0.15rem;
+                    top: 50%;
+                    margin-top: -0.1rem;
                     background: $white;
                     transform: scaleX(0);
-                    transform-origin: bottom right;
-                    transition: transform 0.3s ease-in;
+                    transform-origin: right center;
+                    transition: transform 0.45s ease-in-out;
+                    pointer-events: none;
                 }
                 &:hover{
                     &::after{
                         transform: scaleX(1);
-                        transform-origin: bottom left;
+                        transform-origin: left center;
                     }
                 }
             }
             .sub_menu_content{
                 max-height: 0;
                 overflow: hidden;
-                transition: max-height 0.3s ease, padding 0.3s ease;
+                opacity: 0;
+                transition: max-height 0.6s ease-in-out, opacity 0.45s ease-in-out, padding 0.6s ease-in-out;
                 width: 230%;
                 @include mobile(){
                     width: auto;
-                    max-height: none;
-                    overflow: auto;
+                    max-height: 0;
+                    overflow: hidden;
                 }
                 .sub_menu{
                     display: flex;
@@ -289,9 +293,14 @@ header{
                 margin-bottom: 1.5rem;
                 a{
                     color: $white_30;
+                    font-size: 1.8rem;
+                    line-height: 1.4;
                     transition: all .3s ease-in;
                     &:hover{
                         color: $white;
+                    }
+                    @include mobile(){
+                        font-size: 3rem;
                     }
                 }
             }
@@ -303,9 +312,19 @@ header{
             width: 77rem;
             gap: 5rem;
             @include mobile(){
-                margin-left: 10rem;
+                margin-left: 0;
+                width: 100%;
                 flex-direction: column;
                 gap: 0;
+
+                .country_region{
+                    width: 100%;
+                    margin-bottom: 5rem;
+
+                    &:last-child{
+                        margin-bottom: 0;
+                    }
+                }
             }
         }
         .contact_info{
@@ -351,17 +370,19 @@ header{
     }
     .menu_btn{
         position: relative;
-        &::after{
-            content: '';
-            width: 3.5rem;
-            height: 3.5rem;
-            background: url("/assets/images/right.png") no-repeat;
-            background-size: 100%;
+        .menu_btn_toggle{
             position: absolute;
             left: 82%;
             top: 2.6rem;
             transform: translateY(-50%) rotate(90deg);
-            transition: all 0.4s ease-in;
+            width: 3.5rem;
+            height: 3.5rem;
+            padding: 0;
+            border: none;
+            background: url("/assets/images/right.png") no-repeat;
+            background-size: 100%;
+            cursor: pointer;
+            transition: transform 0.6s ease-in-out;
             @include mobile(){
                 width: 5rem;
                 height: 5rem;
@@ -372,12 +393,26 @@ header{
         &:hover{
             .sub_menu_content{
                 max-height: 50rem;
+                opacity: 1;
+                @include mobile(){
+                    max-height: 0;
+                    opacity: 0;
+                }
             }
-            &::after{
+            .menu_btn_toggle{
                 transform: translateY(-50%) rotate(-90deg);
                 @include mobile(){
                     transform: translateY(-50%) rotate(90deg);
                 }
+            }
+        }
+        &.active{
+            .sub_menu_content{
+                max-height: 50rem;
+                opacity: 1;
+            }
+            .menu_btn_toggle{
+                transform: translateY(-50%) rotate(-90deg);
             }
         }
     }

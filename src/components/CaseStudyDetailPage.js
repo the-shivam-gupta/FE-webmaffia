@@ -138,7 +138,8 @@ export default function CaseStudyDetailPage({ caseStudy }) {
         {banner ? <Banner data={banner} /> : null}
 
         {contentBlocks.length > 0 || showcase ? (
-          <div className="detail_sections">
+          <div className="case_study_container">
+            <div className="detail_sections">
             {contentBlocks.map((block, index) => (
               <ContentBlockSection
                 key={`${block.heading}-${index}`}
@@ -177,6 +178,7 @@ export default function CaseStudyDetailPage({ caseStudy }) {
                 ) : null}
               </div>
             ) : null}
+          </div>
           </div>
         ) : null}
 

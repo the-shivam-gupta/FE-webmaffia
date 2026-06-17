@@ -64,7 +64,10 @@
             margin-left: 6.5rem;
         }
         .work_box{
-            margin-bottom: 17.5rem;
+            width: 100%;
+            max-width: 80%;
+            margin: 5rem 0 18rem;
+            gap: 6rem;
             @include mobile(){
                 margin-bottom: 8rem;
             }

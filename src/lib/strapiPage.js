@@ -225,7 +225,10 @@ async function fetchCaseStudiesRaw() {
     );
 
     if (!response.ok) {
-        throw new Error("Failed to fetch case studies");
+        const errorBody = await response.text().catch(() => "");
+        throw new Error(
+            `Failed to fetch case studies (${response.status})${errorBody ? `: ${errorBody.slice(0, 200)}` : ""}`
+        );
     }
 
     const data = await response.json();

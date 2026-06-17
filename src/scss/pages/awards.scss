@@ -22,6 +22,7 @@
 
 .award_section{
     position: relative;
+    margin: 0 8rem 5rem;
     @include mobile(){
         margin: 30rem 6.5rem 0;
     }

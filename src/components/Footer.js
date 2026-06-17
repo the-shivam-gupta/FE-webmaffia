@@ -16,6 +16,8 @@ const WORK_LINKS = [
   { href: "/blog", label: "Blog" },
   { href: "/career", label: "Career" },
   { href: "/contact", label: "Contact" },
+  { href: "/about", label: "About Us" },
+  { href: "/case-study", label: "Our Work" },
 ];
 
 const SERVICE_LINKS = [
@@ -25,6 +27,7 @@ const SERVICE_LINKS = [
   { href: "/social-media-marketing-strategy", label: "Social Media" },
   { href: "/content-marketing-strategy", label: "Content Marketing" },
   { href: "/app-store-optimization", label: "App Store Optimization" },
+  { href: "/ai-powered-solutions-services", label: "AI Services" },
 ];
 
 const Footer = () => {
@@ -46,7 +49,7 @@ const Footer = () => {
 
         <div className="footer_col footer_col--work">
           <div className="footer_col_content">
-            <div className="footer_col_title">Our Work</div>
+            <div className="footer_col_title">Quick Links</div>
             <ul className="footer_links footer_links--spaced">
               {WORK_LINKS.map(({ href, label }) => (
                 <li key={href}>

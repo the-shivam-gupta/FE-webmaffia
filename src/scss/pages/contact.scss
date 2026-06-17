@@ -105,7 +105,6 @@
     .contact_address{
         margin-left: 12rem;
         margin-bottom: 21rem;
-        width: 145rem;
         @include mobile(){
             width: 100%;
             margin-left: 0;
@@ -121,6 +120,11 @@
             a{
                 font-size: 2.1rem;
                 color: $black;
+                line-height: 1.4;
+
+                @include mobile(){
+                    font-size: 3rem;
+                }
             }
         }
     }
@@ -176,19 +180,33 @@
     font-size: 3rem;
     font-weight: 500;
     color: $black;
+    margin-bottom: 2rem;
     @include mobile(){
-        font-size: 4rem;
+        font-size: 3.2rem;
+        margin-bottom: 2rem;
     }
 }
 
 .contact_persons_row{
     display: flex;
     flex-wrap: wrap;
-    gap: 5rem;
+
+    @include mobile(){
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 7rem;
+    }
 }
 
 .contact_person{
     font-size: 2.1rem;
+
+    @include mobile(){
+        font-size: 3rem;
+        line-height: 1.4;
+        display: block;
+        margin-bottom: 1.2rem;
+    }
 }
 
 .contact_address{
@@ -199,10 +217,29 @@
         flex-direction: column;
     }
     .country_container{
+        display: flex;
+        align-items: flex-start;
+        width: 100%;
+
         @include mobile(){
-            display: flex;
-            justify-content: flex-start;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 5rem 3rem;
+            align-items: start;
+        }
+
+        .country_region{
+            flex: 1;
+            min-width: 0;
+
+            @include mobile(){
+                width: 100%;
+                margin-bottom: 0;
+
+                &:last-child{
+                    grid-column: 1 / -1;
+                }
+            }
         }
     }
     .h2{
@@ -223,16 +260,14 @@
         .contact_info{
             margin-top: 1.5rem;
             margin-bottom: 4rem;
-            @include mobile(){
-                margin-bottom: 8rem;
-            }
+
             a{
                 display: block;
                 font-size: 2.1rem;
                 @include mobile(){
-                    font-size: 3rem;
-                    letter-spacing: 0.1rem;
-                    margin-bottom: 2rem;
+                    font-size: 2.8rem;
+                    letter-spacing: 0.05rem;
+                    margin-bottom: 1.2rem;
                 }
             }
         }
