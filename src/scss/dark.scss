@@ -42,6 +42,9 @@ html{
                 }
             }
         }
+        .client_para, .contact_person{
+            color: $white;
+        }
         .ourService-swiper .slide_cta,
         .slide_cta{
             .service-button-prev,
@@ -90,8 +93,123 @@ html{
         .main_horizontal .horizontal_sliders .cta_text span::before{
             background: rgba(255, 255, 255, 0.4);
         }
-        .dark_img{
-            filter: invert(1);
+        .contact_us .form,
+        .menu_wrapper form,
+        .case_study_detail .case_study_contact_section .footer_container--light .form {
+            .form_service_select__menu {
+                background: $black_light;
+                border-color: rgba($white, 0.15);
+                box-shadow: 0 0.4rem 2rem rgba($black, 0.5);
+
+                li button {
+                    color: rgba($white, 0.7);
+
+                    &:hover,
+                    &.is-selected {
+                        background: rgba($white, 0.08);
+                        color: $white;
+                    }
+                }
+            }
+        }
+        .contact_us .form .form_service_select__trigger {
+            color: $white;
+            border-bottom-color: $gray_medium_dark;
+
+            &--placeholder span:first-child {
+                color: $gray_medium_dark;
+            }
+        }
+        .challenge_content__title, ul{
+            color: $white;
+        }
+        .case_study_detail .seo_slider .seo_slider_prev,
+        .case_study_detail .seo_slider .seo_slider_next{
+            color: $white;
+
+            span{
+                color: inherit;
+
+                &::before{
+                    background: currentColor;
+                }
+            }
+
+            &.swiper-button-disabled{
+                color: rgba(255, 255, 255, 0.4);
+            }
+        }
+        .case_study_detail .creative_section{
+            background-color: $black;
+
+            .challenge_content__title,
+            .creative_section_intro h2{
+                color: $white !important;
+            }
+
+            .creative_tab{
+                color: rgba(255, 255, 255, 0.6) !important;
+
+                &::after{
+                    background: $white;
+                }
+
+                &:hover{
+                    color: $white !important;
+                }
+
+                &--active{
+                    color: $white !important;
+                }
+
+                &--disabled,
+                &--disabled:hover{
+                    color: rgba(255, 255, 255, 0.4) !important;
+                }
+            }
+
+            .creative_instagram_link{
+                color: $white !important;
+                border-color: $white;
+
+                img{
+                    filter: brightness(0) invert(1);
+                }
+
+                &:hover{
+                    background: $white;
+                    color: $black !important;
+
+                    img{
+                        filter: brightness(0);
+                    }
+                }
+            }
+
+            .creative_posts_prev,
+            .creative_posts_next,
+            .creative_reels_prev,
+            .creative_reels_next{
+                color: $white !important;
+
+                span{
+                    color: inherit !important;
+
+                    &::before{
+                        background: currentColor;
+                    }
+                }
+
+                &.swiper-button-disabled{
+                    color: rgba(255, 255, 255, 0.4) !important;
+                }
+            }
+
+            .creative_post_card .creative_card_label,
+            .creative_reel_card .creative_card_label{
+                color: $white !important;
+                border-color: rgba(255, 255, 255, 0.3);
+            }
         }
         .service-swiper .swiper-wrapper .swiper-item{
             color: $white_60;

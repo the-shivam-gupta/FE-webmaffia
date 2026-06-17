@@ -682,22 +682,24 @@ h2, .sub_heading{
 }
 
 .our_work{
-    margin-bottom: 13.5rem;
+    margin: 0 8rem 13.5rem;
     @include mobile(){
         margin: 0 4rem;
     }
-    &:not(.awards) .work_box{
+    .work_box{
         width: 164.9rem;
-        display: flex;
-        align-items: flex-start;
-        flex-wrap: wrap;
+        max-width: 100%;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0;
         @include mobile(){
             width: auto;
             margin: 0;
+            grid-template-columns: repeat(2, 1fr);
         }
         a, .awards_work{
             width: 100%;
-            height: 100%;
+            height: 31.6rem;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -706,15 +708,15 @@ h2, .sub_heading{
             margin-bottom: -0.2rem;
             @include mobile(){
                 border: 1px solid $gray_light;
-                width: 100%;
                 height: 30rem;
                 margin-bottom: -0.3rem;
             }
             img{
                 width: 12.2rem;
+                height: auto;
+                object-fit: contain;
                 @include mobile(){
                     width: 20rem;
-    
                 }
             }
             &:hover{
@@ -801,54 +803,10 @@ h2, .sub_heading{
 
 .awards{
     margin: 5rem 8rem 5rem;
+    position: relative;
+    z-index: 2;
     .cta_box{
         margin-left: auto;
-    }
-    .work_box{
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0;
-        width: 100%;
-        max-width: 100%;
-        position: relative;
-        z-index: 99;
-
-        a,
-        .awards_work {
-            width: 100% !important;
-            height: auto !important;
-            aspect-ratio: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-right: -0.2rem;
-            margin-bottom: -0.2rem;
-            border: 2px solid $gray_light;
-
-            @include mobile() {
-                width: 100% !important;
-                height: auto !important;
-                aspect-ratio: 1;
-                border: 1px solid $gray_light;
-                margin-bottom: -0.3rem;
-            }
-
-            img {
-                width: 12.2rem;
-
-                @include mobile() {
-                    width: 20rem;
-                }
-            }
-
-            &:hover {
-                background: $black;
-
-                img {
-                    filter: invert(1);
-                }
-            }
-        }
     }
 }
 
@@ -899,31 +857,92 @@ h2, .sub_heading{
 }
 
 .testimonial_top{
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 13.5rem;
-    @include mobile(){
-        flex-direction: column-reverse;
-        gap: 20rem;
-    }
-    &>img{
-        width: 67.8rem;
-        margin-top: -40rem;
-        position: relative;
-        right: -1.5rem;
-        @include mobile(){
-            margin: 0;
-            right: auto;
-        }
-    }
+    display: contents;
 }
 
 .testimonial{
-    margin-bottom: 12rem;
+    margin: 22rem 8rem 12rem;
     position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 67.8rem;
+    column-gap: 3rem;
+    align-items: start;
     @include mobile(){
         margin: 0 6.5rem 12rem;
+        display: block;
+    }
+    .testimonial_top > div{
+        grid-column: 1;
+        grid-row: 1;
+        margin-bottom: 5.5rem;
+        .sub_heading{
+            margin-bottom: 0;
+        }
+    }
+    .testimonial_top > img,
+    .testimonial_top > span{
+        position: absolute;
+        top: -18rem;
+        right: -1.5rem;
+        width: 67.8rem !important;
+        height: auto !important;
+        z-index: 0;
+        pointer-events: none;
+    }
+    .testimonial-swiper{
+        grid-column: 1;
+        grid-row: 2;
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        height: auto !important;
+        align-self: start;
+    }
+    .swiper,
+    .swiper-wrapper,
+    .swiper-slide{
+        height: auto !important;
+    }
+    .testimonial_wrapper{
+        width: 100%;
+        margin: 0;
+    }
+    .slide_cta{
+        grid-column: 1;
+        grid-row: 3;
+        position: relative;
+        bottom: auto;
+        right: auto;
+        width: auto;
+        margin-top: 3rem;
+    }
+    > .swiper-pagination{
+        grid-column: 1;
+        grid-row: 4;
+        position: relative;
+        margin-top: 2rem;
+    }
+    @include mobile(){
+        .testimonial_top{
+            display: flex;
+            flex-direction: column-reverse;
+            gap: 20rem;
+            margin-bottom: 0;
+        }
+        .testimonial_top > img,
+        .testimonial_top > span{
+            position: relative;
+            top: auto;
+            margin: 0;
+            width: 100% !important;
+            pointer-events: auto;
+        }
+        .testimonial_top > div{
+            margin-bottom: 0;
+        }
     }
 }
 

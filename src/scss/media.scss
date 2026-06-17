@@ -27,13 +27,8 @@
         font-size: 7.65px;
     }
     .our_work .work_box a, .our_work .work_box .awards_work{
-        width: 41.4rem;
-        height: 31.6rem;
-    }
-    .awards .work_box a, .awards .work_box .awards_work{
         width: 100%;
-        height: auto;
-        aspect-ratio: 1;
+        height: 31.6rem;
     }
     .menu_wrapper{
         top: -150rem;
@@ -111,6 +106,11 @@
                 font-size: 2.801rem;
             }
         }
+        .testimonial .testimonial-swiper{
+            width: 100%;
+            max-width: 100%;
+            height: auto !important;
+        }
         .slide_cta{
             width: 37rem;
         }
@@ -160,12 +160,6 @@
         .our_work .work_box a, .our_work .work_box .awards_work{
             height: 33.6rem;
         }
-        .awards  .work_box a,
-        .awards .work_box .awards_work{
-            width: 100%;
-            height: auto;
-            aspect-ratio: 1;
-        }
     }
 }
 
@@ -186,13 +180,8 @@
         font-size: 4px !important;
     }
     .our_work .work_box a, .our_work .work_box .awards_work{
-        width: 50%;
-        height: 30rem;
-    }
-    .awards .work_box a, .awards .work_box .awards_work{
         width: 100%;
-        height: auto;
-        aspect-ratio: 1;
+        height: 30rem;
     }
     .main_horizontal{
         padding-left: 0 !important;

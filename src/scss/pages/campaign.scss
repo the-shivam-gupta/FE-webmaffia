@@ -46,9 +46,9 @@
             h1 {
                 line-height: 1.1;
                 max-width: 60%;
-                word-break: break-word;
 
                 @include mobile() {
+                    word-break: break-word;
                     max-width: 100%;
                     line-height: 1;
                     margin-bottom: 3rem;
@@ -151,7 +151,7 @@
                     width: 20rem;
                     height: 20rem;
 
-                    > span {
+                    >span {
                         display: flex !important;
                         align-items: center;
                         justify-content: center;
@@ -240,8 +240,8 @@
                 position: relative;
                 top: auto;
                 right: auto;
-                width: 100%;
-                margin: 0;
+                width: 80%;
+                margin: 0 auto;
             }
         }
 
@@ -274,8 +274,8 @@
                 height: 11.8rem;
 
                 @include mobile() {
-                    width: 8rem;
-                    height: 8rem;
+                    width: 11rem;
+                    height: 11rem;
                 }
             }
         }

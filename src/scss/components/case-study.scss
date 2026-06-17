@@ -304,6 +304,7 @@
 
     @include mobile() {
       margin-bottom: 15rem;
+      gap: 10rem;
     }
 
     & > div {
@@ -720,7 +721,7 @@
     box-sizing: border-box;
 
     @include mobile() {
-      font-size: 2rem;
+      font-size: 3rem;
       padding: 1rem 0.6rem;
       border-bottom-left-radius: 1rem;
       border-bottom-right-radius: 1rem;
@@ -784,8 +785,8 @@
     margin-top: 3rem;
 
     @include mobile() {
-      gap: 6rem;
-      margin-top: 4rem;
+      gap: 9rem;
+      margin-top: 8rem;
     }
   }
 
@@ -889,7 +890,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0 8rem 10rem;
+    margin: 3rem 8rem 10rem;
 
     @include mobile() {
       flex-direction: column;
@@ -1014,11 +1015,11 @@
     overflow: visible;
 
     @include tablet() {
-      min-height: 60vh;
+      min-height: 70vh;
     }
 
     @include mobile() {
-      min-height: 70vh;
+      min-height: 80vh;
       margin: 15rem 6.5rem 10rem;
     }
 

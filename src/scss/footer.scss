@@ -24,7 +24,7 @@
     @include mobile() {
       width: 100%;
       max-width: 50rem;
-      margin-top: 85rem;
+      margin-top: 105rem;
     }
   }
 
@@ -164,11 +164,11 @@
     flex-shrink: 0;
     width: 0;
     height: 0;
-    margin-bottom: 0.4rem;
-    border-left: 0.45rem solid transparent;
-    border-right: 0.45rem solid transparent;
-    border-top: 0.55rem solid currentColor;
-    opacity: 0.65;
+    margin-bottom: 0.15em;
+    border-left: 0.5em solid transparent;
+    border-right: 0.5em solid transparent;
+    border-top: 0.5em solid currentColor;
+    opacity: 0.85;
     transition: transform 0.2s ease;
   }
 

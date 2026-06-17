@@ -79,7 +79,7 @@ const Footer = () => {
           <div className="footer_col_content">
             <div className="footer_brand">Webmaffia</div>
             <div className="copyright">
-              © 2025 Webmaffia — Crafted with creativity and code in India.
+              © 2026 Webmaffia — Crafted with creativity and code in India.
             </div>
           </div>
         </div>

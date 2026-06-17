@@ -358,7 +358,7 @@ export default function Home() {
           <div className="work_box">
             {AWARDS.map((a) => (
               <div className="awards_work" key={a.src}>
-                <Image src={a.src} alt={a.alt} width={150} height={130} />
+                <Image src={a.src} alt={a.alt} width={127} height={88} />
               </div>
             ))}
           </div>
@@ -374,8 +374,7 @@ export default function Home() {
             <div>
               <h2 className="sub_title">TESTIMONIALS</h2>
               <div className="sub_heading">
-                What our <br />
-                clients <br />
+                What our clients <br />
                 are saying
               </div>
             </div>

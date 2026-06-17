@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toggleTheme } from "@/lib/theme";
+import ServiceSelect from "@/components/ServiceSelect";
 
 const Header = () => {
   const router = useRouter();
@@ -18,7 +19,7 @@ const Header = () => {
     organization: "",
     email: "",
     mobile: "",
-    url: "",
+    service: "",
   });
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -36,6 +37,9 @@ const Header = () => {
   const openMenu = (e) => {
     e.preventDefault();
     setMenuOpen(true);
+    if (window.matchMedia("(max-width: 540px)").matches) {
+      setServicesOpen(true);
+    }
   };
 
   const closeMenu = (e) => {
@@ -334,6 +338,13 @@ const Header = () => {
                 onChange={handleChange}
               />
 
+              <label htmlFor="h_service">Services Interested In</label>
+              <ServiceSelect
+                id="h_service"
+                value={formData.service}
+                onChange={handleChange}
+              />
+
               <label htmlFor="h_email">Your Email</label>
               <input
                 type="email"
@@ -353,15 +364,6 @@ const Header = () => {
                 value={formData.mobile}
                 onChange={handleChange}
                 required
-              />
-
-              <label htmlFor="h_url">Website/Social Media Link</label>
-              <input
-                type="text"
-                name="url"
-                id="h_url"
-                value={formData.url}
-                onChange={handleChange}
               />
 
               {error && <p className="form_error" role="alert">{error}</p>}

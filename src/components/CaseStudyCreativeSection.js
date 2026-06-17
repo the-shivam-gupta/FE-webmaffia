@@ -43,8 +43,18 @@ export default function CaseStudyCreativeSection({
   const [activeItem, setActiveItem] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
-  const isPosts = activeTab === "posts";
+  const isPosts = hasPosts && (!hasReels || activeTab === "posts");
   const showModal = (isOpen || isClosing) && activeItem;
+
+  useEffect(() => {
+    if (activeTab === "posts" && !hasPosts && hasReels) {
+      setActiveTab("reels");
+    }
+
+    if (activeTab === "reels" && !hasReels && hasPosts) {
+      setActiveTab("posts");
+    }
+  }, [activeTab, hasPosts, hasReels]);
 
   const openLightbox = (item) => {
     setActiveItem(item);
@@ -108,34 +118,32 @@ export default function CaseStudyCreativeSection({
         <div className="creative_section_header">
           <div className="creative_section_intro">
             <h2 className="challenge_content__title">Creatives</h2>
-            <div className="creative_tabs" role="tablist" aria-label="Creative content type">
-              <button
-                type="button"
-                className={`creative_tab${isPosts ? " creative_tab--active" : ""}${!hasPosts ? " creative_tab--disabled" : ""}`}
-                role="tab"
-                aria-selected={isPosts}
-                aria-disabled={!hasPosts}
-                disabled={!hasPosts}
-                onClick={() => {
-                  if (hasPosts) setActiveTab("posts");
-                }}
-              >
-                Posts
-              </button>
-              <button
-                type="button"
-                className={`creative_tab${!isPosts ? " creative_tab--active" : ""}${!hasReels ? " creative_tab--disabled" : ""}`}
-                role="tab"
-                aria-selected={!isPosts}
-                aria-disabled={!hasReels}
-                disabled={!hasReels}
-                onClick={() => {
-                  if (hasReels) setActiveTab("reels");
-                }}
-              >
-                Reels
-              </button>
-            </div>
+            {hasPosts || hasReels ? (
+              <div className="creative_tabs" role="tablist" aria-label="Creative content type">
+                {hasPosts ? (
+                  <button
+                    type="button"
+                    className={`creative_tab${isPosts ? " creative_tab--active" : ""}`}
+                    role="tab"
+                    aria-selected={isPosts}
+                    onClick={() => setActiveTab("posts")}
+                  >
+                    Posts
+                  </button>
+                ) : null}
+                {hasReels ? (
+                  <button
+                    type="button"
+                    className={`creative_tab${!isPosts ? " creative_tab--active" : ""}`}
+                    role="tab"
+                    aria-selected={!isPosts}
+                    onClick={() => setActiveTab("reels")}
+                  >
+                    Reels
+                  </button>
+                ) : null}
+              </div>
+            ) : null}
           </div>
           {instagramUrl ? (
             <a
