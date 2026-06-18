@@ -40,7 +40,7 @@ const WORK_ITEMS = [
     name: "Lupin",
     title: "Website Design - Development - SEO",
     url: "/case-study/lupin",
-    image: "/assets/images/work/listing/lupin-v2.png",
+    image: "/assets/images/work/listing/lupin-v3.png",
   },
   {
     name: "Lupin US",
@@ -82,13 +82,13 @@ const WORK_ITEMS = [
     name: "Saffola Fit Foodie",
     title: "Social Media",
     url: "/case-study/saffola-fit-foodie",
-    image: "/assets/images/work/listing/saffola.png",
+    image: "/assets/images/work/listing/saffola-v2.png",
   },
   {
     name: "Birla Sun Life",
     title: "Social Media",
     url: "/case-study/birla-sun-life",
-    image: "/assets/images/work/listing/birla.png",
+    image: "/assets/images/work/listing/birla-v2.png",
   },
   {
     name: "Catallyst",
