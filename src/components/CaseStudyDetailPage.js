@@ -254,11 +254,7 @@ export default function CaseStudyDetailPage({ caseStudy }) {
         ) : null}
 
         <section data-section="contact_section" className="case_study_contact_section">
-          <ContactFormSection
-            variant="light"
-            showIllustration
-            idPrefix={slug}
-          />
+          <ContactFormSection variant="light" />
         </section>
       </div>
     </main>

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 const SOCIAL_LINKS = [
@@ -31,8 +32,22 @@ const SERVICE_LINKS = [
 ];
 
 const Footer = () => {
+  const pathname = usePathname();
+  const showContactIllustration = /^\/case-study\/[^/]+$/.test(pathname ?? "");
+
   return (
     <footer>
+      {showContactIllustration ? (
+        <div className="footer_contact_illustration_layer" aria-hidden="true">
+          <Image
+            src="/assets/images/hands.svg"
+            alt=""
+            width={871}
+            height={767}
+            className="footer_contact_illustration"
+          />
+        </div>
+      ) : null}
       <div className="footer_nav">
         <div className="footer_col footer_col--social">
           <div className="footer_col_title">Social Media</div>

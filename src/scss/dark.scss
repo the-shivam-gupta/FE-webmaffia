@@ -42,6 +42,20 @@ html{
                 }
             }
         }
+        .case_study_detail .case_study_showcase_wrapper .visit_website_button{
+            background: $white;
+
+            &:hover{
+                border-color: $white;
+                background: $black;
+                a{
+                    color: $white;
+                }
+            }
+        }
+        .case_study_detail .case_study_showcase_wrapper .visit_website_button a{
+            color: $black;
+        }
         .client_para, .contact_person{
             color: $white;
         }
@@ -269,8 +283,19 @@ html{
             border-color: $white;
             color: $white;
         }
-        footer, .footer_info {
+        footer {
+            background: transparent;
+
+            &::before {
+                background: $white;
+            }
+        }
+
+        .footer_info {
             background: $white;
+        }
+
+        footer, .footer_info {
             .footer_container{
                 .footer_title{
                     color: $black !important;

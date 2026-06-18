@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function WorkListSection({ items }) {
@@ -16,11 +17,9 @@ export default function WorkListSection({ items }) {
       <div className={`work_box${expanded ? " active" : ""}`}>
         {items.map((item) => (
           <div className="work_item" key={`${item.name}-${item.image}`}>
-            <a
+            <Link
               href={item.url || "#"}
               className="work_img"
-              target="_blank"
-              rel="noopener noreferrer"
             >
               <Image
                 src={item.image}
@@ -28,15 +27,13 @@ export default function WorkListSection({ items }) {
                 width={540}
                 height={395}
               />
-            </a>
-            <a
+            </Link>
+            <Link
               href={item.url || "#"}
-              target="_blank"
-              rel="noopener noreferrer"
             >
               <h2 className="work_name">{item.name}</h2>
               <div className="work_title">{item.title}</div>
-            </a>
+            </Link>
           </div>
         ))}
       </div>

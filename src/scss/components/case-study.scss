@@ -1071,6 +1071,7 @@
     margin: 10rem auto 0;
     min-height: 110vh;
     overflow: visible;
+    position: relative;
 
     @include tablet() {
       min-height: 70vh;
@@ -1083,9 +1084,30 @@
 
     .footer_container {
       width: 100%;
+      overflow: visible;
+
+      .footer_title_wrap {
+        min-height: 100rem;
+
+        @include tablet() {
+          min-height: 116rem;
+        }
+
+        @include mobile() {
+          min-height: 160rem;
+        }
+      }
 
       .form {
         width: 48%;
+        overflow: visible;
+        max-height: none;
+
+        .formWarpperx {
+          width: 100%;
+          overflow: visible;
+          max-height: none;
+        }
 
         @include mobile() {
           width: 100%;

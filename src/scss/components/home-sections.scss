@@ -4,6 +4,8 @@
 @import '../fonts';
 
 .wrapper{
+    position: relative;
+    z-index: 2;
     padding-top: 15.5rem !important;
     overflow-x: hidden;
     @include mobile(){

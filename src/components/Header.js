@@ -3,26 +3,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 import { toggleTheme } from "@/lib/theme";
-import ServiceSelect from "@/components/ServiceSelect";
+import { openKlaviyoPopup } from "@/lib/klaviyo";
+import KlaviyoFormEmbed from "@/components/KlaviyoFormEmbed";
 
 const Header = () => {
-  const router = useRouter();
   const servicesSubRef = useRef(null);
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
-
-  const [formData, setFormData] = useState({
-    name: "",
-    organization: "",
-    email: "",
-    mobile: "",
-    service: "",
-  });
-  const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState("");
 
   useEffect(() => {
     if (menuOpen) {
@@ -70,32 +59,9 @@ const Header = () => {
     }
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    if (name === "mobile" && !/^\d*$/.test(value)) return;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e) => {
+  const handleContactClick = (e) => {
     e.preventDefault();
-    setSubmitting(true);
-    setError("");
-
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      if (!res.ok) throw new Error("Submission failed");
-
-      router.push("/thank-you");
-    } catch (err) {
-      setError("Something went wrong. Please try again.");
-    } finally {
-      setSubmitting(false);
-    }
+    openKlaviyoPopup();
   };
 
   return (
@@ -152,9 +118,9 @@ const Header = () => {
             </label>
           </button>
 
-          <Link href="/contact" className="cta">
+          <button type="button" className="cta" onClick={handleContactClick}>
             Contact Us
-          </Link>
+          </button>
         </div>
       </header>
 
@@ -315,63 +281,7 @@ const Header = () => {
           {/* ── Right: contact form ── */}
           <div className="right_container">
             <div className="mail_title">Drop us a mail</div>
-
-            <form className="form" onSubmit={handleSubmit}>
-              <label htmlFor="h_name">Your Name</label>
-              <input
-                type="text"
-                name="name"
-                id="h_name"
-                className="txtNumeric"
-                value={formData.name}
-                onChange={handleChange}
-                required
-              />
-
-              <label htmlFor="h_organization">Your Organization&apos;s Name</label>
-              <input
-                type="text"
-                name="organization"
-                id="h_organization"
-                className="txtNumeric"
-                value={formData.organization}
-                onChange={handleChange}
-              />
-
-              <label htmlFor="h_service">Services Interested In</label>
-              <ServiceSelect
-                id="h_service"
-                value={formData.service}
-                onChange={handleChange}
-              />
-
-              <label htmlFor="h_email">Your Email</label>
-              <input
-                type="email"
-                name="email"
-                id="h_email"
-                value={formData.email}
-                onChange={handleChange}
-              />
-
-              <label htmlFor="h_mobile">Your Number</label>
-              <input
-                type="text"
-                name="mobile"
-                id="h_mobile"
-                maxLength={10}
-                inputMode="numeric"
-                value={formData.mobile}
-                onChange={handleChange}
-                required
-              />
-
-              {error && <p className="form_error" role="alert">{error}</p>}
-
-              <button type="submit" className="cta_text" disabled={submitting}>
-                <span>{submitting ? "Sending…" : "Submit"}</span>
-              </button>
-            </form>
+            <KlaviyoFormEmbed />
           </div>
         </div>
       </div>

@@ -440,6 +440,14 @@ header{
         margin-bottom: 4rem;
 
     }
+
+    .formWarpperx {
+        width: 32.813vw;
+
+        @media screen and (max-width: 1368px) {
+            width: 100%;
+        }
+    }
 }
 
 .menu_container{

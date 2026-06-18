@@ -16,24 +16,6 @@
     }
   }
 
-  .footer_contact_illustration {
-    pointer-events: none;
-    position: absolute;
-    width: 57.6rem;
-    height: auto;
-    margin-top: 4rem;
-
-    @include tablet() {
-      margin-top: 20rem;
-    }
-
-    @include mobile() {
-      width: 100%;
-      max-width: 50rem;
-      margin-top: 105rem;
-    }
-  }
-
   .footer_title {
     width: auto;
     font-size: 13.5rem;
@@ -56,6 +38,11 @@
     @include mobile() {
       width: 100%;
       margin-top: 4rem;
+    }
+
+    .formWarpperx {
+      width: 100%;
+      position: relative;
     }
 
     label {
@@ -264,42 +251,51 @@ $footer_info_line_height: 1;
 
 footer {
   position: relative;
-  background: #050505;
+  z-index: 1;
+  overflow: visible;
+  background: transparent;
   padding: 10rem 6.5rem;
 
   @include mobile() {
     padding: 8rem 6.5rem;
   }
 
-  .footer_links .link {
-    position: relative;
-    display: inline-block;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: #050505;
+    pointer-events: none;
+  }
 
-    &::after {
-      content: '';
-      position: absolute;
-      width: 100%;
-      left: 0;
-      bottom: 0;
-      height: 0.1rem;
-      background: $white;
-      transform: scaleX(0);
-      transform-origin: bottom right;
-      transition: transform 0.3s ease-in;
+  .footer_contact_illustration_layer {
+    pointer-events: none;
+    position: absolute;
+    z-index: 0;
+    width: 57.6rem;
+    left: 8rem;
+    top: calc(-110vh + 43.5rem);
+
+    @include tablet() {
+      top: calc(-70vh + 85.5rem);
     }
 
-    &:hover {
-      color: $white;
-
-      &::after {
-        transform: scaleX(1);
-        transform-origin: bottom left;
-      }
+    @include mobile() {
+      display: none;
     }
+  }
+
+  .footer_contact_illustration {
+    display: block;
+    width: 100%;
+    height: auto;
   }
 
   .footer_nav,
   .footer_info {
+    position: relative;
+    z-index: 2;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     width: 100%;
@@ -334,6 +330,38 @@ footer {
 
       &--center {
         align-items: center;
+      }
+    }
+  }
+
+  & > a {
+    position: relative;
+    z-index: 2;
+  }
+
+  .footer_links .link {
+    position: relative;
+    display: inline-block;
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      left: 0;
+      bottom: 0;
+      height: 0.1rem;
+      background: $white;
+      transform: scaleX(0);
+      transform-origin: bottom right;
+      transition: transform 0.3s ease-in;
+    }
+
+    &:hover {
+      color: $white;
+
+      &::after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
       }
     }
   }
@@ -518,6 +546,8 @@ footer {
     padding: 8rem 6.5rem;
     box-sizing: border-box;
     background: $black;
+    position: relative;
+    z-index: 2;
 
     .footer_col {
       border-left: none;

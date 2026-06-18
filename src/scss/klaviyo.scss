@@ -1,0 +1,33 @@
+.formWarpperx {
+  overflow: visible !important;
+}
+
+.footer_container {
+  .form,
+  .formWarpperx,
+  [class*="klaviyo-form"],
+  [class*="klaviyo-form"] form {
+    overflow: visible !important;
+    max-height: none !important;
+    height: auto !important;
+  }
+}
+
+[class*="klaviyo-form"] form {
+  padding-bottom: 5rem !important;
+}
+
+[class*="klaviyo-form"] .klaviyo-form-button {
+  padding: 2rem !important;
+}
+
+[class*="klaviyo"] [role="listbox"],
+[class*="klaviyo"] [role="option"] {
+  z-index: 2147483646 !important;
+}
+
+a[title="Powered by Klaviyo"],
+a[href*="utm_campaign=poweredby"] {
+  position: relative !important;
+  z-index: 1 !important;
+}
