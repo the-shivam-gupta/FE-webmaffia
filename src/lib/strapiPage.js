@@ -247,3 +247,61 @@ export async function getCaseStudyBySlug(slug) {
         ) ?? null
     );
 }
+
+function mapTestimonial(entry) {
+    const name = entry.name?.trim() ?? "";
+    const icon = entry.icon;
+
+    return {
+        id: entry.documentId ?? String(entry.id),
+        quote: entry.description?.trim() ?? "",
+        author: name,
+        role: entry.designation?.trim() ?? "",
+        speaker: name.split(/\s+/)[0]?.toUpperCase() ?? "",
+        logo: icon?.url
+            ? {
+                src: getStrapiImageUrl(icon),
+                w: icon.width || 114,
+                h: icon.height || 114,
+            }
+            : null,
+    };
+}
+
+async function fetchTestimonialsRaw() {
+    const strapiBaseUrl = getStrapiApiBaseUrl();
+    if (!strapiBaseUrl) {
+        throw new Error("STRAPI_API_URL is not configured");
+    }
+
+    const response = await fetch(
+        `${strapiBaseUrl}/api/testimonials?populate=*&sort=createdAt:asc`,
+        {
+            headers: {
+                Authorization: `Bearer ${STRAPI_TOKEN}`,
+                "Content-Type": "application/json",
+            },
+            next: { revalidate: 60 },
+        }
+    );
+
+    if (!response.ok) {
+        const errorBody = await response.text().catch(() => "");
+        throw new Error(
+            `Failed to fetch testimonials (${response.status})${errorBody ? `: ${errorBody.slice(0, 200)}` : ""}`
+        );
+    }
+
+    const data = await response.json();
+    return data.data;
+}
+
+export async function getTestimonials() {
+    try {
+        const entries = await fetchTestimonialsRaw();
+        return entries.map(mapTestimonial).filter((entry) => entry.quote);
+    } catch (error) {
+        console.error("Failed to fetch testimonials:", error);
+        return [];
+    }
+}

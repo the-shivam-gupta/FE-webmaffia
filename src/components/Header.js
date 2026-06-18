@@ -9,9 +9,10 @@ import KlaviyoFormEmbed from "@/components/KlaviyoFormEmbed";
 
 const Header = () => {
   const servicesSubRef = useRef(null);
-
+  const campaignsSubRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [campaignsOpen, setCampaignsOpen] = useState(false);
 
   useEffect(() => {
     if (menuOpen) {
@@ -35,6 +36,7 @@ const Header = () => {
     e.preventDefault();
     setMenuOpen(false);
     setServicesOpen(false);
+    setCampaignsOpen(false);
   };
 
   const setServicesSubmenuOpen = (open) => {
@@ -56,6 +58,28 @@ const Header = () => {
   const handleServicesMouseLeave = () => {
     if (window.matchMedia("(min-width: 541px)").matches) {
       setServicesSubmenuOpen(false);
+    }
+  };
+
+  const setCampaignsSubmenuOpen = (open) => {
+    setCampaignsOpen(open);
+  };
+
+  const toggleCampaignsSubmenu = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCampaignsOpen((open) => !open);
+  };
+
+  const handleCampaignsMouseEnter = () => {
+    if (window.matchMedia("(min-width: 541px)").matches) {
+      setCampaignsSubmenuOpen(true);
+    }
+  };
+
+  const handleCampaignsMouseLeave = () => {
+    if (window.matchMedia("(min-width: 541px)").matches) {
+      setCampaignsSubmenuOpen(false);
     }
   };
 
@@ -179,25 +203,60 @@ const Header = () => {
               </div>
             </div>
 
-            <div className="menu_link" data-number="03">
+            <div
+              className={`menu_link menu_btn${campaignsOpen ? " active" : ""}`}
+              data-number="03"
+              onMouseEnter={handleCampaignsMouseEnter}
+              onMouseLeave={handleCampaignsMouseLeave}
+            >
+              <Link href="#" onClick={() => setMenuOpen(false)}>
+                Campaigns
+              </Link>
+
+              <button
+                type="button"
+                className="menu_btn_toggle"
+                aria-expanded={campaignsOpen}
+                aria-label={campaignsOpen ? "Close campaigns menu" : "Open campaigns menu"}
+                onClick={toggleCampaignsSubmenu}
+              />
+
+              <div className="sub_menu_content" ref={campaignsSubRef}>
+                <ul className="sub_menu">
+                  {[
+                    { href: "/campaigns/tata-housing", label: "Tata Housing" },
+                    { href: "/campaigns/saffola-fit-foodie", label: "Saffola Fit Foodie" },
+                    { href: "/campaigns/birla-sun-life", label: "Birla Sun Life" },
+                  ].map(({ href, label }) => (
+                    <li key={href}>
+                      <Link href={href} onClick={() => setMenuOpen(false)}>
+                        {label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="menu_link" data-number="04">
               <Link href="/case-study" onClick={() => setMenuOpen(false)}>
                 Our work
               </Link>
             </div>
 
-            <div className="menu_link" data-number="04">
+            <div className="menu_link" data-number="05">
               <Link href="/blog" onClick={() => setMenuOpen(false)}>
                 Blog
               </Link>
             </div>
 
-            <div className="menu_link" data-number="04">
+            <div className="menu_link" data-number="06">
               <Link href="/career" onClick={() => setMenuOpen(false)}>
                 Career
               </Link>
             </div>
 
-            <div className="menu_link" data-number="05">
+            <div className="menu_link" data-number="07">
               <Link href="/contact" onClick={() => setMenuOpen(false)}>
                 Contact
               </Link>

@@ -37,6 +37,12 @@ const WORK_ITEMS = [
     image: "/assets/images/work/listing/hoabl.webp",
   },
   {
+    name: "Lupin",
+    title: "Website Design - Development - SEO",
+    url: "/case-study/lupin",
+    image: "/assets/images/work/listing/lupin-v2.png",
+  },
+  {
     name: "Lupin US",
     title: "Website Design - Development - SEO",
     url: "https://www.lupin.com/US",
@@ -45,38 +51,44 @@ const WORK_ITEMS = [
   {
     name: "Welspun Flooring",
     title: "Website Design - Development - SEO",
-    url: "https://welspunflooring.com/",
+    url: "/case-study/welspun-flooring",
     image: "/assets/images/work/listing/welspun.webp",
   },
   {
     name: "Afcons",
     title: "Website Design - Development - SEO",
-    url: "https://www.afcons.com/en",
+    url: "/case-study/afcons-infrastructure",
     image: "/assets/images/work/listing/afcon_work.webp",
   },
   {
     name: "L'exotique",
-    title: "Website Design - Development",
-    url: "/case-study/lexotique",
-    image: "/assets/images/work/listing/L'exotique.webp",
-  },
-  {
-    name: "L'exotique",
     title: "Social Media",
-    url: "https://www.instagram.com/lexotique.fruits/",
+    url: "/case-study/lexotique",
     image: "/assets/images/work/listing/L'exotique_social_media.webp",
   },
   {
     name: "Ecovero",
     title: "Social Media",
-    url: "https://www.instagram.com/ecovero_india/?hl=en",
+    url: "/case-study/ecovero",
     image: "/assets/images/work/listing/ecovero.webp",
   },
   {
     name: "AMNS",
     title: "Website Design - Development - SEO",
-    url: "https://www.amns.in/",
+    url: "/case-study/amns-india",
     image: "/assets/images/work/listing/AMNS.webp",
+  },
+  {
+    name: "Saffola Fit Foodie",
+    title: "Social Media",
+    url: "/case-study/saffola-fit-foodie",
+    image: "/assets/images/work/listing/saffola.png",
+  },
+  {
+    name: "Birla Sun Life",
+    title: "Social Media",
+    url: "/case-study/birla-sun-life",
+    image: "/assets/images/work/listing/birla.png",
   },
   {
     name: "Catallyst",
@@ -155,6 +167,12 @@ const WORK_ITEMS = [
     title: "Social Media",
     url: "",
     image: "/assets/images/work/listing/orgfarm.webp",
+  },
+  {
+    name: "L'exotique",
+    title: "Website Design - Development",
+    url: "#",
+    image: "/assets/images/work/listing/L'exotique.webp",
   },
 ];
 
