@@ -1,10 +1,6 @@
-"use client";
-
 import Image from "next/image";
 import Banner from "@/components/Banner";
-import ServiceSelect from "@/components/ServiceSelect";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import KlaviyoFormEmbed from "@/components/KlaviyoFormEmbed";
 
 const bannerData = {
   imagePosition: "right",
@@ -31,66 +27,7 @@ const bannerData = {
   },
 };
 
-const HEAR_ABOUT = [
-  { id: "referral", value: "Referral", label: "Referral" },
-  { id: "media_news", value: "Media & News", label: "Media & News" },
-  { id: "linkedIn", value: "LinkedIn", label: "LinkedIn" },
-  { id: "insta_fab", value: "Instagram/facebook", label: "Instagram/facebook" },
-  { id: "search_tag", value: "Search", label: "Search" },
-  { id: "other_source", value: "Other Source", label: "Other Source" },
-];
-
 export default function ContactPage() {
-  const router = useRouter();
-  const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState("");
-  const [form, setForm] = useState({
-    name: "",
-    organization: "",
-    email: "",
-    mobile: "",
-    service: "",
-    message: "",
-    hear_about: [],
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    if (name === "mobile" && !/^\d*$/.test(value)) return;
-    setForm((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const toggleCheckbox = (field, value) => {
-    setForm((prev) => {
-      const list = prev[field];
-      const next = list.includes(value)
-        ? list.filter((v) => v !== value)
-        : [...list, value];
-      return { ...prev, [field]: next };
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setSubmitting(true);
-    setError("");
-
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type: "contact", ...form }),
-      });
-
-      if (!res.ok) throw new Error("Submission failed");
-      router.push("/thank-you");
-    } catch {
-      setError("Something went wrong. Please try again.");
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
   return (
     <main className="wrapper">
       <div className="ml-setter contact_us">
@@ -107,91 +44,9 @@ export default function ContactPage() {
           </p>
         </Banner>
 
-        <form className="form" onSubmit={handleSubmit}>
-          <label htmlFor="name">Your Name</label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            className="txtNumeric"
-            value={form.name}
-            onChange={handleChange}
-            required
-          />
-
-          <label htmlFor="organization">Your Organization&apos;s Name</label>
-          <input
-            type="text"
-            name="organization"
-            id="organization"
-            className="txtNumeric"
-            value={form.organization}
-            onChange={handleChange}
-          />
-
-          <label htmlFor="email">Your Email</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            value={form.email}
-            onChange={handleChange}
-          />
-
-          <label htmlFor="mobile">Your Number</label>
-          <input
-            type="text"
-            name="mobile"
-            id="mobile"
-            maxLength={10}
-            inputMode="numeric"
-            pattern="[0-9]+"
-            value={form.mobile}
-            onChange={handleChange}
-            required
-          />
-
-          <label htmlFor="service">Services Interested In</label>
-          <ServiceSelect
-            id="service"
-            value={form.service}
-            onChange={handleChange}
-          />
-
-          <label htmlFor="message">What&apos;s in your mind</label>
-          <input
-            type="text"
-            name="message"
-            id="message"
-            value={form.message}
-            onChange={handleChange}
-          />
-
-          <label htmlFor="hear_about">How did you hear about us?</label>
-          <div className="input_checkox">
-            {HEAR_ABOUT.map(({ id, value, label }) => (
-              <label key={id} htmlFor={`contact_hear_${id}`} className="checkmark">
-                <input
-                  type="checkbox"
-                  id={`contact_hear_${id}`}
-                  checked={form.hear_about.includes(value)}
-                  onChange={() => toggleCheckbox("hear_about", value)}
-                />
-                <span>{label}</span>
-              </label>
-            ))}
-          </div>
-
-          {error && (
-            <p role="alert" style={{ color: "#c72c2c", marginBottom: "2rem" }}>
-              {error}
-            </p>
-          )}
-
-          <button type="submit" className="cta_text" disabled={submitting}>
-            Apply <span>{submitting ? "…" : "Now"}</span>
-          </button>
-        </form>
+        <div className="form">
+          <KlaviyoFormEmbed />
+        </div>
 
         <section className="contact_address">
           <div>
