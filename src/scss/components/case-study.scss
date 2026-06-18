@@ -305,7 +305,6 @@
     img,
     .dark_img {
       display: block;
-      width: 48rem;
       max-width: 100%;
       height: auto !important;
       object-fit: contain;
@@ -346,7 +345,7 @@
 
     picture {
       flex-shrink: 0;
-      width: 68.4rem;
+      width: auto;
       max-width: 68.4rem;
     }
 
@@ -1094,7 +1093,7 @@
         }
 
         @include mobile() {
-          min-height: 160rem;
+          min-height: 0;
         }
       }
 

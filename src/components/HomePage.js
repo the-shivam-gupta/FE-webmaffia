@@ -257,14 +257,14 @@ export default function HomePage({ testimonials = [] }) {
                   </section>
                 </SwiperSlide>
               ))}
-              <div className="slide_cta">
+              {/* <div className="slide_cta">
                 <div className="service-button-prev swiper-button-prev cta_text">
                   View <span>Previous</span>
                 </div>
                 <div className="service-button-next swiper-button-next cta_text">
                   View <span>Next</span>
                 </div>
-              </div>
+              </div> */}
             </Swiper>
         </div>
 

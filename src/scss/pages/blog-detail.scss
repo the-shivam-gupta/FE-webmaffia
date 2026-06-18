@@ -23,6 +23,13 @@
         }
     }
 }
+.blog_main{
+    margin: 0 8rem;
+
+    @include mobile(){
+        margin: 0;
+    }
+}
 
 .blog_cta{
     a{
@@ -96,7 +103,7 @@
     margin-top: 6rem;
     display: flex;
     align-items: flex-start;
-    gap: 6.1rem;
+    // gap: 6.1rem;
     margin-right: 10.4rem;
     @include mobile(){
         flex-direction: column;
@@ -393,8 +400,7 @@
 .other_detail_blogs{
     margin-top: 2rem;
     padding-bottom: 15rem;
-    margin-left: 10rem;
-    margin-right: 10rem;
+
     background: $white;
     position: relative;
     z-index: 1;
@@ -409,7 +415,7 @@
         font-size: 10rem;
         line-height: 1;
         margin-bottom: 9rem;
-        margin-left: 12rem;
+        margin-left: 8rem;
         color: $black;
 
         @include mobile(){

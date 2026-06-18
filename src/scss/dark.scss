@@ -42,6 +42,9 @@ html{
                 }
             }
         }
+        .campaign_page .hero_section .campaign_content .campaign_award_card__type, .campaign_page .hero_section .campaign_content .campaign_award_card__desc{
+            color: $gray;
+        }
         .campaign_page .hero_section .campaign_content ul li{
             color: $white;
         }
@@ -55,6 +58,12 @@ html{
                     color: $white;
                 }
             }
+        }
+        .blogs_date{
+            color: $gray;
+        }
+        .blogs_date span:before{
+            background: $gray;
         }
         .case_study_detail .case_study_showcase_wrapper .visit_website_button a{
             color: $black;
@@ -366,9 +375,9 @@ html{
             }
         }
         .other_detail_blogs{
-            background: $white;
+            background: $black;
             .detail_title{
-                color: $black !important;
+                color: $white !important;
             }
         }
     }

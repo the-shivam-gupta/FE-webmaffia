@@ -29,6 +29,7 @@ const Header = () => {
     setMenuOpen(true);
     if (window.matchMedia("(max-width: 540px)").matches) {
       setServicesOpen(true);
+      setCampaignsOpen(true);
     }
   };
 
@@ -41,6 +42,27 @@ const Header = () => {
 
   const setServicesSubmenuOpen = (open) => {
     setServicesOpen(open);
+  };
+
+  const isMobileMenu = () =>
+    window.matchMedia("(max-width: 540px)").matches;
+
+  const handleSubmenuParentClick = (e, menu) => {
+    if (menu === "campaigns") {
+      e.preventDefault();
+    }
+
+    if (isMobileMenu()) {
+      e.preventDefault();
+      if (menu === "services") {
+        setServicesOpen((open) => !open);
+      } else {
+        setCampaignsOpen((open) => !open);
+      }
+      return;
+    }
+
+    setMenuOpen(false);
   };
 
   const toggleServicesSubmenu = (e) => {
@@ -169,7 +191,10 @@ const Header = () => {
               onMouseEnter={handleServicesMouseEnter}
               onMouseLeave={handleServicesMouseLeave}
             >
-              <Link href="/services" onClick={() => setMenuOpen(false)}>
+              <Link
+                href="/services"
+                onClick={(e) => handleSubmenuParentClick(e, "services")}
+              >
                 Services
               </Link>
 
@@ -209,7 +234,7 @@ const Header = () => {
               onMouseEnter={handleCampaignsMouseEnter}
               onMouseLeave={handleCampaignsMouseLeave}
             >
-              <Link href="#" onClick={() => setMenuOpen(false)}>
+              <Link href="#" onClick={(e) => handleSubmenuParentClick(e, "campaigns")}>
                 Campaigns
               </Link>
 
