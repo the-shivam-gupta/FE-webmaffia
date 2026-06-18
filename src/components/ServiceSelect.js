@@ -17,7 +17,8 @@ export default function ServiceSelect({
   value,
   onChange,
   placeholder = "Services Interested In",
-  required = true,
+  required = false,
+  hasError = false,
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [menuStyle, setMenuStyle] = useState(null);
@@ -49,10 +50,12 @@ export default function ServiceSelect({
     };
 
     document.addEventListener("mousedown", handlePointerDown);
+    document.addEventListener("touchstart", handlePointerDown, { passive: true });
     document.addEventListener("keydown", handleEscape);
 
     return () => {
       document.removeEventListener("mousedown", handlePointerDown);
+      document.removeEventListener("touchstart", handlePointerDown);
       document.removeEventListener("keydown", handleEscape);
     };
   }, []);
@@ -82,9 +85,11 @@ export default function ServiceSelect({
   return (
     <div
       ref={wrapRef}
-      className={`form_service_select${isOpen ? " is-open" : ""}`}
+      className={`form_service_select${isOpen ? " is-open" : ""}${
+        hasError ? " has-error" : ""
+      }`}
     >
-      <input type="hidden" name={name} value={value} required={required} />
+      <input type="hidden" name={name} value={value} />
       <button
         ref={triggerRef}
         type="button"

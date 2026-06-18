@@ -141,6 +141,39 @@ export function mapStrapiMediaAsset(asset, fallbackAlt = "") {
   };
 }
 
+export function mapStrapiChartSlide(asset, fallbackAlt = "SEO growth chart") {
+  const mapped = mapStrapiMediaAsset(asset, fallbackAlt);
+  if (!mapped) return null;
+
+  const candidates = new Map();
+
+  const registerCandidate = (item) => {
+    if (!item?.url || !item?.width) return;
+
+    const url = getStrapiImageUrl(item);
+    if (!url) return;
+
+    const existing = candidates.get(url);
+    if (!existing || item.width > existing.width) {
+      candidates.set(url, { url, width: item.width });
+    }
+  };
+
+  registerCandidate(asset);
+  Object.values(asset.formats ?? {}).forEach(registerCandidate);
+
+  const srcSet = [...candidates.values()]
+    .sort((a, b) => b.width - a.width)
+    .map(({ url, width }) => `${url} ${width}w`)
+    .join(", ");
+
+  if (srcSet) {
+    mapped.srcSet = srcSet;
+  }
+
+  return mapped;
+}
+
 export function mapCaseStudySections(sections = []) {
   return sections.map((section) => {
     if (section.__component === "case-study.seo") {
@@ -149,9 +182,9 @@ export function mapCaseStudySections(sections = []) {
         heading: section.heading,
         subHeading: section.subHeading,
         description: section.description,
-        chartSlides: (section.graphs ?? []).map((graph) =>
-          getStrapiImageUrl(graph)
-        ),
+        chartSlides: (section.graphs ?? [])
+          .map((graph) => mapStrapiChartSlide(graph, "SEO growth chart"))
+          .filter(Boolean),
       };
     }
 

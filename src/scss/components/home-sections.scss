@@ -63,6 +63,10 @@
 }
 .h4_text{
     width: 70%;
+
+    @include mobile() {
+        width: 100%;
+    }
 }
 .banner_media {
     position: relative;

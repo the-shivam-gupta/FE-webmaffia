@@ -66,6 +66,10 @@
 
     &__para {
       width: 80%;
+
+      @include mobile() {
+        width: 100%;
+      }
     }
 
     &__title_2 {
@@ -100,6 +104,10 @@
           font-size: 2.2rem;
           font-weight: 500;
           line-height: 1.3;
+
+          @include mobile() {
+            font-size: 3rem;
+          }
 
           &::before {
             content: "";
@@ -268,6 +276,15 @@
 
   .detail_challenge,
   .detail_solution {
+    @include mobile() {
+      align-items: center;
+
+      > div:first-child {
+        align-self: stretch;
+        width: 100%;
+      }
+    }
+
     picture {
       flex-shrink: 0;
       display: block;
@@ -275,7 +292,6 @@
       max-width: 68.4rem;
 
       @include mobile() {
-        width: 100%;
         max-width: 100%;
       }
 
@@ -289,12 +305,13 @@
     img,
     .dark_img {
       display: block;
-      width: 68.4rem;
+      width: 48rem;
       max-width: 100%;
       height: auto !important;
+      object-fit: contain;
 
       @include mobile() {
-        width: 100%;
+        max-height: none;
       }
     }
   }
@@ -317,7 +334,6 @@
     gap: 20rem;
 
     @include mobile() {
-      align-items: flex-start;
       margin-bottom: 8rem;
       gap: 10rem;
     }
@@ -332,11 +348,6 @@
       flex-shrink: 0;
       width: 68.4rem;
       max-width: 68.4rem;
-
-      @include mobile() {
-        width: 100%;
-        max-width: 100%;
-      }
     }
 
     img {
@@ -344,7 +355,7 @@
       max-width: none;
 
       @include mobile() {
-        width: 100%;
+        width: 48rem;
         max-width: 100%;
       }
     }
@@ -892,15 +903,23 @@
     align-items: center;
     margin: 3rem 8rem 10rem;
 
-    @include mobile() {
+    @include tablet() {
       flex-direction: column;
-      gap: 8rem;
+      align-items: stretch;
+      gap: 6rem;
+      margin: 3rem 0 10rem;
+    }
+
+    > div:first-child {
+      @include tablet() {
+        padding: 0 4rem;
+      }
     }
 
     h4 {
       max-width: 50%;
 
-      @include mobile() {
+      @include tablet() {
         max-width: 100%;
       }
     }
@@ -909,8 +928,9 @@
       max-width: 45%;
       margin-top: 6rem;
 
-      @include mobile() {
+      @include tablet() {
         max-width: 100%;
+        margin-top: 4rem;
       }
     }
   }
@@ -922,18 +942,36 @@
     bottom: 0;
     width: 80rem;
 
-    @include mobile() {
+    @include tablet() {
       position: relative;
       right: auto;
-      top: auto;
-      z-index: 1;
+      bottom: auto;
       width: 100%;
+      max-width: 100%;
     }
 
     .seo_slider_swiper {
       width: 100%;
       height: auto !important;
       overflow: hidden;
+
+      @include tablet() {
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+      }
+    }
+
+    &.seo_slider--css-mode,
+    .seo_slider_swiper.swiper-css-mode {
+      .swiper-wrapper {
+        transform: none !important;
+      }
+
+      .swiper-slide {
+        transform: none !important;
+        scroll-snap-align: start;
+      }
     }
 
     .swiper-wrapper {
@@ -947,19 +985,29 @@
       right: auto !important;
       left: auto !important;
       top: auto !important;
+      width: 100% !important;
     }
 
     .seo_slider_media {
       position: relative;
       width: 100%;
-      aspect-ratio: 1672 / 941;
       line-height: 0;
     }
 
     .seo_slider_img,
     .swiper-slide img {
-      object-fit: contain;
+      display: block;
+      width: 100%;
+      height: auto !important;
+      max-width: 100%;
+      object-fit: unset;
       object-position: center;
+
+      @include tablet() {
+        transform: none;
+        -webkit-backface-visibility: visible;
+        backface-visibility: visible;
+      }
     }
 
     .seo_slider_nav {
@@ -971,6 +1019,12 @@
       gap: 12rem;
       margin-top: 2rem;
       pointer-events: auto;
+
+      @include tablet() {
+        gap: 8rem;
+        margin-top: 3rem;
+        padding: 0 4rem;
+      }
     }
 
     .seo_slider_prev,
@@ -987,6 +1041,10 @@
       cursor: pointer;
       pointer-events: auto;
       transition: color 0.2s ease, opacity 0.2s ease;
+
+      @include tablet() {
+        font-size: 3.2rem;
+      }
 
       span {
         color: inherit;

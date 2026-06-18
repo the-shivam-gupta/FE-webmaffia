@@ -236,6 +236,10 @@ h4{
     margin-bottom: 2.8rem;
     margin-top: 4rem;
     width: 80%;
+
+    @include mobile() {
+        width: 100%;
+    }
 }
 
 .h4{

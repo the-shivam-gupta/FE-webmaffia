@@ -13,21 +13,21 @@ const SOCIAL_LINKS = [
 ];
 
 const WORK_LINKS = [
-  { href: "/blog", label: "Blog" },
-  { href: "/career", label: "Career" },
-  { href: "/contact", label: "Contact" },
   { href: "/about", label: "About Us" },
   { href: "/case-study", label: "Our Work" },
+  { href: "/contact", label: "Contact" },
+  { href: "/career", label: "Career" },
+  { href: "/blog", label: "Blog" },
 ];
 
 const SERVICE_LINKS = [
-  { href: "/digital-strategy", label: "Digital Strategy" },
   { href: "/website-design-development-services", label: "Design & Development" },
   { href: "/search-engine-optimization-services", label: "SEO" },
+  { href: "/ai-powered-solutions-services", label: "AI Services" },
   { href: "/social-media-marketing-strategy", label: "Social Media" },
+  { href: "/digital-strategy", label: "Digital Strategy" },
   { href: "/content-marketing-strategy", label: "Content Marketing" },
   { href: "/app-store-optimization", label: "App Store Optimization" },
-  { href: "/ai-powered-solutions-services", label: "AI Services" },
 ];
 
 const Footer = () => {
@@ -35,7 +35,7 @@ const Footer = () => {
     <footer>
       <div className="footer_nav">
         <div className="footer_col footer_col--social">
-          <div className="footer_col_title">Social media</div>
+          <div className="footer_col_title">Social Media</div>
           <div className="footer_col_content footer_col_content--center">
             <div className="footer_social_icons">
               {SOCIAL_LINKS.map(({ href, src, alt }) => (
