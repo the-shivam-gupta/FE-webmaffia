@@ -1,11 +1,13 @@
-import { notFound, permanentRedirect } from "next/navigation";
+import { notFound, redirect, permanentRedirect } from "next/navigation";
 import CaseStudyDetailPage from "@/components/CaseStudyDetailPage";
 import { normalizeCaseStudy } from "@/lib/case-study-helpers";
 import { getCaseStudies, getCaseStudyBySlug } from "@/lib/strapiPage";
 
 export async function generateStaticParams() {
   const caseStudies = await getCaseStudies();
-  return caseStudies.map((entry) => ({ slug: entry.slug }));
+  return caseStudies
+    .filter((entry) => !entry.thumbnail?.externalLink)
+    .map((entry) => ({ slug: entry.slug }));
 }
 
 export async function generateMetadata({ params }) {
@@ -14,6 +16,10 @@ export async function generateMetadata({ params }) {
 
   if (!entry) {
     return { title: "Case Study | Webmaffia" };
+  }
+
+  if (entry.thumbnail?.externalLink) {
+    return { title: `${entry.pageName ?? "Case Study"} | Webmaffia` };
   }
 
   const title =
@@ -39,6 +45,10 @@ export default async function StrapiCaseStudyPage({ params }) {
 
   if (!entry) {
     notFound();
+  }
+
+  if (entry.thumbnail?.externalLink) {
+    redirect(entry.thumbnail.link || "/case-study");
   }
 
   if (entry.slug !== slug) {

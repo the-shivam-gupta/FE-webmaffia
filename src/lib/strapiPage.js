@@ -201,6 +201,7 @@ const CASE_STUDY_POPULATE = [
     "populate[contentBlock][populate][image][populate]=*",
     "populate[showcase][populate]=*",
     "populate[testimonial][populate]=*",
+    "populate[thumbnail][populate]=*",
     "populate[sections][on][case-study.seo][populate][graphs][populate]=*",
     "populate[sections][on][case-study.creatives][populate][reels][populate]=*",
     "populate[sections][on][case-study.creatives][populate][posts][populate][media][populate]=*",
