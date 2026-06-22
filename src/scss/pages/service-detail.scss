@@ -30,9 +30,9 @@
     .service_features{
         .feature_type{
             margin-top: 10rem;
-            width: 134.5rem;
+            // width: 134.5rem;
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-items: flex-start;
             flex-wrap: wrap;
             gap: 8rem;
@@ -119,10 +119,14 @@
                 margin-bottom: 0;
             }
         }
+
+        h4{
+            width: auto;
+        }
     }
     .technology_img{
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         flex-wrap: wrap;
         gap: 2.7rem;
         &>div{

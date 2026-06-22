@@ -305,3 +305,41 @@ export async function getTestimonials() {
         return [];
     }
 }
+
+async function fetchCampaignsRaw() {
+    const strapiBaseUrl = getStrapiApiBaseUrl();
+    if (!strapiBaseUrl) {
+        throw new Error("STRAPI_API_URL is not configured");
+    }
+
+    const response = await fetch(`${strapiBaseUrl}/api/campaigns?populate[poster][populate]=*&populate[video][populate]=*&populate[recognition][populate]=*`, {
+        headers: {
+            Authorization: `Bearer ${STRAPI_TOKEN}`,
+            "Content-Type": "application/json",
+        },
+        next: { revalidate: 60 },
+    });
+
+    if (!response.ok) {
+        const errorBody = await response.text().catch(() => "");
+        throw new Error(
+            `Failed to fetch campaigns (${response.status})${errorBody ? `: ${errorBody.slice(0, 200)}` : ""}`
+        );
+    }
+
+    const data = await response.json();
+    return data.data;
+}
+
+export async function getCampaigns() {
+    return fetchCampaignsRaw();
+}
+
+export async function getCampaignBySlug(slug) {
+    const campaigns = await getCampaigns();
+    return (
+        campaigns.find(
+            (entry) => entry.slug === slug || entry.documentId === slug
+        ) ?? null
+    );
+}

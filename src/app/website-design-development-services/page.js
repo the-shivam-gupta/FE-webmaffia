@@ -71,17 +71,17 @@ const pageConfig = {
     subtitle: "OUR SERVICES",
     title: (
       <>
-        Design and <br />
+        Design and 
         development
       </>
     ),
     description: (
       <>
-        We blur the lines between Design and <br />
-        development to create work that inspires delight. <br />
-        Our web design and development section <br />
-        specializes in crafting innovative digital <br />
-        experiences tailored to elevate brands and <br />
+        We blur the lines between Design and
+        development to create work that inspires delight. 
+        Our web design and development section 
+        specializes in crafting innovative digital 
+        experiences tailored to elevate brands and 
         captivate audiences.
       </>
     ),
@@ -93,10 +93,10 @@ const pageConfig = {
       heading: "Web design",
       intro: (
         <>
-          We approach design projects with unwavering <br />
-          commitment. Unlike others, we don&apos;t limit <br />
-          concepts or revisions. Our unlimited service <br />
-          ensures your complete satisfaction throughout <br />
+          We approach design projects with unwavering 
+          commitment. Unlike others, we don&apos;t limit 
+          concepts or revisions. Our unlimited service 
+          ensures your complete satisfaction throughout 
           the design process.
         </>
       ),
@@ -138,10 +138,10 @@ const pageConfig = {
       heading: "Web development",
       intro: (
         <>
-          Our developers are artists. they turn designs into <br />
-          animated and interactive user interfaces that <br />
-          leave a lasting impression on your audience. <br />
-          breathing life into websites through motion and <br />
+          Our developers are artists. they turn designs into 
+          animated and interactive user interfaces that 
+          leave a lasting impression on your audience. 
+          breathing life into websites through motion and 
           movement is our bread and butter.
         </>
       ),
@@ -162,7 +162,7 @@ const pageConfig = {
           number: "03 /",
           title: (
             <>
-              Server side <br />
+              Server side 
               programming
             </>
           ),
@@ -173,7 +173,7 @@ const pageConfig = {
           number: "04 /",
           title: (
             <>
-              Performance & <br />
+              Performance & 
               testing
             </>
           ),
@@ -184,7 +184,7 @@ const pageConfig = {
           number: "05 /",
           title: (
             <>
-              Optimization <br />
+              Optimization 
               and QA
             </>
           ),
@@ -195,7 +195,7 @@ const pageConfig = {
           number: "06 /",
           title: (
             <>
-              Maintenance <br />
+              Maintenance 
               and support
             </>
           ),
@@ -210,9 +210,9 @@ const pageConfig = {
       heading: "Website support",
       intro: (
         <>
-          our commitment to website support goes beyond <br />
-          mere troubleshooting — it&apos;s a comprehensive <br />
-          strategy to fortify, optimize, and elevate your <br />
+          Our commitment to website support goes beyond 
+          mere troubleshooting — it&apos;s a comprehensive 
+          strategy to fortify, optimize, and elevate your 
           digital presence.
         </>
       ),

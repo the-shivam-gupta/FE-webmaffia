@@ -6,22 +6,22 @@ const pageConfig = {
     heroClassName: "banner_para",
     title: (
       <>
-        Content <br />
+        Content 
         Marketing
       </>
     ),
     description: [
       <>
-        Original Content - Blog and Copywriting Our <br />
-        wordsmiths create compelling ad copy, editorial pieces <br />
-        and other original content that prioritizes impact, clarity <br />
-        and empathy over mere loudness. We put customer intent <br />
+        Original Content - Blog and Copywriting Our 
+        wordsmiths create compelling ad copy, editorial pieces 
+        and other original content that prioritizes impact, clarity 
+        and empathy over mere loudness. We put customer intent 
         behind every word we craft to drive clicks and shares.
       </>,
       <>
-        Graphic Design, Iconography and Illustrations Visual <br />
-        content is now the most popular format for content <br />
-        consumption. Our digital artists execute thumb-stopping <br />
+        Graphic Design, Iconography and Illustrations Visual 
+        content is now the most popular format for content 
+        consumption. Our digital artists execute thumb-stopping 
         content that brings your brand&apos;s vision and personality to life.
       </>,
     ],
