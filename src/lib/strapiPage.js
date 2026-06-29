@@ -344,3 +344,158 @@ export async function getCampaignBySlug(slug) {
         ) ?? null
     );
 }
+
+async function fetchAwardsRaw() {
+    const strapiBaseUrl = getStrapiApiBaseUrl();
+    if (!strapiBaseUrl) {
+        throw new Error("STRAPI_API_URL is not configured");
+    }
+
+    const response = await fetch(`${strapiBaseUrl}/api/award?populate[banner][populate]=*&populate[card][populate]=*`, {
+        headers: {
+            Authorization: `Bearer ${STRAPI_TOKEN}`,
+            "Content-Type": "application/json",
+        },
+        next: { revalidate: 60 },
+    });
+
+    if (!response.ok) {
+        const errorBody = await response.text().catch(() => "");
+        throw new Error(
+            `Failed to fetch awards (${response.status})${errorBody ? `: ${errorBody.slice(0, 200)}` : ""}`
+        );
+    }
+
+    const data = await response.json();
+    return data.data;
+}
+
+export async function getAwards() {
+    try {
+        return await fetchAwardsRaw();
+    } catch (error) {
+        console.error("Failed to fetch awards:", error);
+        return null;
+    }
+}
+
+async function fetchAboutUsRaw() {
+    const strapiBaseUrl = getStrapiApiBaseUrl();
+    if (!strapiBaseUrl) {
+        throw new Error("STRAPI_API_URL is not configured");
+    }
+
+    const response = await fetch(`${strapiBaseUrl}/api/about-us?populate[banner][populate]=*&populate[whoWeAre][populate]=*`, {
+        headers: {
+            Authorization: `Bearer ${STRAPI_TOKEN}`,
+            "Content-Type": "application/json",
+        },
+        next: { revalidate: 60 },
+    });
+
+    if (!response.ok) {
+        const errorBody = await response.text().catch(() => "");
+        throw new Error(
+            `Failed to fetch about us (${response.status})${errorBody ? `: ${errorBody.slice(0, 200)}` : ""}`
+        );
+    }
+
+    const data = await response.json();
+    return data.data;
+}
+
+export async function getAboutUs() {
+    try {
+        return await fetchAboutUsRaw();
+    } catch (error) {
+        console.error("Failed to fetch about us:", error);
+        return null;
+    }
+}
+
+async function fetchCareerRaw() {
+    const strapiBaseUrl = getStrapiApiBaseUrl();
+    if (!strapiBaseUrl) {
+        throw new Error("STRAPI_API_URL is not configured");
+    }
+
+    const response = await fetch(`${strapiBaseUrl}/api/career?populate[banner][populate]=*&populate[career][populate]=*`, {
+        headers: {
+            Authorization: `Bearer ${STRAPI_TOKEN}`,
+            "Content-Type": "application/json",
+        },
+        next: { revalidate: 60 },
+    });
+
+    if (!response.ok) {
+        const errorBody = await response.text().catch(() => "");
+        throw new Error(
+            `Failed to fetch career (${response.status})${errorBody ? `: ${errorBody.slice(0, 200)}` : ""}`
+        );
+    }
+
+    const data = await response.json();
+    return data.data;
+}
+
+export async function getCareer() {
+    try {
+        return await fetchCareerRaw();
+    } catch (error) {
+        console.error("Failed to fetch career:", error);
+        return null;
+    }
+}
+
+async function fetchFooterRaw() {
+    const strapiBaseUrl = getStrapiApiBaseUrl();
+    if (!strapiBaseUrl) {
+        throw new Error("STRAPI_API_URL is not configured");
+    }
+
+    const response = await fetch(`${strapiBaseUrl}/api/footer?populate=*`, {
+        headers: {
+            Authorization: `Bearer ${STRAPI_TOKEN}`,
+            "Content-Type": "application/json",
+        },
+        next: { revalidate: 60 },
+    });
+
+    if (!response.ok) {
+        const errorBody = await response.text().catch(() => "");
+        throw new Error(
+            `Failed to fetch footer (${response.status})${errorBody ? `: ${errorBody.slice(0, 200)}` : ""}`
+        );
+    }
+
+    const data = await response.json();
+    return data.data;
+}
+
+export async function getFooter() {
+    try {
+        const raw = await fetchFooterRaw();
+        if (!raw) return null;
+
+        const SOCIAL_ICON_MAP = {
+            X: { src: "/assets/images/footer/X.svg", alt: "X" },
+            Facebook: { src: "/assets/images/footer/facebook.svg", alt: "Facebook" },
+            Instagram: { src: "/assets/images/footer/instagram.svg", alt: "Instagram" },
+            Youtube: { src: "/assets/images/footer/yt.svg", alt: "YouTube" },
+            LinkedIn: { src: "/assets/images/footer/linkedIn.svg", alt: "LinkedIn" },
+        };
+
+        if (raw.socialLinks) {
+            raw.socialLinks = raw.socialLinks.map((link) => {
+                const icon = SOCIAL_ICON_MAP[link.platform];
+                if (!icon) return link;
+                return { ...link, iconSrc: icon.src, iconAlt: icon.alt };
+            });
+        }
+
+        return raw;
+    } catch (error) {
+        console.error("Failed to fetch footer:", error);
+        return null;
+    }
+}

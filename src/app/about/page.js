@@ -1,40 +1,8 @@
+import { Fragment } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Banner from "@/components/Banner";
-
-export const metadata = {
-  title: "About Webmaffia - Taking Marketing to Another Level",
-  description:
-    "An award-winning digital agency with a strong foothold in creative thinking & execution, Webmaffia is growing in creative strength with every passing year.",
-};
-
-const bannerData = {
-  imagePosition: "right",
-  subheading: {
-    enabled: true,
-    text: "ABOUT US",
-  },
-  title: {
-    line1: "Discover our",
-    line2: "true essence",
-  },
-  descriptions: [
-    "An award-winning digital agency with a strong\nfoothold in Creative Thinking and Execution,\nWebmaffia is growing in creative strength with\nevery passing year.",
-    "Our creative Maffians brainstorm with just one\nmission, and that is to make sure your brand\ntriggers a connect, emotional and/or rational, by\nstanding out from the rest. With thorough research\nand understanding, we conceptualize an insightful\nand unique communication approach for your\nbrand.",
-  ],
-  images: {
-    banner: {
-      url: "/assets/images/about_banner.svg",
-      alt: "learn more about webmaffia",
-      width: 871,
-      height: 767,
-    },
-    bannerMobile: {
-      url: "/assets/images/home_mobile_banner.svg",
-      alt: "learn more about webmaffia",
-    },
-  },
-};
+import { getAboutUs, getStrapiImageUrl } from "@/lib/strapiPage";
 
 const ABOUT_AWARDS = [
   { src: "/assets/images/awards/img-1.webp", alt: "Award 1" },
@@ -47,52 +15,130 @@ const ABOUT_AWARDS = [
   { src: "/assets/images/awards/img-8.webp", alt: "Award 8" },
 ];
 
-export default function AboutPage() {
+function renderMultiline(text) {
+  if (!text) return null;
+  const lines = text.split("\n").filter(Boolean);
+  return lines.map((line, i) => (
+    <Fragment key={i}>
+      {i > 0 && <br />}
+      {line}
+    </Fragment>
+  ));
+}
+
+function splitParagraphs(text) {
+  if (!text) return [];
+  return text.split("\n\n").filter(Boolean).map((p) => p.trim());
+}
+
+function buildAboutBannerData(rawBanner) {
+  if (!rawBanner) return null;
+
+  const subHeading = rawBanner.subHeading || "";
+  const lastSpace = subHeading.lastIndexOf(" ");
+
+  const paragraphs = splitParagraphs(rawBanner.description);
+
+  let images;
+  if (rawBanner.desktopImage?.url) {
+    images = { banner: {
+      url: getStrapiImageUrl(rawBanner.desktopImage),
+      alt: rawBanner.desktopImage.alternativeText || "",
+      width: rawBanner.desktopImage.width || 871,
+      height: rawBanner.desktopImage.height || 767,
+    } };
+    if (rawBanner.mobileImage?.url) {
+      images.bannerMobile = {
+        url: getStrapiImageUrl(rawBanner.mobileImage),
+        alt: rawBanner.mobileImage.alternativeText || "",
+      };
+    }
+  }
+
+  return {
+    imagePosition: rawBanner.imagePosition || "right",
+    subheading: rawBanner.heading
+      ? { enabled: true, text: rawBanner.heading }
+      : undefined,
+    title: {
+      line1: lastSpace > 0 ? subHeading.slice(0, lastSpace) : subHeading,
+      ...(lastSpace > 0 ? { line2: subHeading.slice(lastSpace + 1) } : {}),
+    },
+    descriptions: paragraphs.length ? paragraphs : undefined,
+    ...(images ? { images } : {}),
+  };
+}
+
+export async function generateMetadata() {
+  const data = await getAboutUs();
+  const slug = data?.slug || "about";
+  return {
+    title: "About Webmaffia - Taking Marketing to Another Level",
+    description:
+      data?.banner?.description
+        ? splitParagraphs(data.banner.description)[0]?.replace(/\n/g, " ").slice(0, 160) || ""
+        : "An award-winning digital agency with a strong foothold in creative thinking & execution, Webmaffia is growing in creative strength with every passing year.",
+    alternates: {
+      canonical: `https://www.webmaffia.com/${slug}`,
+    },
+  };
+}
+
+export default async function AboutPage() {
+  const raw = await getAboutUs();
+
+  const bannerData = raw?.banner ? buildAboutBannerData(raw.banner) : null;
+
+  const whoWeAre = raw?.whoWeAre
+    ? {
+        paragraphs: splitParagraphs(raw.whoWeAre.description),
+        image: raw.whoWeAre.image
+          ? {
+              url: getStrapiImageUrl(raw.whoWeAre.image),
+              alt: raw.whoWeAre.image.alternativeText || "",
+              width: raw.whoWeAre.image.width || 589,
+              height: raw.whoWeAre.image.height || 761,
+            }
+          : null,
+        cta: raw.whoWeAre.contactUs
+          ? { title: raw.whoWeAre.contactUs.title, href: raw.whoWeAre.contactUs.href }
+          : null,
+      }
+    : null;
+
   return (
     <main className="wrapper about_wrapper">
       <div className="ml-setter about_us">
-        <Banner
-          data={bannerData}
-          dataSection="about_us"
-          className="hero_section banner_para flex"
-        />
-
-        <section className="about_container" data-section="">
-          <Image
-            src="/assets/images/about_img.webp"
-            alt=""
-            width={589}
-            height={761}
+        {bannerData && (
+          <Banner
+            data={bannerData}
+            dataSection="about_us"
+            className="hero_section banner_para flex"
           />
+        )}
+
+        {whoWeAre && (
+        <section className="about_container" data-section="">
+          {whoWeAre.image && (
+          <Image
+            src={whoWeAre.image.url}
+            alt={whoWeAre.image.alt}
+            width={whoWeAre.image.width}
+            height={whoWeAre.image.height}
+          />
+          )}
           <div className="about_content banner_para">
-            <p>
-              With over a decade of experience, our digital agency stands as a
-              seasoned <br />
-              authority in the dynamic realm of digital marketing and technology.
-              Leveraging <br />
-              our extensive knowledge and insights gained over the years, we offer{" "}
-              <br />
-              comprehensive solutions tailored to meet the unique needs of each
-              client. From <br />
-              crafting compelling digital strategies to executing creative campaigns
-              and <br />
-              delivering measurable results, our team is committed to driving growth
-              and <br />
-              success in the digital landscape.
-            </p>
-            <p>
-              With a forward-thinking approach and a dedication to innovation, we{" "}
-              <br />
-              continuously evolve alongside the industry to ensure our clients stay
-              ahead of <br />
-              the curve and achieve their business objectives effectively.
-            </p>
-            <p>Save your precious time and effort spent for finding a solution.</p>
-            <Link href="/contact" className="cta_text">
-              Contact us <span>Now</span>
+            {whoWeAre.paragraphs.map((para, i) => (
+              <p key={i}>{renderMultiline(para)}</p>
+            ))}
+            {whoWeAre.cta && (
+            <Link href={whoWeAre.cta.href} className="cta_text">
+              {whoWeAre.cta.title} <span>Now</span>
             </Link>
+            )}
           </div>
         </section>
+        )}
 
         <div className="about_award">
           <section data-section="awards" className="our_work awards">

@@ -825,6 +825,10 @@ h2, .sub_heading{
 .form{
     width: 82.5rem;
     overflow: hidden;
+
+    @include tablet(){
+        width: 110rem;
+    }
     @include mobile(){
         width: 100%;
     }

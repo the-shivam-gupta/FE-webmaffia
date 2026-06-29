@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ThemeInit from "@/components/ThemeInit";
 import KlaviyoScript from "@/components/KlaviyoScript";
+import { getFooter } from "@/lib/strapiPage";
 
 const albertSans = Albert_Sans({
   variable: "--font-albert-sans",
@@ -19,7 +20,9 @@ export const metadata = {
     "Webmaffia is a full-service creative and digital marketing agency in Mumbai.",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const footerData = await getFooter();
+
   return (
     <html lang="en" className={albertSans.variable} suppressHydrationWarning>
       <head>
@@ -32,7 +35,7 @@ export default function RootLayout({ children }) {
         <ThemeInit />
         <Header />
         {children}
-        <Footer />
+        <Footer footerData={footerData} />
         <KlaviyoScript />
       </body>
     </html>

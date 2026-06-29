@@ -2,7 +2,7 @@
 
 import Banner from "@/components/Banner";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CareerAccordion from "@/components/CareerAccordion";
 
 const ROLE_INTERESTS = [
@@ -31,30 +31,12 @@ const ROLE_INTERESTS = [
   },
 ];
 
-const bannerData = {
+const BASE_CAREER_BANNER = {
   imagePosition: "right",
-  subheading: {
-    enabled: true,
-    text: "CAREER",
-  },
-  title: {
-    line1: "Be a part of",
-    line2: "webmaffia",
-  },
+  subheading: { enabled: true, text: "CAREER" },
+  title: { line1: "Be a part of", line2: "webmaffia" },
   description:
     "Are you passionate about crafting exceptional\ndigital experiences? Join our team at Web Maffia\nand embark on an exciting journey where creativity\nmeets innovation. We're seeking talented\nIndividuals who are eager to push the boundaries\nof web design and development. Explore our\ncurrent openings below and take the first step\ntowards shaping the future of the web with us.",
-  images: {
-    banner: {
-      url: "/assets/images/career-banner.svg",
-      alt: "join our team at webmaffia",
-      width: 871,
-      height: 767,
-    },
-    bannerMobile: {
-      url: "/assets/images/hero-mobile.webp",
-      alt: "join our team at webmaffia",
-    },
-  },
 };
 
 const RESUME_ACCEPT =
@@ -63,6 +45,18 @@ const RESUME_ACCEPT =
 export default function CareerPage() {
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
+  const [bannerData, setBannerData] = useState(BASE_CAREER_BANNER);
+  const [careerData, setCareerData] = useState(null);
+
+  useEffect(() => {
+    fetch("/api/career-data")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.banner) setBannerData(data.banner);
+        if (data?.career) setCareerData(data.career);
+      })
+      .catch(() => {});
+  }, []);
   const [error, setError] = useState("");
   const [resume, setResume] = useState(null);
   const [form, setForm] = useState({
@@ -132,7 +126,7 @@ export default function CareerPage() {
         <Banner data={bannerData} />
 
         <section className="contact_us">
-          <CareerAccordion />
+          <CareerAccordion data={careerData} />
 
           <div id="career-apply">
             <h2 className="h2">
