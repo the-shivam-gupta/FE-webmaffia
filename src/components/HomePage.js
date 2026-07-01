@@ -60,6 +60,14 @@ const SERVICES = [
     href: "/app-store-optimization",
     img: { src: "/assets/images/number/6.webp", w: 674, h: 568 },
   },
+  {
+    number: "07",
+    subtitle: "AI-POWERED SOLUTIONS",
+    heading: "Built to think, not just react",
+    body: "This is where things get interesting. We take AI out of the 'nice to have' pile and put it to work automating the boring stuff, sharpening how customers experience your brand, and giving marketing and operations a real upgrade. No jargon, no gimmicks, just solutions that actually move the needle for your business.",
+    href: "/aai-powered-solutions-services",
+    img: { src: "/assets/images/number/7.webp", w: 674, h: 568 },
+  },
 ];
 
 const CLIENTS = [
