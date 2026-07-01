@@ -59,15 +59,6 @@ export function useHomeScrollAnimations(mainHorizontalRef, serviceSwiperRef) {
             },
             "<"
           )
-          .to(
-            ".ourService-swiper .slide_cta",
-            {
-              right: "185rem",
-              duration: 0.5,
-              ease: "none",
-            },
-            "<"
-          )
           .addLabel("secondSection");
 
         ScrollTrigger.refresh();

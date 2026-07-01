@@ -168,6 +168,7 @@ export default function HomePage({ testimonials = [] }) {
   const onServicesSwiper = useCallback(
     (swiper) => {
       serviceSwiperRef.current = swiper;
+
       const isCompact = window.innerWidth <= 1024;
       if (isCompact) {
         swiper.autoplay?.start();
@@ -178,6 +179,20 @@ export default function HomePage({ testimonials = [] }) {
     },
     [refreshScroll]
   );
+
+  const handleServicePrev = useCallback(() => {
+    const swiper = serviceSwiperRef.current;
+    if (!swiper) return;
+    swiper.autoplay?.stop();
+    swiper.slidePrev();
+  }, []);
+
+  const handleServiceNext = useCallback(() => {
+    const swiper = serviceSwiperRef.current;
+    if (!swiper) return;
+    swiper.autoplay?.stop();
+    swiper.slideNext();
+  }, []);
 
   return (
     <main className="wrapper home_wrapper opacity_0">
@@ -208,7 +223,7 @@ export default function HomePage({ testimonials = [] }) {
             </div>
 
             <Swiper
-              modules={[Navigation, Autoplay]}
+              modules={[Autoplay]}
               loop
               slidesPerView={1}
               spaceBetween={0}
@@ -224,10 +239,6 @@ export default function HomePage({ testimonials = [] }) {
                 } else {
                   swiper.autoplay?.stop();
                 }
-              }}
-              navigation={{
-                prevEl: ".service-button-prev",
-                nextEl: ".service-button-next",
               }}
               className="ourService-swiper testimonial_wrapper hs2"
             >
@@ -257,15 +268,26 @@ export default function HomePage({ testimonials = [] }) {
                   </section>
                 </SwiperSlide>
               ))}
-              {/* <div className="slide_cta">
-                <div className="service-button-prev swiper-button-prev cta_text">
-                  View <span>Previous</span>
-                </div>
-                <div className="service-button-next swiper-button-next cta_text">
-                  View <span>Next</span>
-                </div>
-              </div> */}
             </Swiper>
+
+            <div className="slide_cta">
+              <button
+                type="button"
+                className="service-button-prev cta_text"
+                onClick={handleServicePrev}
+                aria-label="View previous service"
+              >
+                View <span>Previous</span>
+              </button>
+              <button
+                type="button"
+                className="service-button-next cta_text"
+                onClick={handleServiceNext}
+                aria-label="View next service"
+              >
+                View <span>Next</span>
+              </button>
+            </div>
         </div>
 
         <section data-section="our_work" className="our_work">

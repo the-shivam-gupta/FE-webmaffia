@@ -138,7 +138,7 @@
     }
     .blog_item{
         .blog_item_title{
-            width: 37rem;
+            // width: 37rem;
 
             @include tablet(){
                 width: 100% !important;
@@ -181,6 +181,7 @@
         }
         &>div a{
             display: flex;
+            flex-direction: column;
             justify-content: space-between;
             align-items: flex-start;
             gap: 2rem;
@@ -188,7 +189,7 @@
             h2,
             .h5,
             .blog_item_title{
-                width: 50rem;
+                // width: 50rem;
                 @include mobile(){
                     width: 100%;
                 }

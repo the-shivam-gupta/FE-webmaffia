@@ -374,7 +374,7 @@ footer {
       border-left: 0.1rem solid #505050;
 
       &:last-child {
-        border-right: 0.1rem solid #505050;
+        // border-right: 0.1rem solid #505050;
       }
 
       @include mobile() {
@@ -417,6 +417,7 @@ footer {
     }
 
     .footer_col--social {
+      border-left: none;
       .footer_col_title {
         text-align: center;
       }
