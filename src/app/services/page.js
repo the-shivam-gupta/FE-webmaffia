@@ -122,7 +122,7 @@ const SERVICE_SECTIONS = [
     href: "/content-marketing-strategy",
   },
   {
-    imageFirst: true,
+    imageFirst: false,
     title: (
       <>
         App Store <br />

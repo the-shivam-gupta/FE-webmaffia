@@ -22,7 +22,7 @@ const bannerData = {
     "Here are some of the client collaborations we're\nmost proud of. Leveraging cutting-edge\ntechnologies, we drive innovation in our projects,\ndelivering solutions that exceed expectations.\nGet inspired.",
   images: {
     banner: {
-      url: "/assets/images/number/2.webp",
+      url: "/assets/images/case-study.svg",
       alt: "",
       width: 672,
       height: 566,

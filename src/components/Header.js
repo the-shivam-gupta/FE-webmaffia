@@ -209,11 +209,11 @@ const Header = () => {
               <div className="sub_menu_content" ref={servicesSubRef}>
                 <ul className="sub_menu">
                   {[
+                    { href: "/digital-strategy", label: "Digital Strategy" },
                     { href: "/website-design-development-services", label: "Design and Development" },
                     { href: "/search-engine-optimization-services", label: "SEO" },
                     { href: "/ai-powered-solutions-services", label: "AI-Powered Solutions" },
                     { href: "/social-media-marketing-strategy", label: "Social Media" },
-                    { href: "/digital-strategy", label: "Digital Strategy" },
                     { href: "/content-marketing-strategy", label: "Content Marketing" },
                     { href: "/app-store-optimization", label: "App Store Optimization" },
                     { href: "/influencer-marketing", label: "Influencer Marketing" },
