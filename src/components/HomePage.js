@@ -285,7 +285,7 @@ export default function HomePage({ testimonials = [] }) {
                 onClick={handleServicePrev}
                 aria-label="View previous service"
               >
-                View <span>Previous</span>
+                <span>Previous</span> View
               </button>
               <button
                 type="button"
@@ -436,7 +436,7 @@ export default function HomePage({ testimonials = [] }) {
 
             <div className="slide_cta">
               <div className="swiper-button-prev cta_text">
-                View <span>Previous</span>
+                <span>Previous</span> View
               </div>
               <div className="swiper-button-next cta_text">
                 View <span>Next</span>
