@@ -1,3 +1,4 @@
+import Script from "next/script";
 import { Albert_Sans } from "next/font/google";
 import "@/scss/main.scss";
 import "swiper/css";
@@ -36,6 +37,18 @@ export default async function RootLayout({ children }) {
         <Header />
         {children}
         <Footer footerData={footerData} />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-T2G85GJLPP"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-T2G85GJLPP');
+          `}
+        </Script>
         <KlaviyoScript />
       </body>
     </html>
