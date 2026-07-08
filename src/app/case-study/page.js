@@ -1,11 +1,6 @@
 import Banner from "@/components/Banner";
 import WorkListSection from "@/components/WorkListSection";
-import {
-  getCampaigns,
-  getCaseStudies,
-  getStrapiAssetUrl,
-  getStrapiImageUrl,
-} from "@/lib/strapiPage";
+import { getCaseStudies, getStrapiImageUrl } from "@/lib/strapiPage";
 
 export const metadata = {
   title: "Project Portfolio and Successfull Campaigns by Webmaffia",
@@ -50,40 +45,17 @@ function toCaseStudyItem(entry) {
   };
 }
 
-function toCampaignItem(campaign) {
-  const imageUrl = campaign.poster ? getStrapiAssetUrl(campaign.poster) : "";
-  return {
-    name: campaign.pageName,
-    title: campaign.tagLine,
-    url: `/case-study/${campaign.slug}`,
-    image: imageUrl || FALLBACK_WORK_IMAGE,
-  };
-}
-
 export default async function CaseStudyPage() {
   let items = [];
   try {
-    const [caseStudies, campaigns] = await Promise.all([
-      getCaseStudies(),
-      getCampaigns(),
-    ]);
+    const caseStudies = await getCaseStudies();
 
-    const caseStudySlugs = new Set(caseStudies.map((entry) => entry.slug));
-
-    items = [
-      ...caseStudies.map((entry) => ({
+    items = caseStudies
+      .map((entry) => ({
         item: toCaseStudyItem(entry),
         external: !!entry.thumbnail?.externalLink,
         name: (entry.thumbnail?.heading ?? entry.pageName).toLowerCase(),
-      })),
-      ...campaigns
-        .filter((campaign) => !caseStudySlugs.has(campaign.slug))
-        .map((campaign) => ({
-          item: toCampaignItem(campaign),
-          external: false,
-          name: campaign.pageName.toLowerCase(),
-        })),
-    ]
+      }))
       .sort((a, b) => {
         if (a.name === "lupin") return -1;
         if (b.name === "lupin") return 1;

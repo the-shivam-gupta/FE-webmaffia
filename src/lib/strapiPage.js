@@ -447,6 +447,40 @@ export async function getCareer() {
     }
 }
 
+async function fetchClientsRaw() {
+    const strapiBaseUrl = getStrapiApiBaseUrl();
+    if (!strapiBaseUrl) {
+        throw new Error("STRAPI_API_URL is not configured");
+    }
+
+    const response = await fetch(`${strapiBaseUrl}/api/clients?pLevel=10&populate=*`, {
+        headers: {
+            Authorization: `Bearer ${STRAPI_TOKEN}`,
+            "Content-Type": "application/json",
+        },
+        next: { revalidate: 60 },
+    });
+
+    if (!response.ok) {
+        const errorBody = await response.text().catch(() => "");
+        throw new Error(
+            `Failed to fetch clients (${response.status})${errorBody ? `: ${errorBody.slice(0, 200)}` : ""}`
+        );
+    }
+
+    const data = await response.json();
+    return data.data;
+}
+
+export async function getClients() {
+    try {
+        return await fetchClientsRaw();
+    } catch (error) {
+        console.error("Failed to fetch clients:", error);
+        return null;
+    }
+}
+
 async function fetchFooterRaw() {
     const strapiBaseUrl = getStrapiApiBaseUrl();
     if (!strapiBaseUrl) {
