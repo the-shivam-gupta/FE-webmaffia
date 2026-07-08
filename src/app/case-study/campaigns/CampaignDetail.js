@@ -1,35 +1,8 @@
-import { notFound } from "next/navigation";
 import Image from "next/image";
 import CampaignHeroVideo from "@/components/CampaignHeroVideo";
-import { getCampaigns, getCampaignBySlug, getStrapiAssetUrl } from "@/lib/strapiPage";
+import { getStrapiAssetUrl } from "@/lib/strapiPage";
 
-export async function generateStaticParams() {
-    const campaigns = await getCampaigns();
-    return campaigns.map((entry) => ({ slug: entry.slug }));
-}
-
-export async function generateMetadata({ params }) {
-    const { slug } = await params;
-    const campaign = await getCampaignBySlug(slug);
-
-    if (!campaign) {
-        return { title: "Campaign | Webmaffia" };
-    }
-
-    return {
-        title: `${campaign.pageName} | Webmaffia`,
-        description: campaign.tagLine,
-    };
-}
-
-export default async function CampaignPage({ params }) {
-    const { slug } = await params;
-    const campaign = await getCampaignBySlug(slug);
-
-    if (!campaign) {
-        notFound();
-    }
-
+export default function CampaignDetail({ campaign }) {
     const posterUrl = getStrapiAssetUrl(campaign.poster);
     const videoUrl = campaign.video ? getStrapiAssetUrl(campaign.video) : null;
     const recognition = campaign.recognition ?? [];

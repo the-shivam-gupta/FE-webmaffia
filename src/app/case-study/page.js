@@ -1,6 +1,11 @@
 import Banner from "@/components/Banner";
 import WorkListSection from "@/components/WorkListSection";
-import { getCaseStudies, getStrapiImageUrl } from "@/lib/strapiPage";
+import {
+  getCampaigns,
+  getCaseStudies,
+  getStrapiAssetUrl,
+  getStrapiImageUrl,
+} from "@/lib/strapiPage";
 
 export const metadata = {
   title: "Project Portfolio and Successfull Campaigns by Webmaffia",
@@ -32,7 +37,7 @@ const bannerData = {
 
 const FALLBACK_WORK_IMAGE = "/assets/images/work/listing/afcon_work.webp";
 
-function toApiItem(entry) {
+function toCaseStudyItem(entry) {
   const thumb = entry.thumbnail;
   const workTitle = thumb?.workTitle?.map(t => t.title).join(" - ") ?? "";
   const imageUrl = thumb?.image ? getStrapiImageUrl(thumb.image) : "";
@@ -45,16 +50,40 @@ function toApiItem(entry) {
   };
 }
 
+function toCampaignItem(campaign) {
+  const imageUrl = campaign.poster ? getStrapiAssetUrl(campaign.poster) : "";
+  return {
+    name: campaign.pageName,
+    title: campaign.tagLine,
+    url: `/case-study/${campaign.slug}`,
+    image: imageUrl || FALLBACK_WORK_IMAGE,
+  };
+}
+
 export default async function CaseStudyPage() {
   let items = [];
   try {
-    const caseStudies = await getCaseStudies();
-    items = caseStudies
-      .map((entry) => ({
-        item: toApiItem(entry),
+    const [caseStudies, campaigns] = await Promise.all([
+      getCaseStudies(),
+      getCampaigns(),
+    ]);
+
+    const caseStudySlugs = new Set(caseStudies.map((entry) => entry.slug));
+
+    items = [
+      ...caseStudies.map((entry) => ({
+        item: toCaseStudyItem(entry),
         external: !!entry.thumbnail?.externalLink,
         name: (entry.thumbnail?.heading ?? entry.pageName).toLowerCase(),
-      }))
+      })),
+      ...campaigns
+        .filter((campaign) => !caseStudySlugs.has(campaign.slug))
+        .map((campaign) => ({
+          item: toCampaignItem(campaign),
+          external: false,
+          name: campaign.pageName.toLowerCase(),
+        })),
+    ]
       .sort((a, b) => {
         if (a.name === "lupin") return -1;
         if (b.name === "lupin") return 1;

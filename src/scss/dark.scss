@@ -374,6 +374,12 @@ html{
                 background: $white;
             }
         }
+        .thankyou a,
+        .not-found a{
+            &::before{
+                background: $white;
+            }
+        }
         .other_detail_blogs{
             background: $black;
             .detail_title{

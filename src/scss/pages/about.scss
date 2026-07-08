@@ -54,7 +54,7 @@
 }
 
 .about_award{
-    margin-bottom: 2.5rem;
+    margin-bottom: 8.5rem;
     @include mobile(){
         margin-bottom: 8rem;
     }
@@ -67,6 +67,8 @@
             width: 100%;
             max-width: 80%;
             margin: 5rem 0 18rem;
+            border-right: 0.2rem solid $gray_light;
+            border-bottom: 0.2rem solid $gray_light;
             // gap: 6rem;
             @include mobile(){
                 margin-bottom: 8rem;

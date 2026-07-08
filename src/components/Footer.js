@@ -6,9 +6,12 @@ import { usePathname } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 
-const Footer = ({ footerData }) => {
+const Footer = ({ footerData, campaignSlugs = [] }) => {
   const pathname = usePathname();
-  const showContactIllustration = /^\/case-study\/[^/]+$/.test(pathname ?? "");
+  const slugMatch = pathname?.match(/^\/case-study\/([^/]+)$/);
+  const isCampaignPage =
+    slugMatch?.[1] != null && campaignSlugs.includes(slugMatch[1]);
+  const showContactIllustration = Boolean(slugMatch) && !isCampaignPage;
 
   const socialLinks = footerData?.socialLinks ?? [];
   const navLinks = footerData?.navLinks ?? [];

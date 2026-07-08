@@ -8,7 +8,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ThemeInit from "@/components/ThemeInit";
 import KlaviyoScript from "@/components/KlaviyoScript";
-import { getFooter } from "@/lib/strapiPage";
+import { getCampaigns, getFooter } from "@/lib/strapiPage";
 
 const albertSans = Albert_Sans({
   variable: "--font-albert-sans",
@@ -24,6 +24,14 @@ export const metadata = {
 export default async function RootLayout({ children }) {
   const footerData = await getFooter();
 
+  let campaignSlugs = [];
+  try {
+    const campaigns = await getCampaigns();
+    campaignSlugs = campaigns.map((campaign) => campaign.slug);
+  } catch (error) {
+    console.error("Failed to fetch campaigns for footer:", error);
+  }
+
   return (
     <html lang="en" className={albertSans.variable} suppressHydrationWarning>
       <head>
@@ -36,7 +44,7 @@ export default async function RootLayout({ children }) {
         <ThemeInit />
         <Header />
         {children}
-        <Footer footerData={footerData} />
+        <Footer footerData={footerData} campaignSlugs={campaignSlugs} />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-T2G85GJLPP"
           strategy="afterInteractive"

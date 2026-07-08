@@ -38,6 +38,16 @@ const nextConfig = {
         destination: "/case-study/ecovero",
         permanent: true,
       },
+      {
+        source: "/campaigns/:slug",
+        destination: "/case-study/:slug",
+        permanent: true,
+      },
+      {
+        source: "/case-study/campaigns/:slug",
+        destination: "/case-study/:slug",
+        permanent: true,
+      },
     ];
   },
 };

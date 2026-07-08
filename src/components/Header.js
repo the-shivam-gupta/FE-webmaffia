@@ -228,7 +228,7 @@ const Header = () => {
               </div>
             </div>
 
-            <div
+            {/* <div
               className={`menu_link menu_btn${campaignsOpen ? " active" : ""}`}
               data-number="03"
               onMouseEnter={handleCampaignsMouseEnter}
@@ -249,9 +249,9 @@ const Header = () => {
               <div className="sub_menu_content" ref={campaignsSubRef}>
                 <ul className="sub_menu">
                   {[
-                    { href: "/campaigns/tata-housing", label: "Tata Housing" },
-                    { href: "/campaigns/2baconil", label: "2Baconil" },
-                    { href: "/campaigns/birla-sun-life", label: "Birla Sun Life" },
+                    { href: "/case-study/tata-housing", label: "Tata Housing" },
+                    { href: "/case-study/2baconil", label: "2Baconil" },
+                    { href: "/case-study/birla-sun-life", label: "Birla Sun Life" },
                   ].map(({ href, label }) => (
                     <li key={href}>
                       <Link href={href} onClick={() => setMenuOpen(false)}>
@@ -261,27 +261,27 @@ const Header = () => {
                   ))}
                 </ul>
               </div>
-            </div>
+            </div> */}
 
-            <div className="menu_link" data-number="04">
+            <div className="menu_link" data-number="03">
               <Link href="/case-study" onClick={() => setMenuOpen(false)}>
                 Our work
               </Link>
             </div>
 
-            <div className="menu_link" data-number="05">
+            <div className="menu_link" data-number="04">
               <Link href="/blog" onClick={() => setMenuOpen(false)}>
                 Blog
               </Link>
             </div>
 
-            <div className="menu_link" data-number="06">
+            <div className="menu_link" data-number="05">
               <Link href="/career" onClick={() => setMenuOpen(false)}>
                 Career
               </Link>
             </div>
 
-            <div className="menu_link" data-number="07">
+            <div className="menu_link" data-number="06">
               <Link href="/contact" onClick={() => setMenuOpen(false)}>
                 Contact
               </Link>
