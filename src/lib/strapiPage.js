@@ -494,6 +494,43 @@ export async function getClients() {
     }
 }
 
+async function fetchClientBannerRaw() {
+    const strapiBaseUrl = getStrapiApiBaseUrl();
+    if (!strapiBaseUrl) {
+        throw new Error("STRAPI_API_URL is not configured");
+    }
+
+    const response = await fetch(
+        `${strapiBaseUrl}/api/client-banner?populate[banner][populate]=*`,
+        {
+            headers: {
+                Authorization: `Bearer ${STRAPI_TOKEN}`,
+                "Content-Type": "application/json",
+            },
+            next: { revalidate: 60 },
+        }
+    );
+
+    if (!response.ok) {
+        const errorBody = await response.text().catch(() => "");
+        throw new Error(
+            `Failed to fetch client banner (${response.status})${errorBody ? `: ${errorBody.slice(0, 200)}` : ""}`
+        );
+    }
+
+    const data = await response.json();
+    return data.data;
+}
+
+export async function getClientBanner() {
+    try {
+        return await fetchClientBannerRaw();
+    } catch (error) {
+        console.error("Failed to fetch client banner:", error);
+        return null;
+    }
+}
+
 async function fetchFooterRaw() {
     const strapiBaseUrl = getStrapiApiBaseUrl();
     if (!strapiBaseUrl) {
