@@ -1,23 +1,11 @@
 import Image from "next/image";
-import { Fragment } from "react";
 
 function renderMultilineText(text) {
-  const lines = String(text ?? "")
+  return String(text ?? "")
     .replace(/\r\n/g, "\n")
-    .split("\n")
-    .map((line) => line.trim())
-    .filter(Boolean);
-
-  if (lines.length <= 1) {
-    return text;
-  }
-
-  return lines.map((line, index) => (
-    <Fragment key={index}>
-      {index > 0 ? <br /> : null}
-      {line}
-    </Fragment>
-  ));
+    .replace(/\n+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 export default function Banner({
@@ -120,18 +108,12 @@ export default function Banner({
         <div className="sub_title">{subheading.text}</div>
       ) : null}
       <h1>
-        {title.line1}
+        <span className="banner_title_line">{title.line1}</span>
         {title.line2 ? (
-          <>
-            <br />
-            {title.line2}
-          </>
+          <span className="banner_title_line">{title.line2}</span>
         ) : null}
         {title.line3 ? (
-          <>
-            <br />
-            {title.line3}
-          </>
+          <span className="banner_title_line">{title.line3}</span>
         ) : null}
       </h1>
       {subtitle?.enabled ? (

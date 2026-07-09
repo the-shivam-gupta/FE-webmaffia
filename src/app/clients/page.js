@@ -4,7 +4,10 @@ import { getClientBanner, getClients, getStrapiImageUrl } from "@/lib/strapiPage
 
 function splitParagraphs(text) {
   if (!text) return [];
-  return text.split("\n\n").filter(Boolean).map((p) => p.trim());
+  return text
+    .split("\n\n")
+    .filter(Boolean)
+    .map((p) => p.replace(/\n/g, " ").replace(/\s+/g, " ").trim());
 }
 
 function buildClientsBannerData(rawBanner) {
