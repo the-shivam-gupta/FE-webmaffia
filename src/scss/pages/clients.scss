@@ -3,6 +3,19 @@
 }
 
 .clients_page {
+  .hero_section picture {
+    right: 1.8rem;
+    margin-top: -8rem;
+
+    @include mobile() {
+      right: -22rem;
+    }
+
+    img {
+      width: 80rem;
+    }
+  }
+
   [data-section="clients_hero"] {
     p {
       margin-bottom: 4rem;

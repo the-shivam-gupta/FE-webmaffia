@@ -2,11 +2,18 @@ import Banner from "@/components/Banner";
 import ClientsLogosGrid from "@/components/ClientsLogosGrid";
 import { getClientBanner, getClients, getStrapiImageUrl } from "@/lib/strapiPage";
 
+function splitParagraphs(text) {
+  if (!text) return [];
+  return text.split("\n\n").filter(Boolean).map((p) => p.trim());
+}
+
 function buildClientsBannerData(rawBanner) {
   if (!rawBanner) return null;
 
-  const heading = rawBanner.heading || "";
-  const lastSpace = heading.lastIndexOf(" ");
+  const subHeading = rawBanner.subHeading || "";
+  const lastSpace = subHeading.lastIndexOf(" ");
+
+  const paragraphs = splitParagraphs(rawBanner.description);
 
   let images;
   if (rawBanner.desktopImage?.url) {
@@ -14,8 +21,8 @@ function buildClientsBannerData(rawBanner) {
       banner: {
         url: getStrapiImageUrl(rawBanner.desktopImage),
         alt: rawBanner.desktopImage.alternativeText || "",
-        width: rawBanner.desktopImage.width || 788,
-        height: rawBanner.desktopImage.height || 693,
+        width: rawBanner.desktopImage.width || 871,
+        height: rawBanner.desktopImage.height || 767,
       },
     };
     if (rawBanner.mobileImage?.url) {
@@ -27,21 +34,15 @@ function buildClientsBannerData(rawBanner) {
   }
 
   return {
-    imagePosition: rawBanner.imagePosition || "left",
-    priority: true,
-    subheading: rawBanner.tagLine
-      ? { enabled: true, text: rawBanner.tagLine }
+    imagePosition: rawBanner.imagePosition || "right",
+    subheading: rawBanner.heading
+      ? { enabled: true, text: rawBanner.heading.trim() }
       : undefined,
     title: {
-      line1: lastSpace > 0 ? heading.slice(0, lastSpace) : heading,
-      ...(lastSpace > 0 ? { line2: heading.slice(lastSpace + 1) } : {}),
+      line1: lastSpace > 0 ? subHeading.slice(0, lastSpace) : subHeading,
+      ...(lastSpace > 0 ? { line2: subHeading.slice(lastSpace + 1) } : {}),
     },
-    subtitle: rawBanner.subHeading
-      ? { enabled: true, text: rawBanner.subHeading }
-      : undefined,
-    descriptions: rawBanner.description?.trim()
-      ? [rawBanner.description.trim()]
-      : undefined,
+    descriptions: paragraphs.length ? paragraphs : undefined,
     ...(images ? { images } : {}),
   };
 }
