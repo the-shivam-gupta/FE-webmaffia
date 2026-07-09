@@ -453,23 +453,36 @@ async function fetchClientsRaw() {
         throw new Error("STRAPI_API_URL is not configured");
     }
 
-    const response = await fetch(`${strapiBaseUrl}/api/clients?pLevel=10&populate=*`, {
-        headers: {
-            Authorization: `Bearer ${STRAPI_TOKEN}`,
-            "Content-Type": "application/json",
-        },
-        next: { revalidate: 60 },
-    });
+    const allClients = [];
+    let page = 1;
+    let pageCount = 1;
 
-    if (!response.ok) {
-        const errorBody = await response.text().catch(() => "");
-        throw new Error(
-            `Failed to fetch clients (${response.status})${errorBody ? `: ${errorBody.slice(0, 200)}` : ""}`
+    while (page <= pageCount) {
+        const response = await fetch(
+            `${strapiBaseUrl}/api/clients?pLevel=10&populate=*&pagination[page]=${page}&pagination[pageSize]=100`,
+            {
+                headers: {
+                    Authorization: `Bearer ${STRAPI_TOKEN}`,
+                    "Content-Type": "application/json",
+                },
+                next: { revalidate: 60 },
+            }
         );
+
+        if (!response.ok) {
+            const errorBody = await response.text().catch(() => "");
+            throw new Error(
+                `Failed to fetch clients (${response.status})${errorBody ? `: ${errorBody.slice(0, 200)}` : ""}`
+            );
+        }
+
+        const data = await response.json();
+        allClients.push(...data.data);
+        pageCount = data.meta?.pagination?.pageCount ?? 1;
+        page += 1;
     }
 
-    const data = await response.json();
-    return data.data;
+    return allClients;
 }
 
 export async function getClients() {

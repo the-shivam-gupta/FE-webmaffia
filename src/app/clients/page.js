@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Banner from "@/components/Banner";
+import ClientsLogosGrid from "@/components/ClientsLogosGrid";
 import { getClients, getStrapiImageUrl } from "@/lib/strapiPage";
 
 const bannerData = {
@@ -48,20 +48,7 @@ export default async function Clients() {
           className="hero_section banner_para flex"
         />
 
-        <section className="clients_logos">
-          <div className="work_box">
-            {clientLogos.map((client) => (
-              <div key={client.id} className="clients_logo">
-                <Image
-                  src={client.src}
-                  alt={client.alt}
-                  width={client.width}
-                  height={client.height}
-                />
-              </div>
-            ))}
-          </div>
-        </section>
+        <ClientsLogosGrid logos={clientLogos} />
       </div>
     </main>
   );

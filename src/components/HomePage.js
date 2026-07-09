@@ -303,7 +303,7 @@ export default function HomePage({ testimonials = [] }) {
           <div className="sub_heading">Clients</div>
           <div className="work_box">
             {CLIENTS.map((c) => (
-              <Link href="/case-study" key={c.alt}>
+              <Link href="/clients" key={c.alt}>
                 <Image src={c.src} alt={c.alt} width={127} height={88} />
               </Link>
             ))}
