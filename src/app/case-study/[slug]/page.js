@@ -1,14 +1,35 @@
 import { notFound, redirect, permanentRedirect } from "next/navigation";
+import CampaignDetail from "@/app/case-study/campaigns/CampaignDetail";
 import CaseStudyDetailPage from "@/components/CaseStudyDetailPage";
 import { normalizeCaseStudy } from "@/lib/case-study-helpers";
-import { getCaseStudies, getCaseStudyBySlug } from "@/lib/strapiPage";
+import {
+  getCampaignBySlug,
+  getCampaigns,
+  getCaseStudies,
+  getCaseStudyBySlug,
+} from "@/lib/strapiPage";
 
 export async function generateStaticParams() {
-  const caseStudies = await getCaseStudies();
+  const [caseStudies, campaigns] = await Promise.all([
+    getCaseStudies(),
+    getCampaigns(),
+  ]);
 
-  return caseStudies
-    .filter((entry) => !entry.thumbnail?.externalLink)
-    .map((entry) => ({ slug: entry.slug }));
+  const caseStudySlugs = new Set(
+    caseStudies
+      .filter((entry) => !entry.thumbnail?.externalLink)
+      .map((entry) => entry.slug)
+  );
+
+  const params = [...caseStudySlugs].map((slug) => ({ slug }));
+
+  for (const campaign of campaigns) {
+    if (!caseStudySlugs.has(campaign.slug)) {
+      params.push({ slug: campaign.slug });
+    }
+  }
+
+  return params;
 }
 
 export async function generateMetadata({ params }) {
@@ -37,7 +58,19 @@ export async function generateMetadata({ params }) {
     };
   }
 
-  return { title: "Case Study | Webmaffia" };
+  const campaign = await getCampaignBySlug(slug);
+
+  if (!campaign) {
+    return { title: "Case Study | Webmaffia" };
+  }
+
+  return {
+    title: `${campaign.pageName ?? campaign.heading} | Webmaffia`,
+    description: campaign.tagLine,
+    alternates: {
+      canonical: `https://www.webmaffia.com/case-study/${campaign.slug}`,
+    },
+  };
 }
 
 export default async function CaseStudySlugPage({ params }) {
@@ -58,5 +91,11 @@ export default async function CaseStudySlugPage({ params }) {
     return <CaseStudyDetailPage caseStudy={caseStudy} />;
   }
 
-  notFound();
+  const campaign = await getCampaignBySlug(slug);
+
+  if (!campaign) {
+    notFound();
+  }
+
+  return <CampaignDetail campaign={campaign} />;
 }

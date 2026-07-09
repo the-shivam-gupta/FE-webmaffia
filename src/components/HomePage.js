@@ -73,12 +73,12 @@ const SERVICES = [
 const CLIENTS = [
   { src: "/assets/images/clients/AFCONS.webp", alt: "AFCONS" },
   { src: "/assets/images/clients/amns.webp", alt: "AMNS" },
-  { src: "/assets/images/clients/dcc.webp", alt: "DCC" },
-  { src: "/assets/images/clients/Ecovero.webp", alt: "Ecovero" },
-  { src: "/assets/images/clients/FINMAPP.webp", alt: "Finmapp" },
-  { src: "/assets/images/clients/lexotique.webp", alt: "Lexotique" },
-  { src: "/assets/images/clients/lupin.webp", alt: "Lupin" },
-  { src: "/assets/images/clients/Nayara.webp", alt: "Nayara" },
+  { src: "/assets/images/clients/v2/welspun-logo.svg", alt: "Welspun" },
+  { src: "/assets/images/clients/v2/mol-logo.svg", alt: "MOL" },
+  { src: "/assets/images/clients/v2/tata-reality-logo.svg", alt: "Tata Reality" },
+  { src: "/assets/images/clients/v2/acg-logo.svg", alt: "ACG" },
+  { src: "/assets/images/clients/v2/hobal-logo.svg", alt: "Hoabl" },
+  { src: "/assets/images/clients/v2/lupin-logo.svg", alt: "Lupin" },
 ];
 
 const PORTFOLIO = [
@@ -309,7 +309,7 @@ export default function HomePage({ testimonials = [] }) {
             ))}
           </div>
           <div className="cta_box">
-            <Link href="/case-study" className="cta_text">
+            <Link href="/clients" className="cta_text">
               View All <span>Clients</span>
             </Link>
           </div>

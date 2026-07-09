@@ -674,9 +674,11 @@ h2, .sub_heading{
                 margin-bottom: -0.3rem;
             }
             img{
-                width: 12.2rem;
-                height: auto;
                 object-fit: contain;
+                width: auto;
+                max-width: 75%;
+                height: auto;
+                max-height: 100%;
                 @include mobile(){
                     width: 20rem;
                 }
