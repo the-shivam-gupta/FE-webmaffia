@@ -19,6 +19,9 @@ export const metadata = {
   title: "Webmaffia | Creative Digital Agency",
   description:
     "Webmaffia is a full-service creative and digital marketing agency in Mumbai.",
+  verification: {
+    google: "VX6Z1r6uKqRzCYCmofyP19bkg4LVX_AtUPEvDqNYM5M",
+  },
 };
 
 export default async function RootLayout({ children }) {
