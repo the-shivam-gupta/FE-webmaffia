@@ -1,4 +1,8 @@
 import {
+  getAllServiceLocationPaths,
+  SERVICE_LOCATION_PAGES,
+} from "@/lib/serviceLocations";
+import {
   getBlog,
   getCampaigns,
   getCaseStudies,
@@ -21,18 +25,11 @@ const STATIC_PAGES = [
 
 /**
  * Service detail routes (App Router pages under src/app/).
- * Add a new path here when you ship a new service page.
+ * Location variants are generated from Strapi cities.
  */
-const SERVICE_PAGES = [
-  "/digital-strategy",
-  "/website-design-development-services",
-  "/search-engine-optimization-services",
-  "/social-media-marketing-strategy",
-  "/content-marketing-strategy",
-  "/app-store-optimization",
-  "/ai-powered-solutions-services",
-  "/influencer-marketing",
-];
+const SERVICE_PAGES = SERVICE_LOCATION_PAGES.map(
+  (service) => `/${service.slug}`
+);
 
 function toUrl(path) {
   const normalized = path === "/" ? "" : path.replace(/\/$/, "");
@@ -58,10 +55,11 @@ async function safeFetch(label, fn) {
 }
 
 export default async function sitemap() {
-  const [blogs, caseStudies, campaigns] = await Promise.all([
+  const [blogs, caseStudies, campaigns, locationPaths] = await Promise.all([
     safeFetch("blogs", getBlog),
     safeFetch("case studies", getCaseStudies),
     safeFetch("campaigns", getCampaigns),
+    safeFetch("service locations", getAllServiceLocationPaths),
   ]);
 
   const staticEntries = [
@@ -70,6 +68,12 @@ export default async function sitemap() {
     ),
     ...SERVICE_PAGES.map((path) =>
       entry(path, { priority: 0.8, changeFrequency: "monthly" })
+    ),
+    ...locationPaths.map(({ serviceLocation }) =>
+      entry(`/${serviceLocation}`, {
+        priority: 0.7,
+        changeFrequency: "monthly",
+      })
     ),
   ];
 

@@ -583,3 +583,51 @@ export async function getFooter() {
         return null;
     }
 }
+
+async function fetchCitiesRaw() {
+    const strapiBaseUrl = getStrapiApiBaseUrl();
+    if (!strapiBaseUrl) {
+        throw new Error("STRAPI_API_URL is not configured");
+    }
+
+    const response = await fetch(`${strapiBaseUrl}/api/city?populate=*`, {
+        headers: {
+            Authorization: `Bearer ${STRAPI_TOKEN}`,
+            "Content-Type": "application/json",
+        },
+        next: { revalidate: 60 },
+    });
+
+    if (!response.ok) {
+        const errorBody = await response.text().catch(() => "");
+        throw new Error(
+            `Failed to fetch cities (${response.status})${errorBody ? `: ${errorBody.slice(0, 200)}` : ""}`
+        );
+    }
+
+    const data = await response.json();
+    return data.data;
+}
+
+/**
+ * Location entries from Strapi single-type `city`.
+ * @returns {Promise<Array<{ id: number, name: string, citySlug: string }>>}
+ */
+export async function getCities() {
+    try {
+        const raw = await fetchCitiesRaw();
+        const cities = raw?.city;
+        if (!Array.isArray(cities)) return [];
+
+        return cities
+            .filter((city) => city?.name && city?.citySlug)
+            .map((city) => ({
+                id: city.id,
+                name: String(city.name).trim(),
+                citySlug: String(city.citySlug).trim().replace(/^\/+|\/+$/g, ""),
+            }));
+    } catch (error) {
+        console.error("Failed to fetch cities:", error);
+        return [];
+    }
+}
