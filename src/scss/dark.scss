@@ -301,54 +301,61 @@ html{
             &::before {
                 background: $white;
             }
-        }
 
-        .footer_info {
-            background: $white;
-        }
-
-        footer, .footer_info {
-            .footer_container{
-                .footer_title{
+            .footer_container {
+                .footer_title {
                     color: $black !important;
                 }
-                .form{
+
+                .form {
                     label,
-                    input{
+                    input {
                         color: $black !important;
                     }
-                    input{
+
+                    input {
                         border-bottom-color: $gray_medium_dark;
-                        &:focus{
+
+                        &:focus {
                             border-bottom-color: $black;
                         }
                     }
-                    .cta_text span{
+
+                    .cta_text span {
                         color: $gray_dark !important;
-                        &::before{
+
+                        &::before {
                             background: $gray_dark;
                         }
                     }
                 }
             }
-            .footer_nav,
-            .footer_info {
-                .footer_col {
-                    border-left-color: $gray_light;
-                }
 
-                .footer_col_title,
-                .footer_links a,
-                .footer_brand,
-                .region_text,
-                address a,
-                .footer_contact_item {
-                    color: $black;
-                }
+            .footer_col_title,
+            .footer_links a {
+                color: $black;
+            }
 
-                .copyright {
-                    color: $black_60;
-                }
+            .footer_connect_subtext {
+                color: $black_60;
+            }
+
+            .footer_connect_divider,
+            .footer_logo_divider {
+                background: rgba(0, 0, 0, 0.15);
+            }
+
+            .footer_connect_primary_address,
+            .footer_connect_primary_contact,
+            .footer_connect_primary_contact a,
+            .footer_connect_office address,
+            .footer_connect_office address a,
+            .footer_copyright {
+                color: $black_60;
+            }
+
+            .footer_connect_office + .footer_connect_office {
+                border-left-color: rgba(0, 0, 0, 0.2);
             }
 
             .footer_links .link {
@@ -360,7 +367,13 @@ html{
                     color: $black;
                 }
             }
-            img{
+
+            .footer_logo img {
+                filter: invert(1);
+                opacity: 0.12;
+            }
+
+            .footer_social_icons img {
                 filter: invert(1);
             }
         }

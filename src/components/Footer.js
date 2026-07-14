@@ -13,14 +13,22 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
     slugMatch?.[1] != null && campaignSlugs.includes(slugMatch[1]);
   const showContactIllustration = Boolean(slugMatch) && !isCampaignPage;
 
-  const socialLinks = footerData?.socialLinks ?? [];
+  const socialLinks = (footerData?.socialLinks ?? []).filter(
+    ({ platform }) => platform !== "X"
+  );
   const navLinks = footerData?.navLinks ?? [];
   const services = footerData?.services ?? [];
   const offices = footerData?.offices ?? [];
   const copyright = footerData?.copyright;
 
-  const mumbaiOffice = offices.find((o) => o.city?.startsWith("Mumbai"));
   const dubaiOffice = offices.find((o) => o.city?.startsWith("Dubai"));
+  const secondaryOffices = offices.filter((o) => !o.city?.startsWith("Dubai"));
+  const mumbaiOffice = offices.find((o) => o.city?.startsWith("Mumbai"));
+
+  const primaryEmail = dubaiOffice?.email || mumbaiOffice?.email;
+  const primaryPhone = dubaiOffice?.phone || mumbaiOffice?.phone;
+
+  const copyrightText = copyright?.description || copyright?.brand || null;
 
   return (
     <footer>
@@ -35,42 +43,110 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
           />
         </div>
       ) : null}
+
       <div className="footer_nav">
-        <div className="footer_col footer_col--social">
-          <div className="footer_col_title">Social Media</div>
-          <div className="footer_col_content footer_col_content--center">
+        <div className="footer_col footer_col--connect">
+          <div className="footer_col_content">
+            <div className="footer_col_title footer_col_title--connect">
+              Connect With Us
+            </div>
+            <p className="footer_connect_subtext">
+              Follow our social channels to get a glimpse of Webmaffia
+            </p>
+
+            <div className="footer_connect_divider" aria-hidden="true" />
+
             <div className="footer_social_icons">
-              {socialLinks.map(({ platform, url, iconSrc, iconAlt }) => (
+              {socialLinks.map(({ platform, url, iconSrc, iconAlt }) =>
                 iconSrc ? (
-                  <a key={platform} href={url} target="_blank" rel="noopener noreferrer" aria-label={iconAlt}>
-                    <Image src={iconSrc} alt={iconAlt} width={35} height={35} />
+                  <a
+                    key={platform}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={iconAlt}
+                  >
+                    <Image src={iconSrc} alt={iconAlt} width={28} height={28} />
                   </a>
                 ) : null
-              ))}
+              )}
             </div>
-          </div>
-        </div>
 
-        <div className="footer_col footer_col--work">
-          <div className="footer_col_content">
-            <div className="footer_col_title">Quick Links</div>
-            <ul className="footer_links footer_links--spaced">
-              {navLinks.map(({ href, label }) => (
-                <li key={href}>
-                  <Link href={href} className="link">{label}</Link>
-                </li>
-              ))}
-            </ul>
+            <div className="footer_connect_divider" aria-hidden="true" />
+
+            <div className="footer_connect_details">
+              {dubaiOffice && (
+                <div className="footer_connect_primary">
+                  <a
+                    href={dubaiOffice.addressLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="footer_connect_primary_address"
+                  >
+                    {dubaiOffice.city} {dubaiOffice.address}
+                  </a>
+                  {(primaryEmail || primaryPhone) && (
+                    <div className="footer_connect_primary_contact">
+                      {primaryEmail && (
+                        <a href={`mailto:${primaryEmail}`}>{primaryEmail}</a>
+                      )}
+                      {primaryEmail && primaryPhone ? (
+                        <span aria-hidden="true"> | </span>
+                      ) : null}
+                      {primaryPhone && (
+                        <a href={`tel:${primaryPhone.replace(/\s/g, "")}`}>
+                          {primaryPhone}
+                        </a>
+                      )}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {secondaryOffices.length > 0 && (
+                <div className="footer_connect_offices">
+                  {secondaryOffices.map((office) => (
+                    <div className="footer_connect_office" key={office.id || office.city}>
+                      <address>
+                        <a
+                          href={office.addressLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {office.city} {office.address}
+                        </a>
+                      </address>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
         <div className="footer_col footer_col--services">
           <div className="footer_col_content">
             <div className="footer_col_title">Our Services</div>
-            <ul className="footer_links">
+            <ul className="footer_links footer_links--services">
               {services.map(({ href, label }) => (
                 <li key={href}>
-                  <Link href={href} className="link">{label}</Link>
+                  <Link href={href} className="link">
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div className="footer_col footer_col--work">
+          <div className="footer_col_content">
+            <ul className="footer_links footer_links--nav">
+              {navLinks.map(({ href, label }) => (
+                <li key={href}>
+                  <Link href={href} className="link">
+                    {label}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -78,67 +154,14 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
         </div>
       </div>
 
-      <div className="footer_info">
-        <div className="footer_col footer_col--brand">
-          <div className="footer_col_content">
-            {copyright?.brand && <div className="footer_brand">{copyright.brand}</div>}
-            {copyright?.description && <div className="copyright">{copyright.description}</div>}
-          </div>
-        </div>
+      <div className="footer_logo_divider" aria-hidden="true" />
 
-        {mumbaiOffice && (
-          <div className="footer_col footer_col--mumbai">
-            <div className="footer_col_content">
-              <div className="region_text">{mumbaiOffice.city}</div>
-              <address>
-                <a
-                  href={mumbaiOffice.addressLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {mumbaiOffice.address}
-                </a>
-              </address>
-              {mumbaiOffice.phone && (
-                <a className="footer_contact_item" href={`tel:${mumbaiOffice.phone.replace(/\s/g, "")}`}>
-                  {mumbaiOffice.phone}
-                </a>
-              )}
-            </div>
-          </div>
-        )}
-
-        {dubaiOffice && (
-          <div className="footer_col footer_col--dubai">
-            <div className="footer_col_content">
-              <div className="region_text">{dubaiOffice.city}</div>
-              <address>
-                <a
-                  href={dubaiOffice.addressLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {dubaiOffice.address}
-                </a>
-              </address>
-              {dubaiOffice.email && (
-                <a className="footer_contact_item footer_contact_item--icon" href={`mailto:${dubaiOffice.email}`}>
-                  <Image src="/assets/images/footer/message.svg" alt="" width={20} height={16} aria-hidden="true" />
-                  {dubaiOffice.email}
-                </a>
-              )}
-              {dubaiOffice.phone && (
-                <a className="footer_contact_item footer_contact_item--icon" href={`tel:${dubaiOffice.phone.replace(/\s/g, "")}`}>
-                  <Image src="/assets/images/footer/phone.svg" alt="" width={18} height={18} aria-hidden="true" />
-                  {dubaiOffice.phone}
-                </a>
-              )}
-            </div>
-          </div>
-        )}
-      </div>
-
-      <Link href="https://www.webmaffia.com/" target="_blank" rel="noopener noreferrer">
+      <Link
+        href="https://www.webmaffia.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="footer_logo"
+      >
         <Image
           src="/assets/images/maffia-logo.webp"
           alt="Webmaffia"
@@ -146,6 +169,10 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
           height={210}
         />
       </Link>
+
+      {copyrightText && (
+        <div className="footer_copyright">{copyrightText}</div>
+      )}
     </footer>
   );
 };
