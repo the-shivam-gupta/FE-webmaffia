@@ -295,7 +295,7 @@ footer {
     position: relative;
     z-index: 2;
     display: grid;
-    grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.9fr) minmax(0, 0.85fr);
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr);
     gap: 6rem;
     width: 100%;
     align-items: start;
@@ -490,7 +490,7 @@ footer {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.4rem 0;
+    gap: 0.4rem 1rem;
 
     @include tablet() {
       gap: 0.8rem 2rem;

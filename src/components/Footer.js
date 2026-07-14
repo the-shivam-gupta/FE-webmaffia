@@ -21,12 +21,11 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
   const offices = footerData?.offices ?? [];
   const copyright = footerData?.copyright;
 
-  const dubaiOffice = offices.find((o) => o.city?.startsWith("Dubai"));
-  const secondaryOffices = offices.filter((o) => !o.city?.startsWith("Dubai"));
-  const mumbaiOffice = offices.find((o) => o.city?.startsWith("Mumbai"));
+  const primaryOffice = offices[0];
+  const secondaryOffices = offices.slice(1);
 
-  const primaryEmail = dubaiOffice?.email || mumbaiOffice?.email;
-  const primaryPhone = dubaiOffice?.phone || mumbaiOffice?.phone;
+  const primaryEmail = primaryOffice?.email || null;
+  const primaryPhone = primaryOffice?.phone || null;
 
   const copyrightText = copyright?.description || copyright?.brand || null;
 
@@ -75,15 +74,15 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
             <div className="footer_connect_divider" aria-hidden="true" />
 
             <div className="footer_connect_details">
-              {dubaiOffice && (
+              {primaryOffice && (
                 <div className="footer_connect_primary">
                   <a
-                    href={dubaiOffice.addressLink}
+                    href={primaryOffice.addressLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="footer_connect_primary_address"
                   >
-                    {dubaiOffice.city} {dubaiOffice.address}
+                    {primaryOffice.city} {primaryOffice.address}
                   </a>
                   {(primaryEmail || primaryPhone) && (
                     <div className="footer_connect_primary_contact">
@@ -124,11 +123,10 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
           </div>
         </div>
 
-        <div className="footer_col footer_col--services">
+        <div className="footer_col footer_col--work">
           <div className="footer_col_content">
-            <div className="footer_col_title">Our Services</div>
-            <ul className="footer_links footer_links--services">
-              {services.map(({ href, label }) => (
+            <ul className="footer_links footer_links--nav">
+              {navLinks.map(({ href, label }) => (
                 <li key={href}>
                   <Link href={href} className="link">
                     {label}
@@ -139,10 +137,11 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
           </div>
         </div>
 
-        <div className="footer_col footer_col--work">
+        <div className="footer_col footer_col--services">
           <div className="footer_col_content">
-            <ul className="footer_links footer_links--nav">
-              {navLinks.map(({ href, label }) => (
+            <div className="footer_col_title">Our Services</div>
+            <ul className="footer_links footer_links--services">
+              {services.map(({ href, label }) => (
                 <li key={href}>
                   <Link href={href} className="link">
                     {label}
