@@ -181,7 +181,7 @@ const Header = () => {
           <div className="left_container">
             <div className="menu_link" data-number="01">
               <Link href="/about" onClick={() => setMenuOpen(false)}>
-                About us
+                About Us
               </Link>
             </div>
 
@@ -262,15 +262,17 @@ const Header = () => {
                 </ul>
               </div>
             </div> */}
+            
+
             <div className="menu_link" data-number="03">
-              <Link href="/clients" onClick={() => setMenuOpen(false)}>
-                Our Client
+              <Link href="/case-study" onClick={() => setMenuOpen(false)}>
+                Our Work
               </Link>
             </div>
 
             <div className="menu_link" data-number="04">
-              <Link href="/case-study" onClick={() => setMenuOpen(false)}>
-                Our work
+              <Link href="/clients" onClick={() => setMenuOpen(false)}>
+                Our Client
               </Link>
             </div>
 

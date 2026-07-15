@@ -249,7 +249,7 @@ footer {
   z-index: 1;
   overflow: visible;
   background: transparent;
-  padding: 10rem 6.5rem 4rem;
+  padding: 11rem 14rem 4rem;
 
   @include tablet() {
     padding: 7rem 4rem 3rem;
@@ -295,8 +295,8 @@ footer {
     position: relative;
     z-index: 2;
     display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr);
-    gap: 6rem;
+    grid-template-columns: minmax(0, 1fr) 27rem 33rem;
+    gap: 8rem;
     width: 100%;
     align-items: start;
     justify-items: stretch;
@@ -376,11 +376,16 @@ footer {
   .footer_col--services,
   .footer_col--work {
     justify-self: stretch;
+    padding-top: 2.5rem;
+
+    @include tablet() {
+      padding-top: 0;
+    }
   }
 
   .footer_connect_subtext {
-    margin: 0 0 2.4rem;
-    color: rgba(255, 255, 255, 0.85);
+    margin: 0 0 3.5rem;
+    color: #ffffff8c;
     font-family: "Albert Sans", sans-serif;
     font-size: 2.475rem;
     font-weight: 400;
@@ -412,7 +417,7 @@ footer {
     flex-wrap: wrap;
     align-items: center;
     gap: 11.4rem;
-    margin: 2.2rem 0;
+    margin: 3.5rem 0;
 
     a {
       display: inline-flex;
@@ -432,7 +437,7 @@ footer {
   }
 
   .footer_connect_details {
-    margin-top: 5rem;
+    margin-top: 8rem;
     width: 100%;
     max-width: 56rem;
 
@@ -447,7 +452,7 @@ footer {
   }
 
   .footer_connect_primary {
-    margin-bottom: 3.4rem;
+    margin-bottom: 4.5rem;
 
     @include tablet() {
       margin-bottom: 5rem;
@@ -503,37 +508,25 @@ footer {
 
   .footer_connect_offices {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
+    grid-template-columns: 1fr;
+    gap: 3rem;
     align-items: stretch;
     width: 100%;
 
     @include mobile() {
-      grid-template-columns: 1fr;
       gap: 2rem;
     }
   }
 
   .footer_connect_office {
     min-width: 0;
-    padding-right: 2rem;
+    padding-right: 0;
     text-align: left;
 
-    @include tablet(){
-      padding-right: 0;
-    }
-
     & + .footer_connect_office {
-      padding-left: 2rem;
+      padding-left: 0;
       padding-right: 0;
-      border-left: 0.1rem solid rgba(255, 255, 255, 0.35);
-
-      @include mobile() {
-        padding-left: 0;
-        border-left: none;
-        padding-top: 2rem;
-        border-top: 0.1rem solid rgba(255, 255, 255, 0.2);
-      }
+      border-left: none;
     }
 
     address,
@@ -546,13 +539,16 @@ footer {
       line-height: 1.45;
       margin: 0;
       text-align: left;
+      max-width: 80%;
 
       @include tablet() {
         font-size: 2.9rem;
+        max-width: 80%;
       }
 
       @include mobile() {
         font-size: 2.5rem;
+        max-width: 80%;
       }
     }
 
