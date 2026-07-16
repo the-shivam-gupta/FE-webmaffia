@@ -80,11 +80,28 @@ const SERVICE_SECTIONS = [
     imageFirst: false,
     title: (
       <>
+        AI-Powered <br />
+        Solutions
+      </>
+    ),
+    img: { src: "/assets/images/number/4.webp", alt: "AI-Powered Solutions" },
+    slides: ["Consulting", "Chatbots", "Generative AI Solutions", "Automation", "Agents"],
+    body: (
+      <>
+        This is where things get interesting. We take AI<br /> out of the "nice to have" pile and put it to work<br /> automating the boring stuff, sharpening how customers<br /> experience your brand, and giving marketing and<br /> operations a real upgrade. No jargon, no gimmicks,<br /> just solutions that actually move the needle for your business.
+      </>
+    ),
+    href: "/ai-powered-solutions-services",
+  },
+  {
+    imageFirst: true,
+    title: (
+      <>
         Social <br />
         media
       </>
     ),
-    img: { src: "/assets/images/number/4.webp", alt: "Social Media" },
+    img: { src: "/assets/images/number/5.webp", alt: "Social Media" },
     slides: ["Engagement", "Hashtag"],
     body: (
       <>
@@ -99,14 +116,14 @@ const SERVICE_SECTIONS = [
     href: "/social-media-marketing-strategy",
   },
   {
-    imageFirst: true,
+    imageFirst: false,
     title: (
       <>
         Content <br />
         Marketing
       </>
     ),
-    img: { src: "/assets/images/number/5.webp", alt: "Content Marketing" },
+    img: { src: "/assets/images/number/6.webp", alt: "Content Marketing" },
     slides: ["Backlinks", "On-Page"],
     body: (
       <>
@@ -122,14 +139,14 @@ const SERVICE_SECTIONS = [
     href: "/content-marketing-strategy",
   },
   {
-    imageFirst: false,
+    imageFirst: true,
     title: (
       <>
         App Store <br />
         Optimization
       </>
     ),
-    img: { src: "/assets/images/number/6.webp", alt: "App Store Optimization" },
+    img: { src: "/assets/images/number/7.webp", alt: "App Store Optimization" },
     slides: ["Backlinks", "On-Page"],
     body: (
       <>
@@ -141,23 +158,6 @@ const SERVICE_SECTIONS = [
       </>
     ),
     href: "/app-store-optimization",
-  },
-  {
-    imageFirst: true,
-    title: (
-      <>
-        AI-Powered <br />
-        Solutions
-      </>
-    ),
-    img: { src: "/assets/images/number/7.webp", alt: "AI-Powered Solutions" },
-    slides: ["Consulting", "Chatbots", "Generative AI Solutions", "Automation", "Agents"],
-    body: (
-      <>
-        This is where things get interesting. We take AI<br /> out of the "nice to have" pile and put it to work<br /> automating the boring stuff, sharpening how customers<br /> experience your brand, and giving marketing and<br /> operations a real upgrade. No jargon, no gimmicks,<br /> just solutions that actually move the needle for your business.
-      </>
-    ),
-    href: "/ai-powered-solutions-services",
   },
 ];
 

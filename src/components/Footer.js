@@ -155,7 +155,7 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
         </div>
       </div>
 
-      <div className="footer_logo_divider" aria-hidden="true" />
+      {/* <div className="footer_logo_divider" aria-hidden="true" /> */}
 
       <Link
         href="https://www.webmaffia.com/"
