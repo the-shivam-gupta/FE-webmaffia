@@ -21,10 +21,8 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
   const offices = footerData?.offices ?? [];
   const copyright = footerData?.copyright;
 
-  const primaryOffice =
-    offices.find(({ city = "" }) => city.toLowerCase().includes("dubai")) ||
-    offices[0];
-  const secondaryOffices = offices.filter((office) => office !== primaryOffice);
+  const primaryOffice = offices[0];
+  const secondaryOffices = offices.slice(1);
 
   const primaryEmail = primaryOffice?.email || null;
   const primaryPhone = primaryOffice?.phone || null;
