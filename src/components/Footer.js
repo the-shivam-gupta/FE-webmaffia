@@ -139,7 +139,7 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
 
         <div className="footer_col footer_col--services">
           <div className="footer_col_content">
-            <div className="footer_col_title">Our Services</div>
+            <Link href="/services" className="footer_col_title">Our Services</Link>
             <ul className="footer_links footer_links--services">
               {services.map(({ href, label }) => (
                 <li key={href}>

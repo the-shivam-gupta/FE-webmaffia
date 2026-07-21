@@ -368,6 +368,16 @@ html{
                 }
             }
 
+            .footer_col_title[href] {
+                &::after {
+                    background: $black_60;
+                }
+
+                &:hover {
+                    color: $black;
+                }
+            }
+
             .footer_logo img {
                 filter: invert(1);
                 opacity: 0.12;

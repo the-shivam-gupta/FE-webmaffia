@@ -249,7 +249,7 @@ footer {
   z-index: 1;
   overflow: visible;
   background: transparent;
-  padding: 11rem 14rem 4rem;
+  padding: 11rem 14rem;
 
   @include tablet() {
     padding: 7rem 4rem 3rem;
@@ -349,6 +349,31 @@ footer {
     //   font-size: 2.8rem;
     //   margin-bottom: 1.2rem;
     // }
+
+    &[href] {
+      position: relative;
+      display: inline-block;
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        bottom: auto;
+        left: -0.5rem;
+        width: 105%;
+        height: 0.2rem;
+        margin-top: -0.1rem;
+        background: $white;
+        transform: scaleX(0);
+        transform-origin: right center;
+        transition: transform 0.45s ease-in-out;
+      }
+
+      &:hover::after {
+        transform: scaleX(1);
+        transform-origin: left center;
+      }
+    }
 
     &--connect {
       font-size: 7.5329rem;
@@ -720,7 +745,7 @@ footer {
     position: relative;
     z-index: 2;
     display: block;
-    margin: 4rem auto 0;
+    margin: 8rem auto 0;
 
     img {
       width: min(100%, 131.8rem);
@@ -742,7 +767,7 @@ footer {
   .footer_copyright {
     position: relative;
     z-index: 2;
-    margin-top: 4rem;
+    margin-top: 6rem;
     text-align: center;
     color: #717171;
     font-family: "Albert Sans", sans-serif;
