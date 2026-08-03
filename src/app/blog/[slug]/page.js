@@ -47,6 +47,13 @@ export async function generateMetadata({ params }) {
     };
 }
 
+const SITE_URL = "https://www.webmaffia.com";
+
+function toAbsoluteUrl(url) {
+    if (!url) return url;
+    return url.startsWith("http") ? url : `${SITE_URL}${url.startsWith("/") ? url : `/${url}`}`;
+}
+
 export default async function StrapiBlogPage({ params }) {
     const { slug } = await params;
     const post = await getBlogBySlug(slug);
@@ -62,18 +69,57 @@ export default async function StrapiBlogPage({ params }) {
     const preparedArticle = prepareStrapiArticleHtml(post.description);
     const relatedPosts = await getRelatedStrapiPosts(post.slug, 2);
 
+    const headline = post.heading?.replace(/\n/g, " ") ?? "";
+    const publishedAt = post.publishedAt || post.createdAt || null;
+    const modifiedAt = post.updatedAt || publishedAt;
+
+    const blogPostingSchema = {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        mainEntityOfPage: {
+            "@type": "WebPage",
+            "@id": `${SITE_URL}/blog/${post.slug}`,
+        },
+        headline,
+        description: post.excerpt ?? "",
+        image: toAbsoluteUrl(getStrapiImageUrl(post.image)),
+        author: {
+            "@type": "Organization",
+            name: "WebMaffia",
+            url: `${SITE_URL}/`,
+        },
+        publisher: {
+            "@type": "Organization",
+            name: "WebMaffia",
+            logo: {
+                "@type": "ImageObject",
+                url: `${SITE_URL}/assets/images/icons/webmaffia.webp`,
+            },
+        },
+        ...(publishedAt ? { datePublished: publishedAt } : {}),
+        ...(modifiedAt ? { dateModified: modifiedAt } : {}),
+    };
+
     return (
-        <BlogDetailPage
-            slug={post.slug}
-            title={<BlogTitle heading={post.heading} />}
-            date={formatBlogDate(post.date)}
-            readTime={post.readTime}
-            image={getStrapiImageUrl(post.image)}
-            imageAlt={post.image?.alternativeText || post.heading || ""}
-            stickyLinks={preparedArticle.stickyLinks}
-            relatedPosts={relatedPosts}
-        >
-            <BlogStrapiArticle html={preparedArticle.html} />
-        </BlogDetailPage>
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(blogPostingSchema).replace(/</g, "\\u003c"),
+                }}
+            />
+            <BlogDetailPage
+                slug={post.slug}
+                title={<BlogTitle heading={post.heading} />}
+                date={formatBlogDate(post.date)}
+                readTime={post.readTime}
+                image={getStrapiImageUrl(post.image)}
+                imageAlt={post.image?.alternativeText || post.heading || ""}
+                stickyLinks={preparedArticle.stickyLinks}
+                relatedPosts={relatedPosts}
+            >
+                <BlogStrapiArticle html={preparedArticle.html} />
+            </BlogDetailPage>
+        </>
     );
 }
