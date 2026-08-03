@@ -208,14 +208,16 @@ const CASE_STUDY_POPULATE = [
     "populate[sections][on][case-study.creatives][populate][button]=*",
 ].join("&");
 
-async function fetchCaseStudiesRaw() {
+const CASE_STUDY_PAGE_SIZE = 100;
+
+async function fetchCaseStudiesPage(page) {
     const strapiBaseUrl = getStrapiApiBaseUrl();
     if (!strapiBaseUrl) {
         throw new Error("STRAPI_API_URL is not configured");
     }
 
     const response = await fetch(
-        `${strapiBaseUrl}/api/case-studies?${CASE_STUDY_POPULATE}`,
+        `${strapiBaseUrl}/api/case-studies?${CASE_STUDY_POPULATE}&pagination[page]=${page}&pagination[pageSize]=${CASE_STUDY_PAGE_SIZE}`,
         {
             headers: {
                 Authorization: `Bearer ${STRAPI_TOKEN}`,
@@ -232,8 +234,29 @@ async function fetchCaseStudiesRaw() {
         );
     }
 
-    const data = await response.json();
-    return data.data;
+    return response.json();
+}
+
+async function fetchCaseStudiesRaw() {
+    const firstPage = await fetchCaseStudiesPage(1);
+    const entries = firstPage.data ?? [];
+    const pageCount = firstPage.meta?.pagination?.pageCount ?? 1;
+
+    if (pageCount <= 1) {
+        return entries;
+    }
+
+    const remainingPages = await Promise.all(
+        Array.from({ length: pageCount - 1 }, (_, index) =>
+            fetchCaseStudiesPage(index + 2)
+        )
+    );
+
+    for (const page of remainingPages) {
+        entries.push(...(page.data ?? []));
+    }
+
+    return entries;
 }
 
 export async function getCaseStudies() {
