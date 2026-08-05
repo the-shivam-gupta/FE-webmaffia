@@ -1,6 +1,13 @@
 import Image from "next/image";
 import Banner from "@/components/Banner";
+import JsonLd from "@/components/JsonLd";
 import KlaviyoFormEmbed from "@/components/KlaviyoFormEmbed";
+import { buildBreadcrumbSchema } from "@/lib/schema";
+
+const BREADCRUMB_SCHEMA = buildBreadcrumbSchema([
+  { name: "Home", path: "/" },
+  { name: "Contact", path: "/contact" },
+]);
 
 const bannerData = {
   imagePosition: "right",
@@ -30,6 +37,7 @@ const bannerData = {
 export default function ContactPage() {
   return (
     <main className="wrapper">
+      <JsonLd data={BREADCRUMB_SCHEMA} />
       <div className="ml-setter contact_us">
         <Banner data={bannerData}>
           <p>

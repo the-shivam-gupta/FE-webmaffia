@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import Banner from "@/components/Banner";
+import JsonLd from "@/components/JsonLd";
+import { buildBreadcrumbSchema } from "@/lib/schema";
 
 function TechnologyBlock({ technologies }) {
   if (!technologies) return null;
@@ -33,7 +35,7 @@ function TechnologyBlock({ technologies }) {
   );
 }
 
-export default function ServiceDetailPage({ config }) {
+export default function ServiceDetailPage({ config, breadcrumbs }) {
   const { hero, sections, latestWork } = config;
   const heroClass = hero.heroClassName
     ? `hero_section flex ${hero.heroClassName}`
@@ -69,6 +71,9 @@ export default function ServiceDetailPage({ config }) {
 
   return (
     <main className="wrapper">
+      {breadcrumbs?.length > 0 && (
+        <JsonLd data={buildBreadcrumbSchema(breadcrumbs)} />
+      )}
       <div className="ml-setter service_detail">
         <Banner data={bannerData} className={heroClass}>
           {descriptions.map((text, i) => (

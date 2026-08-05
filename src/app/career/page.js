@@ -4,6 +4,13 @@ import Banner from "@/components/Banner";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import CareerAccordion from "@/components/CareerAccordion";
+import JsonLd from "@/components/JsonLd";
+import { buildBreadcrumbSchema } from "@/lib/schema";
+
+const BREADCRUMB_SCHEMA = buildBreadcrumbSchema([
+  { name: "Home", path: "/" },
+  { name: "Career", path: "/career" },
+]);
 
 const ROLE_INTERESTS = [
   { id: "Web_design", value: "Web design", label: "Web design" },
@@ -122,6 +129,7 @@ export default function CareerPage() {
 
   return (
     <main className="wrapper">
+      <JsonLd data={BREADCRUMB_SCHEMA} />
       <div className="ml-setter career">
         <Banner data={bannerData} />
 

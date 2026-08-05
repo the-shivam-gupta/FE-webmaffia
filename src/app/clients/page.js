@@ -1,6 +1,13 @@
 import Banner from "@/components/Banner";
 import ClientsLogosGrid from "@/components/ClientsLogosGrid";
+import JsonLd from "@/components/JsonLd";
 import { getClientBanner, getClients, getStrapiImageUrl } from "@/lib/strapiPage";
+import { buildBreadcrumbSchema } from "@/lib/schema";
+
+const BREADCRUMB_SCHEMA = buildBreadcrumbSchema([
+  { name: "Home", path: "/" },
+  { name: "Our Client", path: "/clients" },
+]);
 
 function splitParagraphs(text) {
   if (!text) return [];
@@ -72,6 +79,7 @@ export default async function Clients() {
 
   return (
     <main className="wrapper clients_wrapper">
+      <JsonLd data={BREADCRUMB_SCHEMA} />
       <div className="ml-setter clients_page">
         {bannerData && (
           <Banner

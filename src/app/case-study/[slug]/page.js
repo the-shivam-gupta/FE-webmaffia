@@ -1,7 +1,9 @@
 import { notFound, redirect, permanentRedirect } from "next/navigation";
 import CampaignDetail from "@/app/case-study/campaigns/CampaignDetail";
 import CaseStudyDetailPage from "@/components/CaseStudyDetailPage";
+import JsonLd from "@/components/JsonLd";
 import { normalizeCaseStudy } from "@/lib/case-study-helpers";
+import { buildBreadcrumbSchema } from "@/lib/schema";
 import {
   getCampaignBySlug,
   getCampaigns,
@@ -87,8 +89,20 @@ export default async function CaseStudySlugPage({ params }) {
     }
 
     const caseStudy = normalizeCaseStudy(entry);
+    const breadcrumbTitle =
+      entry.banner?.heading?.replace(/\n/g, " ") ?? entry.pageName ?? entry.slug;
+    const breadcrumbSchema = buildBreadcrumbSchema([
+      { name: "Home", path: "/" },
+      { name: "Our Work", path: "/case-study" },
+      { name: breadcrumbTitle, path: `/case-study/${entry.slug}` },
+    ]);
 
-    return <CaseStudyDetailPage caseStudy={caseStudy} />;
+    return (
+      <>
+        <JsonLd data={breadcrumbSchema} />
+        <CaseStudyDetailPage caseStudy={caseStudy} />
+      </>
+    );
   }
 
   const campaign = await getCampaignBySlug(slug);
@@ -97,5 +111,16 @@ export default async function CaseStudySlugPage({ params }) {
     notFound();
   }
 
-  return <CampaignDetail campaign={campaign} />;
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Our Work", path: "/case-study" },
+    { name: campaign.pageName ?? campaign.heading ?? campaign.slug, path: `/case-study/${campaign.slug}` },
+  ]);
+
+  return (
+    <>
+      <JsonLd data={breadcrumbSchema} />
+      <CampaignDetail campaign={campaign} />
+    </>
+  );
 }

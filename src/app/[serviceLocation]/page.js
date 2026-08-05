@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import ServiceDetailPage from "@/components/ServiceDetailPage";
 import {
   buildServiceLocationMetadata,
+  formatCityDisplayName,
   getAllServiceLocationPaths,
   getServiceLocationMatch,
   withCityInHeading,
@@ -41,5 +42,16 @@ export default async function ServiceLocationPage({ params }) {
     match.city.name
   );
 
-  return <ServiceDetailPage config={config} />;
+  const cityLabel = formatCityDisplayName(match.city.name);
+  const breadcrumbs = [
+    { name: "Home", path: "/" },
+    { name: "Services", path: "/services" },
+    { name: match.service.headingTitle, path: `/${match.service.slug}` },
+    {
+      name: `${match.service.headingTitle} in ${cityLabel}`,
+      path: `/${serviceLocation}`,
+    },
+  ];
+
+  return <ServiceDetailPage config={config} breadcrumbs={breadcrumbs} />;
 }

@@ -1,7 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import Banner from "@/components/Banner";
+import JsonLd from "@/components/JsonLd";
 import ServiceTagSwiper from "@/components/ServiceTagSwiper";
+import { buildBreadcrumbSchema } from "@/lib/schema";
+
+const BREADCRUMB_SCHEMA = buildBreadcrumbSchema([
+  { name: "Home", path: "/" },
+  { name: "Services", path: "/services" },
+]);
 
 const bannerData = {
   imagePosition: "right",
@@ -203,6 +210,7 @@ function ServiceSection({ imageFirst, title, img, slides, body, href }) {
 export default function ServicesPage() {
   return (
     <main className="wrapper">
+      <JsonLd data={BREADCRUMB_SCHEMA} />
       <div className="services ml-setter">
         <Banner data={bannerData} />
 

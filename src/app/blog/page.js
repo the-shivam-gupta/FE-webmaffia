@@ -2,7 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 import Banner from "@/components/Banner";
 import BlogListItem from "@/components/BlogListItem";
+import JsonLd from "@/components/JsonLd";
 import { formatBlogDate, getBlog, getStrapiImageUrl } from "@/lib/strapiPage";
+import { buildBreadcrumbSchema } from "@/lib/schema";
+
+const BREADCRUMB_SCHEMA = buildBreadcrumbSchema([
+  { name: "Home", path: "/" },
+  { name: "Blog", path: "/blog" },
+]);
 
 const bannerData = {
   imagePosition: "right",
@@ -37,6 +44,7 @@ export default async function BlogPage() {
 
   return (
     <main className="wrapper">
+      <JsonLd data={BREADCRUMB_SCHEMA} />
       <div className="blog_listing">
         <Banner data={bannerData} />
 

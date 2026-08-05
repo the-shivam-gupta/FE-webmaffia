@@ -1,6 +1,13 @@
 import Banner from "@/components/Banner";
+import JsonLd from "@/components/JsonLd";
 import WorkListSection from "@/components/WorkListSection";
 import { getCaseStudies, getStrapiImageUrl } from "@/lib/strapiPage";
+import { buildBreadcrumbSchema } from "@/lib/schema";
+
+const BREADCRUMB_SCHEMA = buildBreadcrumbSchema([
+  { name: "Home", path: "/" },
+  { name: "Our Work", path: "/case-study" },
+]);
 
 export const metadata = {
   title: "Project Portfolio and Successfull Campaigns by Webmaffia",
@@ -68,6 +75,7 @@ export default async function CaseStudyPage() {
 
   return (
     <main className="wrapper">
+      <JsonLd data={BREADCRUMB_SCHEMA} />
       <div className="ml-setter work_list">
         <Banner data={bannerData} />
         <WorkListSection items={items} />

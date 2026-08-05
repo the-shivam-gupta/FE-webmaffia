@@ -1,7 +1,14 @@
 import { Fragment } from "react";
 import Image from "next/image";
 import Banner from "@/components/Banner";
+import JsonLd from "@/components/JsonLd";
 import { getAwards, getStrapiImageUrl } from "@/lib/strapiPage";
+import { buildBreadcrumbSchema } from "@/lib/schema";
+
+const BREADCRUMB_SCHEMA = buildBreadcrumbSchema([
+  { name: "Home", path: "/" },
+  { name: "Awards", path: "/awards" },
+]);
 
 const FALLBACK_CARD_IMAGES = [
   "/assets/images/awards/award-1.webp",
@@ -123,6 +130,7 @@ export default async function AwardsPage() {
 
   return (
     <main className="wrapper">
+      <JsonLd data={BREADCRUMB_SCHEMA} />
       <div className="ml-setter awards_page">
         <Banner data={bannerData} />
 

@@ -1,7 +1,9 @@
 import { notFound, permanentRedirect } from "next/navigation";
 import BlogDetailPage from "@/components/BlogDetailPage";
 import BlogStrapiArticle from "@/components/BlogStrapiArticle";
+import JsonLd from "@/components/JsonLd";
 import { prepareStrapiArticleHtml } from "@/lib/blog-helpers";
+import { buildBreadcrumbSchema, SITE_URL } from "@/lib/schema";
 import {
     formatBlogDate,
     getBlog,
@@ -46,8 +48,6 @@ export async function generateMetadata({ params }) {
         },
     };
 }
-
-const SITE_URL = "https://www.webmaffia.com";
 
 function toAbsoluteUrl(url) {
     if (!url) return url;
@@ -100,14 +100,16 @@ export default async function StrapiBlogPage({ params }) {
         ...(modifiedAt ? { dateModified: modifiedAt } : {}),
     };
 
+    const breadcrumbSchema = buildBreadcrumbSchema([
+        { name: "Home", path: "/" },
+        { name: "Blog", path: "/blog" },
+        { name: headline || post.slug, path: `/blog/${post.slug}` },
+    ]);
+
     return (
         <>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify(blogPostingSchema).replace(/</g, "\\u003c"),
-                }}
-            />
+            <JsonLd data={blogPostingSchema} />
+            <JsonLd data={breadcrumbSchema} />
             <BlogDetailPage
                 slug={post.slug}
                 title={<BlogTitle heading={post.heading} />}

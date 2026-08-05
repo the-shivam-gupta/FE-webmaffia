@@ -1,13 +1,21 @@
 import Image from "next/image";
 import Link from "next/link";
+import JsonLd from "@/components/JsonLd";
+import { buildBreadcrumbSchema } from "@/lib/schema";
 
 export const metadata = {
   title: "Thank You | Webmaffia",
 };
 
+const BREADCRUMB_SCHEMA = buildBreadcrumbSchema([
+  { name: "Home", path: "/" },
+  { name: "Thank You", path: "/thank-you" },
+]);
+
 export default function ThankYouPage() {
   return (
     <main className="wrapper">
+      <JsonLd data={BREADCRUMB_SCHEMA} />
       <section data-section="thankyou" className="thankyou flex">
         <div>
           <h1>Thank You</h1>

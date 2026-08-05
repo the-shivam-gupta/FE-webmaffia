@@ -2,7 +2,14 @@ import { Fragment } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Banner from "@/components/Banner";
+import JsonLd from "@/components/JsonLd";
 import { getAboutUs, getStrapiImageUrl } from "@/lib/strapiPage";
+import { buildBreadcrumbSchema } from "@/lib/schema";
+
+const BREADCRUMB_SCHEMA = buildBreadcrumbSchema([
+  { name: "Home", path: "/" },
+  { name: "About Us", path: "/about" },
+]);
 
 const ABOUT_AWARDS = [
   { src: "/assets/images/awards/img-1.webp", alt: "Award 1" },
@@ -108,6 +115,7 @@ export default async function AboutPage() {
 
   return (
     <main className="wrapper about_wrapper">
+      <JsonLd data={BREADCRUMB_SCHEMA} />
       <div className="ml-setter about_us">
         {bannerData && (
           <Banner
