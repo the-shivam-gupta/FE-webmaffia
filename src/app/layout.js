@@ -22,6 +22,11 @@ export const metadata = {
   verification: {
     google: "VX6Z1r6uKqRzCYCmofyP19bkg4LVX_AtUPEvDqNYM5M",
   },
+  icons: {
+    icon: "/assets/images/fav.jpg",
+    shortcut: "/assets/images/fav.jpg",
+    apple: "/assets/images/fav.jpg",
+  },
 };
 
 export default async function RootLayout({ children }) {

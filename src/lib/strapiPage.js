@@ -138,6 +138,7 @@ async function fetchBlogsRaw() {
             "Content-Type": "application/json",
         },
         next: { revalidate: 60 },
+        signal: AbortSignal.timeout(STRAPI_FETCH_TIMEOUT_MS),
     });
     if (!response.ok) {
         throw new Error("Failed to fetch blogs");
@@ -147,10 +148,15 @@ async function fetchBlogsRaw() {
 }
 
 export async function getBlog() {
-    const posts = await fetchBlogsRaw();
-    return posts
-        .map(normalizeBlogPost)
-        .sort((a, b) => parseBlogDate(b.date) - parseBlogDate(a.date));
+    try {
+        const posts = await fetchBlogsRaw();
+        return posts
+            .map(normalizeBlogPost)
+            .sort((a, b) => parseBlogDate(b.date) - parseBlogDate(a.date));
+    } catch (error) {
+        console.error("Failed to fetch blogs:", error);
+        return [];
+    }
 }
 
 export async function getBlogBySlug(slug) {
@@ -262,7 +268,12 @@ async function fetchCaseStudiesRaw() {
 }
 
 export async function getCaseStudies() {
-    return fetchCaseStudiesRaw();
+    try {
+        return await fetchCaseStudiesRaw();
+    } catch (error) {
+        console.error("Failed to fetch case studies:", error);
+        return [];
+    }
 }
 
 const CASE_STUDY_THUMBNAIL_POPULATE = "populate[thumbnail][populate]=*";
