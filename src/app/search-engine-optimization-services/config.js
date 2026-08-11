@@ -1,4 +1,5 @@
 export const pageConfig = {
+  workCategories: ["SEO"],
   hero: {
     subtitle: "OUR SERVICES",
     title: "SEO",

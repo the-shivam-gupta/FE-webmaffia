@@ -1,4 +1,64 @@
-import { getStrapiAssetUrl, getStrapiImageUrl, rewriteStrapiHtmlUrls } from "@/lib/strapiPage";
+import {
+  getCaseStudyThumbnails,
+  getStrapiAssetUrl,
+  getStrapiImageUrl,
+  rewriteStrapiHtmlUrls,
+} from "@/lib/strapiPage";
+
+const FALLBACK_WORK_IMAGE = "/assets/images/work/listing/afcon_work.webp";
+
+export function toCaseStudyItem(entry) {
+  const thumb = entry.thumbnail;
+  const workTitle = thumb?.workTitle?.map((t) => t.title).join(" - ") ?? "";
+  const imageUrl = thumb?.image ? getStrapiImageUrl(thumb.image) : "";
+  const url = thumb?.externalLink ? (thumb.link || "#") : `/case-study/${entry.slug}`;
+  return {
+    name: thumb?.heading ?? entry.pageName,
+    title: workTitle,
+    type: workTitle,
+    url,
+    image: imageUrl || FALLBACK_WORK_IMAGE,
+  };
+}
+
+function byInternalFirst(a, b) {
+  return Number(!!a.thumbnail?.externalLink) - Number(!!b.thumbnail?.externalLink);
+}
+
+/**
+ * Fetches live case studies from Strapi and picks the ones most relevant to a
+ * service page, so "Latest work" no longer shows the same hardcoded pair on
+ * every service. `categories` should match the case study's thumbnail
+ * workTitle tags (e.g. "Website Design", "Development", "SEO", "Social Media").
+ * Falls back to the top overall case studies if nothing matches, so the
+ * section is never left empty.
+ */
+export async function getLatestWorkItems(limit = 2, categories = []) {
+  try {
+    const caseStudies = await getCaseStudyThumbnails();
+    const eligible = caseStudies.filter((entry) => entry?.thumbnail?.image);
+
+    if (!categories.length) {
+      return eligible.sort(byInternalFirst).slice(0, limit).map(toCaseStudyItem);
+    }
+
+    const wantedTags = categories.map((tag) => tag.toLowerCase());
+    const matchesCategory = (entry) => {
+      const entryTags = (entry.thumbnail?.workTitle ?? [])
+        .map((t) => t.title?.toLowerCase())
+        .filter(Boolean);
+      return wantedTags.some((tag) => entryTags.includes(tag));
+    };
+
+    const matched = eligible.filter(matchesCategory).sort(byInternalFirst);
+    const rest = eligible.filter((entry) => !matched.includes(entry)).sort(byInternalFirst);
+
+    return [...matched, ...rest].slice(0, limit).map(toCaseStudyItem);
+  } catch (e) {
+    console.error("Failed to fetch latest work case studies:", e);
+    return [];
+  }
+}
 
 export function isRichTextDescription(description) {
   if (!description) return false;

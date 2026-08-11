@@ -209,6 +209,7 @@ const CASE_STUDY_POPULATE = [
 ].join("&");
 
 const CASE_STUDY_PAGE_SIZE = 100;
+const STRAPI_FETCH_TIMEOUT_MS = 8000;
 
 async function fetchCaseStudiesPage(page) {
     const strapiBaseUrl = getStrapiApiBaseUrl();
@@ -224,6 +225,7 @@ async function fetchCaseStudiesPage(page) {
                 "Content-Type": "application/json",
             },
             next: { revalidate: 60 },
+            signal: AbortSignal.timeout(STRAPI_FETCH_TIMEOUT_MS),
         }
     );
 
@@ -261,6 +263,64 @@ async function fetchCaseStudiesRaw() {
 
 export async function getCaseStudies() {
     return fetchCaseStudiesRaw();
+}
+
+const CASE_STUDY_THUMBNAIL_POPULATE = "populate[thumbnail][populate]=*";
+
+async function fetchCaseStudyThumbnailsPage(page) {
+    const strapiBaseUrl = getStrapiApiBaseUrl();
+    if (!strapiBaseUrl) {
+        throw new Error("STRAPI_API_URL is not configured");
+    }
+
+    const response = await fetch(
+        `${strapiBaseUrl}/api/case-studies?${CASE_STUDY_THUMBNAIL_POPULATE}&pagination[page]=${page}&pagination[pageSize]=${CASE_STUDY_PAGE_SIZE}`,
+        {
+            headers: {
+                Authorization: `Bearer ${STRAPI_TOKEN}`,
+                "Content-Type": "application/json",
+            },
+            next: { revalidate: 300 },
+            signal: AbortSignal.timeout(STRAPI_FETCH_TIMEOUT_MS),
+        }
+    );
+
+    if (!response.ok) {
+        const errorBody = await response.text().catch(() => "");
+        throw new Error(
+            `Failed to fetch case study thumbnails (${response.status})${errorBody ? `: ${errorBody.slice(0, 200)}` : ""}`
+        );
+    }
+
+    return response.json();
+}
+
+/**
+ * Lightweight alternative to getCaseStudies() for listing/preview use cases
+ * (e.g. the /case-study grid, "Latest work" on service pages) that only need
+ * the thumbnail + slug, not the full detail-page payload (banner, sections,
+ * testimonial, showcase, contentBlock, ...).
+ */
+export async function getCaseStudyThumbnails() {
+    const firstPage = await fetchCaseStudyThumbnailsPage(1);
+    const entries = firstPage.data ?? [];
+    const pageCount = firstPage.meta?.pagination?.pageCount ?? 1;
+
+    if (pageCount <= 1) {
+        return entries;
+    }
+
+    const remainingPages = await Promise.all(
+        Array.from({ length: pageCount - 1 }, (_, index) =>
+            fetchCaseStudyThumbnailsPage(index + 2)
+        )
+    );
+
+    for (const page of remainingPages) {
+        entries.push(...(page.data ?? []));
+    }
+
+    return entries;
 }
 
 export async function getCaseStudyBySlug(slug) {

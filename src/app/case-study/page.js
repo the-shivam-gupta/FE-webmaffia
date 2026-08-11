@@ -1,8 +1,9 @@
 import Banner from "@/components/Banner";
 import JsonLd from "@/components/JsonLd";
 import WorkListSection from "@/components/WorkListSection";
-import { getCaseStudies, getStrapiImageUrl } from "@/lib/strapiPage";
+import { getCaseStudyThumbnails } from "@/lib/strapiPage";
 import { buildBreadcrumbSchema } from "@/lib/schema";
+import { toCaseStudyItem } from "@/lib/case-study-helpers";
 
 const BREADCRUMB_SCHEMA = buildBreadcrumbSchema([
   { name: "Home", path: "/" },
@@ -37,25 +38,10 @@ const bannerData = {
   },
 };
 
-const FALLBACK_WORK_IMAGE = "/assets/images/work/listing/afcon_work.webp";
-
-function toCaseStudyItem(entry) {
-  const thumb = entry.thumbnail;
-  const workTitle = thumb?.workTitle?.map(t => t.title).join(" - ") ?? "";
-  const imageUrl = thumb?.image ? getStrapiImageUrl(thumb.image) : "";
-  const url = thumb?.externalLink ? (thumb.link || "#") : `/case-study/${entry.slug}`;
-  return {
-    name: thumb?.heading ?? entry.pageName,
-    title: workTitle,
-    url,
-    image: imageUrl || FALLBACK_WORK_IMAGE,
-  };
-}
-
 export default async function CaseStudyPage() {
   let items = [];
   try {
-    const caseStudies = await getCaseStudies();
+    const caseStudies = await getCaseStudyThumbnails();
 
     items = caseStudies
       .map((entry) => ({

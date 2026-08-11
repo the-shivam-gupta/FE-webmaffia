@@ -65,6 +65,7 @@ const SYSTEM_ARCH = {
 };
 
 export const pageConfig = {
+  workCategories: ["Website Design", "Development"],
   hero: {
     subtitle: "OUR SERVICES",
     title: (

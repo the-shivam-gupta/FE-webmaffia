@@ -3,6 +3,7 @@ import Link from "next/link";
 import Banner from "@/components/Banner";
 import JsonLd from "@/components/JsonLd";
 import { buildBreadcrumbSchema } from "@/lib/schema";
+import { getLatestWorkItems } from "@/lib/case-study-helpers";
 
 function TechnologyBlock({ technologies }) {
   if (!technologies) return null;
@@ -35,8 +36,10 @@ function TechnologyBlock({ technologies }) {
   );
 }
 
-export default function ServiceDetailPage({ config, breadcrumbs }) {
-  const { hero, sections, latestWork } = config;
+export default async function ServiceDetailPage({ config, breadcrumbs }) {
+  const { hero, sections, workCategories, latestWork: fallbackLatestWork } = config;
+  const dynamicLatestWork = await getLatestWorkItems(2, workCategories ?? []);
+  const latestWork = dynamicLatestWork.length > 0 ? dynamicLatestWork : fallbackLatestWork;
   const heroClass = hero.heroClassName
     ? `hero_section flex ${hero.heroClassName}`
     : "hero_section flex";
@@ -129,23 +132,18 @@ export default function ServiceDetailPage({ config, breadcrumbs }) {
             <div className="workspace">
               {latestWork.map((item) => (
                 <div className="service_item" key={item.name}>
-                  <a
-                    href={item.url}
-                    className="service_img"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <Link href={item.url || "#"} className="service_img">
                     <Image
                       src={item.image}
                       alt=""
                       width={821}
                       height={601}
                     />
-                  </a>
-                  <a href={item.url} target="_blank" rel="noopener noreferrer">
+                  </Link>
+                  <Link href={item.url || "#"}>
                     <h3 className="service_name">{item.name}</h3>
                     <div className="service_type">{item.type}</div>
-                  </a>
+                  </Link>
                 </div>
               ))}
             </div>
