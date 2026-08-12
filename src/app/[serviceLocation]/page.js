@@ -1,34 +1,21 @@
-import { notFound } from "next/navigation";
-import ServiceDetailPage from "@/components/ServiceDetailPage";
+import { notFound, permanentRedirect } from "next/navigation";
 import {
-  buildServiceLocationMetadata,
-  formatCityDisplayName,
   getAllServiceLocationPaths,
   getServiceLocationMatch,
-  withCityInHeading,
 } from "@/lib/serviceLocations";
 
+/**
+ * City-variant service pages (e.g. /digital-strategy-in-andheri) moved under
+ * /services/ (e.g. /services/digital-strategy-in-andheri) to match the base
+ * service pages living at /services/<slug>. This route is kept only as a
+ * permanent redirect so old indexed/shared links keep working.
+ */
 export async function generateStaticParams() {
   const paths = await getAllServiceLocationPaths();
   return paths.map(({ serviceLocation }) => ({ serviceLocation }));
 }
 
-export async function generateMetadata({ params }) {
-  const { serviceLocation } = await params;
-  const match = await getServiceLocationMatch(serviceLocation);
-
-  if (!match) {
-    return { title: "Service | Webmaffia" };
-  }
-
-  return buildServiceLocationMetadata(
-    match.service,
-    match.city,
-    serviceLocation
-  );
-}
-
-export default async function ServiceLocationPage({ params }) {
+export default async function LegacyServiceLocationRedirect({ params }) {
   const { serviceLocation } = await params;
   const match = await getServiceLocationMatch(serviceLocation);
 
@@ -36,22 +23,5 @@ export default async function ServiceLocationPage({ params }) {
     notFound();
   }
 
-  const config = withCityInHeading(
-    match.service.config,
-    match.service.headingTitle,
-    match.city.name
-  );
-
-  const cityLabel = formatCityDisplayName(match.city.name);
-  const breadcrumbs = [
-    { name: "Home", path: "/" },
-    { name: "Services", path: "/services" },
-    { name: match.service.headingTitle, path: `/${match.service.slug}` },
-    {
-      name: `${match.service.headingTitle} in ${cityLabel}`,
-      path: `/${serviceLocation}`,
-    },
-  ];
-
-  return <ServiceDetailPage config={config} breadcrumbs={breadcrumbs} />;
+  permanentRedirect(`/services/${serviceLocation}`);
 }

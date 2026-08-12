@@ -17,7 +17,7 @@ const SERVICES = [
     subtitle: "DIGITAL STRATEGY",
     heading: "It's all about\nthe positioning",
     body: "That's why we begin with a thorough understanding of your business. Then, we analyze data using cutting-edge digital tools and on-ground research; to understand market trends and audience behavior. The result is a positioning that really builds a brand.",
-    href: "/digital-strategy",
+    href: "/services/digital-strategy",
     img: { src: "/assets/images/number/1.webp", w: 674, h: 568 },
   },
   {
@@ -25,7 +25,7 @@ const SERVICES = [
     subtitle: "DESIGN AND DEVELOPMENT",
     heading: "User experience\nis above all",
     body: "Our technological expertise is multi-faceted. Right from website and product development to experiential tech, we do it all. Our tech team is a bunch of nerds who never stop learning. That's why we are always abreast of the latest innovations, if not one step ahead.",
-    href: "/website-design-development-services",
+    href: "/services/website-design-development-services",
     img: { src: "/assets/images/number/2.webp", w: 674, h: 568 },
   },
   {
@@ -33,7 +33,7 @@ const SERVICES = [
     subtitle: "SEO",
     heading: "Top of search is\nthe new top of mind",
     body: "In a world where Search is the point of discovery for almost all consumers, a solid SEO strategy is crucial for any brand to taste digital success. Brand awareness, increasing website traffic, generating leads, and converting them, no matter what your objective, SEO has a crucial part to play.",
-    href: "/search-engine-optimization-services",
+    href: "/services/search-engine-optimization-services",
     img: { src: "/assets/images/number/3.webp", w: 674, h: 568 },
   },
   {
@@ -41,7 +41,7 @@ const SERVICES = [
     subtitle: "AI-POWERED SOLUTIONS",
     heading: "Built to think, not just react",
     body: "This is where things get interesting. We take AI out of the 'nice to have' pile and put it to work automating the boring stuff, sharpening how customers experience your brand, and giving marketing and operations a real upgrade. No jargon, no gimmicks, just solutions that actually move the needle for your business.",
-    href: "/aai-powered-solutions-services",
+    href: "/services/ai-powered-solutions-services",
     img: { src: "/assets/images/number/4.webp", w: 674, h: 568 },
   },
   {
@@ -49,7 +49,7 @@ const SERVICES = [
     subtitle: "SOCIAL MEDIA",
     heading: "With the trends,\nahead of the curve.",
     body: "This is where our social media team comes in. Ensuring relevance, Identifying trends to capitalize on, influencer collaborations, no matter what the need is, we have more than one maffian to pull it off.",
-    href: "/social-media-marketing-strategy",
+    href: "/services/social-media-marketing-strategy",
     img: { src: "/assets/images/number/5.webp", w: 674, h: 568 },
   },
   {
@@ -57,7 +57,7 @@ const SERVICES = [
     subtitle: "CONTENT MARKETING",
     heading: "Smart,\nreliable &\nagile.",
     body: "Original Content - Blog and Copywriting. Our wordsmiths create compelling ad copy, editorial pieces and other original content that prioritizes impact, clarity and empathy over mere loudness. We put customer intent behind every word we craft to drive clicks and shares.",
-    href: "/content-marketing-strategy",
+    href: "/services/content-marketing-strategy",
     img: { src: "/assets/images/number/6.webp", w: 674, h: 568 },
   },
   {
@@ -65,7 +65,7 @@ const SERVICES = [
     subtitle: "APP STORE OPTIMIZATION",
     heading: "Let's,\nshape the\nfuture",
     body: "Want to Dominate App Stores? Our app store optimization services will ensure that among hundreds of apps your users are able to find your app in your targeted App Store. Want to improve your play store rankings? Partner With us.",
-    href: "/app-store-optimization",
+    href: "/services/app-store-optimization",
     img: { src: "/assets/images/number/7.webp", w: 674, h: 568 },
   },
 ];

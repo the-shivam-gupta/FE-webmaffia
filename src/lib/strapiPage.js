@@ -570,6 +570,62 @@ export async function getServicesPage() {
     }
 }
 
+const SERVICES_TECH_POPULATE = [
+    "populate[banner][populate]=*",
+    "populate[sections][on][services-tech.features][populate][designFeature][populate]=*",
+    "populate[sections][on][services-tech.technology][populate][Items][populate][icon][populate]=*",
+    "populate[workTitle][populate]=*",
+    "populate[seo][populate]=*",
+].join("&");
+const SERVICES_TECH_PAGE_SIZE = 100;
+
+async function fetchServicesTechRaw() {
+    const strapiBaseUrl = getStrapiApiBaseUrl();
+    if (!strapiBaseUrl) {
+        throw new Error("STRAPI_API_URL is not configured");
+    }
+
+    const response = await fetch(
+        `${strapiBaseUrl}/api/services-teches?${SERVICES_TECH_POPULATE}&pagination[pageSize]=${SERVICES_TECH_PAGE_SIZE}`,
+        {
+            headers: {
+                Authorization: `Bearer ${STRAPI_TOKEN}`,
+                "Content-Type": "application/json",
+            },
+            next: { revalidate: 60 },
+            signal: AbortSignal.timeout(STRAPI_FETCH_TIMEOUT_MS),
+        }
+    );
+
+    if (!response.ok) {
+        const errorBody = await response.text().catch(() => "");
+        throw new Error(
+            `Failed to fetch services tech (${response.status})${errorBody ? `: ${errorBody.slice(0, 200)}` : ""}`
+        );
+    }
+
+    const data = await response.json();
+    return data.data ?? [];
+}
+
+/**
+ * Service detail entries from Strapi collection `services-teches`
+ * (banner content per service, keyed by `slug`, e.g. "digital-strategy").
+ */
+export async function getServicesTech() {
+    try {
+        return await fetchServicesTechRaw();
+    } catch (error) {
+        console.error("Failed to fetch services tech:", error);
+        return [];
+    }
+}
+
+export async function getServiceTechBySlug(slug) {
+    const entries = await getServicesTech();
+    return entries.find((entry) => entry.slug === slug) ?? null;
+}
+
 async function fetchCareerRaw() {
     const strapiBaseUrl = getStrapiApiBaseUrl();
     if (!strapiBaseUrl) {

@@ -209,14 +209,14 @@ const Header = () => {
               <div className="sub_menu_content" ref={servicesSubRef}>
                 <ul className="sub_menu">
                   {[
-                    { href: "/digital-strategy", label: "Digital Strategy" },
-                    { href: "/website-design-development-services", label: "Design and Development" },
-                    { href: "/search-engine-optimization-services", label: "SEO" },
-                    { href: "/ai-powered-solutions-services", label: "AI-Powered Solutions" },
-                    { href: "/social-media-marketing-strategy", label: "Social Media" },
-                    { href: "/content-marketing-strategy", label: "Content Marketing" },
-                    { href: "/app-store-optimization", label: "App Store Optimization" },
-                    { href: "/influencer-marketing", label: "Influencer Marketing" },
+                    { href: "/services/digital-strategy", label: "Digital Strategy" },
+                    { href: "/services/website-design-development-services", label: "Design and Development" },
+                    { href: "/services/search-engine-optimization-services", label: "SEO" },
+                    { href: "/services/ai-powered-solutions-services", label: "AI-Powered Solutions" },
+                    { href: "/services/social-media-marketing-strategy", label: "Social Media" },
+                    { href: "/services/content-marketing-strategy", label: "Content Marketing" },
+                    { href: "/services/app-store-optimization", label: "App Store Optimization" },
+                    { href: "/services/influencer-marketing", label: "Influencer Marketing" },
                   ].map(({ href, label }) => (
                     <li key={href}>
                       <Link href={href} onClick={() => setMenuOpen(false)}>

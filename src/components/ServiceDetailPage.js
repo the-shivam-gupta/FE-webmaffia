@@ -95,7 +95,7 @@ export default async function ServiceDetailPage({ config, breadcrumbs }) {
                 {section.heading ? <h2 className="h2">{section.heading}</h2> : null}
                 {section.intro ? <p>{section.intro}</p> : null}
                 <div className="feature_type">
-                  {section.features.map((feature, index) => (
+                  {(section.features ?? []).map((feature, index) => (
                     <div
                       className="feature_box"
                       key={`${section.dataSection}-${feature.number}-${index}`}

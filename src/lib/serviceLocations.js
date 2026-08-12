@@ -1,106 +1,51 @@
-import { pageConfig as aiPoweredConfig } from "@/app/ai-powered-solutions-services/config";
-import { pageConfig as appStoreConfig } from "@/app/app-store-optimization/config";
-import { pageConfig as contentMarketingConfig } from "@/app/content-marketing-strategy/config";
-import { pageConfig as digitalStrategyConfig } from "@/app/digital-strategy/config";
-import { pageConfig as influencerConfig } from "@/app/influencer-marketing/config";
-import { pageConfig as seoConfig } from "@/app/search-engine-optimization-services/config";
-import { pageConfig as socialMediaConfig } from "@/app/social-media-marketing-strategy/config";
-import { pageConfig as websiteDesignConfig } from "@/app/website-design-development-services/config";
-import { getCities } from "@/lib/strapiPage";
+import { getCities, getServicesTech } from "@/lib/strapiPage";
 
 const SITE_URL = "https://www.webmaffia.com";
 
-/**
- * Base service routes that get location variants: /{slug}-{citySlug}
- * e.g. digital-strategy-in-andheri
- */
-export const SERVICE_LOCATION_PAGES = [
-  {
-    slug: "digital-strategy",
-    headingTitle: "Digital Strategy",
-    config: digitalStrategyConfig,
-    metadata: {
-      title: "Digital Marketing Services and Solutions in Mumbai | Webmaffia",
-      description:
-        "Webmaffia helps brands build a compelling digital strategy across the digital sphere. We provide custom branding services based on the client's needs.",
-    },
-  },
-  {
-    slug: "website-design-development-services",
-    headingTitle: "Design and development",
-    config: websiteDesignConfig,
-    metadata: {
-      title: "Award-winning Website Design and Development Services Agency",
-      description:
-        "Webmaffia offers award-winning website design and development services. We create innovative digital experiences tailored to elevate brands and captivate audiences.",
-    },
-  },
-  {
-    slug: "search-engine-optimization-services",
-    headingTitle: "SEO",
-    config: seoConfig,
-    metadata: {
-      title: "Website Search Engine Optimization (SEO) Services Agency",
-      description:
-        "Webmaffia offers comprehensive SEO services including keyword research, on-page optimization, technical SEO, and content optimization to boost your search rankings.",
-    },
-  },
-  {
-    slug: "social-media-marketing-strategy",
-    headingTitle: "Social media",
-    config: socialMediaConfig,
-    metadata: {
-      title: "Social Media Marketing Strategy Services Agency | Webmaffia",
-      description:
-        "Webmaffia offers social media marketing strategy services including targeting, execution, optimization, and measurement to drive ROI-driven campaigns.",
-    },
-  },
-  {
-    slug: "content-marketing-strategy",
-    headingTitle: "Content Marketing",
-    config: contentMarketingConfig,
-    metadata: {
-      title: "Digital Content Marketing Services Agency in Mumbai | Webmaffia",
-      description:
-        "Webmaffia offers content marketing services including video editing, film production, global content hub, and campaign planning.",
-    },
-  },
-  {
-    slug: "app-store-optimization",
-    headingTitle: "App Store Optimization",
-    config: appStoreConfig,
-    metadata: {
-      title: "Mobile App Store Optimization (ASO) Services Agency in Mumbai",
-      description:
-        "Webmaffia offers app store optimization services including market analysis, keyword preparation, implementation, and monthly ASO retainers.",
-    },
-  },
-  {
-    slug: "ai-powered-solutions-services",
-    headingTitle: "AI-Powered Solutions",
-    config: aiPoweredConfig,
-    metadata: {
-      title:
-        "AI-Powered Solutions | AI Consulting, Chatbots, Automation & Development Agency",
-      description:
-        "Webmaffia delivers AI-powered solutions including consulting, chatbots, generative AI, automation, AI agents, and AI-enhanced web and app development.",
-    },
-  },
-  {
-    slug: "influencer-marketing",
-    headingTitle: "Influencer Marketing",
-    config: influencerConfig,
-    metadata: {
-      title: "Influencer Marketing Services Agency | Webmaffia",
-      description:
-        "Webmaffia connects brands with talent—from micro-influencers to A-list celebrities—with fast, strategic influencer marketing campaigns.",
-    },
-  },
-];
+function cleanHeadingTitle(banner, pageName) {
+  const raw = banner?.subHeading?.trim() || pageName?.trim() || "";
+  return raw.replace(/\s*\n\s*/g, " ").trim();
+}
 
-const SERVICES_BY_SLUG = Object.fromEntries(
-  SERVICE_LOCATION_PAGES.map((service) => [service.slug, service])
-);
+/**
+ * Builds the service registry entry (`slug`, `headingTitle`,
+ * `workCategories`, SEO `metadata`) from a `services-teches` CMS entry, so a
+ * new service just needs to be created in Strapi — no code change needed
+ * for it to get a working /services/<slug> page. `workTitle` and `seo` are
+ * CMS fields (see getServiceRenderConfig for the rest of the page content).
+ */
+function buildServiceEntry(entry) {
+  const headingTitle = cleanHeadingTitle(entry.banner, entry.pageName);
+  const workCategories = (entry.workTitle ?? [])
+    .map((tag) => tag.title?.trim())
+    .filter(Boolean);
+
+  return {
+    slug: entry.slug,
+    headingTitle,
+    workCategories,
+    metadata: {
+      title: entry.seo?.metaTitle?.trim() || `${headingTitle} | Webmaffia`,
+      description: entry.seo?.metaDescription?.trim() || "",
+    },
+  };
+}
+
+/**
+ * Live list of services (for /services listing metadata, routing,
+ * sitemap). Sourced from Strapi's `services-teches` collection rather than
+ * a hardcoded array — a service only shows up here once it's published in
+ * the CMS.
+ */
+export async function getAllServiceEntries() {
+  const entries = await getServicesTech();
+  return entries.map(buildServiceEntry);
+}
+
+export async function getServiceEntryBySlug(slug) {
+  const services = await getAllServiceEntries();
+  return services.find((service) => service.slug === slug) ?? null;
+}
 
 export function formatCityDisplayName(name) {
   return String(name)
@@ -115,14 +60,14 @@ export function buildServiceLocationPath(serviceSlug, citySlug) {
   return `${serviceSlug}-${citySlug}`;
 }
 
-export function resolveServiceLocation(slug, cities) {
+export function resolveServiceLocation(slug, services, cities) {
   if (!slug || !Array.isArray(cities) || cities.length === 0) return null;
 
-  const services = [...SERVICE_LOCATION_PAGES].sort(
+  const sortedServices = [...services].sort(
     (a, b) => b.slug.length - a.slug.length
   );
 
-  for (const service of services) {
+  for (const service of sortedServices) {
     for (const city of cities) {
       const path = buildServiceLocationPath(service.slug, city.citySlug);
       if (path === slug) {
@@ -147,15 +92,21 @@ export function withCityInHeading(config, headingTitle, cityName) {
 }
 
 export async function getServiceLocationMatch(slug) {
-  const cities = await getCities();
-  return resolveServiceLocation(slug, cities);
+  const [services, cities] = await Promise.all([
+    getAllServiceEntries(),
+    getCities(),
+  ]);
+  return resolveServiceLocation(slug, services, cities);
 }
 
 export async function getAllServiceLocationPaths() {
-  const cities = await getCities();
+  const [services, cities] = await Promise.all([
+    getAllServiceEntries(),
+    getCities(),
+  ]);
   const paths = [];
 
-  for (const service of SERVICE_LOCATION_PAGES) {
+  for (const service of services) {
     for (const city of cities) {
       paths.push({
         serviceLocation: buildServiceLocationPath(service.slug, city.citySlug),
@@ -188,10 +139,6 @@ export function buildServiceLocationMetadata(service, city, path) {
       canonical: `${SITE_URL}/${path}`,
     },
   };
-}
-
-export function getServiceBySlug(slug) {
-  return SERVICES_BY_SLUG[slug] ?? null;
 }
 
 export { SITE_URL };

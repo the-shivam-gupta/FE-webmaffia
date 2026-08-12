@@ -3,16 +3,16 @@ import Link from "next/link";
 import BlogStickyNav from "./BlogStickyNav";
 
 const BLOG_SERVICES = [
-  { href: "/digital-strategy", num: "01", label: "Digital Strategy" },
+  { href: "/services/digital-strategy", num: "01", label: "Digital Strategy" },
   {
-    href: "/website-design-development-services",
+    href: "/services/website-design-development-services",
     num: "02",
     label: "Design & development",
   },
-  { href: "/search-engine-optimization-services", num: "03", label: "SEO" },
-  { href: "/social-media-marketing-strategy", num: "04", label: "Social media" },
-  { href: "/content-marketing-strategy", num: "05", label: "Content marketing" },
-  { href: "/influencer-marketing", num: "06", label: "Influencer marketing" },
+  { href: "/services/search-engine-optimization-services", num: "03", label: "SEO" },
+  { href: "/services/social-media-marketing-strategy", num: "04", label: "Social media" },
+  { href: "/services/content-marketing-strategy", num: "05", label: "Content marketing" },
+  { href: "/services/influencer-marketing", num: "06", label: "Influencer marketing" },
 ];
 
 export default function BlogDetailPage({

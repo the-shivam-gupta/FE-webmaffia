@@ -113,7 +113,7 @@ const SERVICE_SECTIONS = [
         specializing in digital strategy and consulting firms.
       </>
     ),
-    href: "/digital-strategy",
+    href: "/services/digital-strategy",
   },
   {
     imageFirst: false,
@@ -134,7 +134,7 @@ const SERVICE_SECTIONS = [
         captivate audiences.
       </>
     ),
-    href: "/website-design-development-services",
+    href: "/services/website-design-development-services",
   },
   {
     imageFirst: true,
@@ -150,7 +150,7 @@ const SERVICE_SECTIONS = [
         no matter what your objective, SEO has a crucial part to play.
       </>
     ),
-    href: "/search-engine-optimization-services",
+    href: "/services/search-engine-optimization-services",
   },
   {
     imageFirst: false,
@@ -167,7 +167,7 @@ const SERVICE_SECTIONS = [
         This is where things get interesting. We take AI<br /> out of the "nice to have" pile and put it to work<br /> automating the boring stuff, sharpening how customers<br /> experience your brand, and giving marketing and<br /> operations a real upgrade. No jargon, no gimmicks,<br /> just solutions that actually move the needle for your business.
       </>
     ),
-    href: "/ai-powered-solutions-services",
+    href: "/services/ai-powered-solutions-services",
   },
   {
     imageFirst: true,
@@ -189,7 +189,7 @@ const SERVICE_SECTIONS = [
         to do justice to it.
       </>
     ),
-    href: "/social-media-marketing-strategy",
+    href: "/services/social-media-marketing-strategy",
   },
   {
     imageFirst: false,
@@ -212,7 +212,7 @@ const SERVICE_SECTIONS = [
         clicks and shares.
       </>
     ),
-    href: "/content-marketing-strategy",
+    href: "/services/content-marketing-strategy",
   },
   {
     imageFirst: true,
@@ -233,7 +233,7 @@ const SERVICE_SECTIONS = [
         rankings? Partner With us.
       </>
     ),
-    href: "/app-store-optimization",
+    href: "/services/app-store-optimization",
   },
 ];
 

@@ -48,6 +48,48 @@ const nextConfig = {
         destination: "/case-study/:slug",
         permanent: true,
       },
+      // Service detail pages moved from top-level routes to /services/:slug.
+      // These old URLs are indexed by Google, so redirect them permanently.
+      {
+        source: "/digital-strategy",
+        destination: "/services/digital-strategy",
+        permanent: true,
+      },
+      {
+        source: "/website-design-development-services",
+        destination: "/services/website-design-development-services",
+        permanent: true,
+      },
+      {
+        source: "/search-engine-optimization-services",
+        destination: "/services/search-engine-optimization-services",
+        permanent: true,
+      },
+      {
+        source: "/content-marketing-strategy",
+        destination: "/services/content-marketing-strategy",
+        permanent: true,
+      },
+      {
+        source: "/app-store-optimization",
+        destination: "/services/app-store-optimization",
+        permanent: true,
+      },
+      {
+        source: "/social-media-marketing-strategy",
+        destination: "/services/social-media-marketing-strategy",
+        permanent: true,
+      },
+      {
+        source: "/ai-powered-solutions-services",
+        destination: "/services/ai-powered-solutions-services",
+        permanent: true,
+      },
+      {
+        source: "/influencer-marketing",
+        destination: "/services/influencer-marketing",
+        permanent: true,
+      },
     ];
   },
 };

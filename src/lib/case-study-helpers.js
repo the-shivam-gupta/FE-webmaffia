@@ -25,32 +25,46 @@ function byInternalFirst(a, b) {
   return Number(!!a.thumbnail?.externalLink) - Number(!!b.thumbnail?.externalLink);
 }
 
+function matchesCategory(entry, wantedTags) {
+  const entryTags = (entry.thumbnail?.workTitle ?? [])
+    .map((t) => t.title?.toLowerCase())
+    .filter(Boolean);
+  return wantedTags.some((tag) => entryTags.includes(tag));
+}
+
 /**
  * Fetches live case studies from Strapi and picks the ones most relevant to a
  * service page, so "Latest work" no longer shows the same hardcoded pair on
- * every service. `categories` should match the case study's thumbnail
- * workTitle tags (e.g. "Website Design", "Development", "SEO", "Social Media").
- * Falls back to the top overall case studies if nothing matches, so the
- * section is never left empty.
+ * every service. `categories` comes from the service's CMS `workTitle` tags
+ * and should match the case study's thumbnail workTitle tags (e.g. "Website
+ * Design", "Development", "SEO", "Social Media").
+ *
+ * Some services' `workTitle` tags (e.g. "Content Marketing", "AI") don't
+ * correspond to any real case-study tag — for those, `fallbackCategories`
+ * kicks in only when `categories` matched nothing, rather than every
+ * service falling through to generic "top overall" case studies.
  */
-export async function getLatestWorkItems(limit = 2, categories = []) {
+export async function getLatestWorkItems(
+  limit = 2,
+  categories = [],
+  fallbackCategories = ["Website Design", "Development"]
+) {
   try {
     const caseStudies = await getCaseStudyThumbnails();
     const eligible = caseStudies.filter((entry) => entry?.thumbnail?.image);
 
-    if (!categories.length) {
-      return eligible.sort(byInternalFirst).slice(0, limit).map(toCaseStudyItem);
+    let matched = [];
+    if (categories.length) {
+      const wantedTags = categories.map((tag) => tag.toLowerCase());
+      matched = eligible.filter((entry) => matchesCategory(entry, wantedTags));
     }
 
-    const wantedTags = categories.map((tag) => tag.toLowerCase());
-    const matchesCategory = (entry) => {
-      const entryTags = (entry.thumbnail?.workTitle ?? [])
-        .map((t) => t.title?.toLowerCase())
-        .filter(Boolean);
-      return wantedTags.some((tag) => entryTags.includes(tag));
-    };
+    if (!matched.length && fallbackCategories.length) {
+      const fallbackTags = fallbackCategories.map((tag) => tag.toLowerCase());
+      matched = eligible.filter((entry) => matchesCategory(entry, fallbackTags));
+    }
 
-    const matched = eligible.filter(matchesCategory).sort(byInternalFirst);
+    matched.sort(byInternalFirst);
     const rest = eligible.filter((entry) => !matched.includes(entry)).sort(byInternalFirst);
 
     return [...matched, ...rest].slice(0, limit).map(toCaseStudyItem);

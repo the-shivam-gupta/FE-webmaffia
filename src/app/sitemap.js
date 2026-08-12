@@ -1,6 +1,6 @@
 import {
+  getAllServiceEntries,
   getAllServiceLocationPaths,
-  SERVICE_LOCATION_PAGES,
 } from "@/lib/serviceLocations";
 import {
   getBlog,
@@ -22,14 +22,6 @@ const STATIC_PAGES = [
   { path: "/awards", priority: 0.8, changeFrequency: "monthly" },
   { path: "/clients", priority: 0.8, changeFrequency: "monthly" },
 ];
-
-/**
- * Service detail routes (App Router pages under src/app/).
- * Location variants are generated from Strapi cities.
- */
-const SERVICE_PAGES = SERVICE_LOCATION_PAGES.map(
-  (service) => `/${service.slug}`
-);
 
 function toUrl(path) {
   const normalized = path === "/" ? "" : path.replace(/\/$/, "");
@@ -55,22 +47,25 @@ async function safeFetch(label, fn) {
 }
 
 export default async function sitemap() {
-  const [blogs, caseStudies, campaigns, locationPaths] = await Promise.all([
+  const [blogs, caseStudies, campaigns, services, locationPaths] = await Promise.all([
     safeFetch("blogs", getBlog),
     safeFetch("case studies", getCaseStudies),
     safeFetch("campaigns", getCampaigns),
+    safeFetch("services", getAllServiceEntries),
     safeFetch("service locations", getAllServiceLocationPaths),
   ]);
+
+  const servicePages = services.map((service) => `/services/${service.slug}`);
 
   const staticEntries = [
     ...STATIC_PAGES.map(({ path, priority, changeFrequency }) =>
       entry(path, { priority, changeFrequency })
     ),
-    ...SERVICE_PAGES.map((path) =>
+    ...servicePages.map((path) =>
       entry(path, { priority: 0.8, changeFrequency: "monthly" })
     ),
     ...locationPaths.map(({ serviceLocation }) =>
-      entry(`/${serviceLocation}`, {
+      entry(`/services/${serviceLocation}`, {
         priority: 0.7,
         changeFrequency: "monthly",
       })
