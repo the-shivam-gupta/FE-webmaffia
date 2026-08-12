@@ -2,9 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import Banner from "@/components/Banner";
 import BlogListItem from "@/components/BlogListItem";
+import BlogPagination from "@/components/BlogPagination";
 import JsonLd from "@/components/JsonLd";
 import { formatBlogDate, getBlog, getStrapiImageUrl } from "@/lib/strapiPage";
 import { buildBreadcrumbSchema } from "@/lib/schema";
+
+const BLOG_PAGE_SIZE = 8;
 
 const BREADCRUMB_SCHEMA = buildBreadcrumbSchema([
   { name: "Home", path: "/" },
@@ -35,12 +38,22 @@ const bannerData = {
   },
 };
 
-export default async function BlogPage() {
+export default async function BlogPage({ searchParams }) {
   const blogs = await getBlog();
 
   const featuredBlog = blogs[0];
   const featuredHref = featuredBlog ? `/blog/${featuredBlog.slug}` : "/blog";
-  const otherBlogs = blogs.slice(1);
+  const remainingBlogs = blogs.slice(1);
+
+  const totalPages = Math.max(1, Math.ceil(remainingBlogs.length / BLOG_PAGE_SIZE));
+  const { page } = await searchParams;
+  const requestedPage = Number.parseInt(page, 10) || 1;
+  const currentPage = Math.min(Math.max(requestedPage, 1), totalPages);
+
+  const otherBlogs = remainingBlogs.slice(
+    (currentPage - 1) * BLOG_PAGE_SIZE,
+    currentPage * BLOG_PAGE_SIZE
+  );
 
   return (
     <main className="wrapper">
@@ -49,7 +62,7 @@ export default async function BlogPage() {
         <Banner data={bannerData} />
 
         <section className="our_blog">
-          {featuredBlog ? (
+          {featuredBlog && currentPage === 1 ? (
           <div className="main_blog">
             <Link href={featuredHref}>
               <div className="main_blog_image">
@@ -77,12 +90,14 @@ export default async function BlogPage() {
 
           <div className="other_blogs">
             {otherBlogs.map((blog) => (
-              <BlogListItem 
-              key={blog.id} 
+              <BlogListItem
+              key={blog.id}
               post={blog}
                />
             ))}
           </div>
+
+          <BlogPagination currentPage={currentPage} totalPages={totalPages} />
         </section>
       </div>
     </main>

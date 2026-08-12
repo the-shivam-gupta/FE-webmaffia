@@ -126,25 +126,51 @@ function normalizeBlogPost(post) {
     };
 }
 
-async function fetchBlogsRaw() {
+const BLOG_PAGE_SIZE = 100;
+
+async function fetchBlogsPage(page) {
     const strapiBaseUrl = getStrapiApiBaseUrl();
     if (!strapiBaseUrl) {
         throw new Error("STRAPI_API_URL is not configured");
     }
 
-    const response = await fetch(`${strapiBaseUrl}/api/blogs?populate=*`, {
-        headers: {
-            Authorization: `Bearer ${STRAPI_TOKEN}`,
-            "Content-Type": "application/json",
-        },
-        next: { revalidate: 60 },
-        signal: AbortSignal.timeout(STRAPI_FETCH_TIMEOUT_MS),
-    });
+    const response = await fetch(
+        `${strapiBaseUrl}/api/blogs?populate=*&pagination[page]=${page}&pagination[pageSize]=${BLOG_PAGE_SIZE}`,
+        {
+            headers: {
+                Authorization: `Bearer ${STRAPI_TOKEN}`,
+                "Content-Type": "application/json",
+            },
+            next: { revalidate: 60 },
+            signal: AbortSignal.timeout(STRAPI_FETCH_TIMEOUT_MS),
+        }
+    );
     if (!response.ok) {
         throw new Error("Failed to fetch blogs");
     }
-    const data = await response.json();
-    return data.data;
+    return response.json();
+}
+
+async function fetchBlogsRaw() {
+    const firstPage = await fetchBlogsPage(1);
+    const entries = firstPage.data ?? [];
+    const pageCount = firstPage.meta?.pagination?.pageCount ?? 1;
+
+    if (pageCount <= 1) {
+        return entries;
+    }
+
+    const remainingPages = await Promise.all(
+        Array.from({ length: pageCount - 1 }, (_, index) =>
+            fetchBlogsPage(index + 2)
+        )
+    );
+
+    for (const page of remainingPages) {
+        entries.push(...(page.data ?? []));
+    }
+
+    return entries;
 }
 
 export async function getBlog() {
@@ -503,6 +529,43 @@ export async function getAboutUs() {
         return await fetchAboutUsRaw();
     } catch (error) {
         console.error("Failed to fetch about us:", error);
+        return null;
+    }
+}
+
+async function fetchServicesPageRaw() {
+    const strapiBaseUrl = getStrapiApiBaseUrl();
+    if (!strapiBaseUrl) {
+        throw new Error("STRAPI_API_URL is not configured");
+    }
+
+    const response = await fetch(
+        `${strapiBaseUrl}/api/service?populate[banner][populate]=*`,
+        {
+            headers: {
+                Authorization: `Bearer ${STRAPI_TOKEN}`,
+                "Content-Type": "application/json",
+            },
+            next: { revalidate: 60 },
+        }
+    );
+
+    if (!response.ok) {
+        const errorBody = await response.text().catch(() => "");
+        throw new Error(
+            `Failed to fetch services page (${response.status})${errorBody ? `: ${errorBody.slice(0, 200)}` : ""}`
+        );
+    }
+
+    const data = await response.json();
+    return data.data;
+}
+
+export async function getServicesPage() {
+    try {
+        return await fetchServicesPageRaw();
+    } catch (error) {
+        console.error("Failed to fetch services page:", error);
         return null;
     }
 }

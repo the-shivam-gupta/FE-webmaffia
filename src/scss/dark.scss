@@ -65,6 +65,28 @@ html{
         .blogs_date span:before{
             background: $gray;
         }
+        .blog_pagination_number{
+            color: $gray;
+
+            &:hover{
+                background: $white_10;
+            }
+
+            &.active{
+                background: $white;
+                color: $black;
+            }
+        }
+        .blog_pagination_ellipsis{
+            color: $white_40;
+        }
+        .blog_pagination_arrow{
+            color: $white;
+
+            &.disabled{
+                color: $white_30;
+            }
+        }
         .case_study_detail .case_study_showcase_wrapper .visit_website_button a{
             color: $black;
         }

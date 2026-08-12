@@ -14,7 +14,7 @@ function splitParagraphs(text) {
   return text
     .split("\n\n")
     .filter(Boolean)
-    .map((p) => p.replace(/\n/g, " ").replace(/\s+/g, " ").trim());
+    .map((p) => p.trim());
 }
 
 function buildClientsBannerData(rawBanner) {

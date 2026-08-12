@@ -4,13 +4,14 @@ import Banner from "@/components/Banner";
 import JsonLd from "@/components/JsonLd";
 import ServiceTagSwiper from "@/components/ServiceTagSwiper";
 import { buildBreadcrumbSchema } from "@/lib/schema";
+import { getServicesPage, getStrapiImageUrl } from "@/lib/strapiPage";
 
 const BREADCRUMB_SCHEMA = buildBreadcrumbSchema([
   { name: "Home", path: "/" },
   { name: "Services", path: "/services" },
 ]);
 
-const bannerData = {
+const FALLBACK_BANNER_DATA = {
   imagePosition: "right",
   subheading: {
     enabled: true,
@@ -24,6 +25,74 @@ const bannerData = {
   description:
     "Transforming visions into captivating digital landscapes,\nwe crafts tailored solutions that elevate brands and engage\naudiences. With a focus on innovation and precision, we\nbring your online presence to life, delivering seamless user\nexperiences that resonate and inspire.",
 };
+
+function splitTitleLines(text, maxLines = 3) {
+  const words = String(text || "").trim().split(/\s+/).filter(Boolean);
+  if (!words.length) return { line1: "" };
+
+  const totalLen = words.reduce((sum, word, i) => sum + word.length + (i ? 1 : 0), 0);
+  const targetPerLine = totalLen / Math.min(maxLines, words.length);
+
+  const lines = [];
+  let current = [];
+  let currentLen = 0;
+
+  for (const word of words) {
+    const wordLen = word.length + (current.length ? 1 : 0);
+    if (
+      current.length &&
+      currentLen + wordLen > targetPerLine &&
+      lines.length < maxLines - 1
+    ) {
+      lines.push(current.join(" "));
+      current = [];
+      currentLen = 0;
+    }
+    currentLen += wordLen;
+    current.push(word);
+  }
+  if (current.length) lines.push(current.join(" "));
+
+  return {
+    line1: lines[0] || "",
+    ...(lines[1] ? { line2: lines[1] } : {}),
+    ...(lines[2] ? { line3: lines[2] } : {}),
+  };
+}
+
+function buildServicesBannerData(rawBanner) {
+  if (!rawBanner) return FALLBACK_BANNER_DATA;
+
+  let images;
+  if (rawBanner.desktopImage?.url) {
+    images = {
+      banner: {
+        url: getStrapiImageUrl(rawBanner.desktopImage),
+        alt: rawBanner.desktopImage.alternativeText || "",
+        width: rawBanner.desktopImage.width || 871,
+        height: rawBanner.desktopImage.height || 767,
+      },
+    };
+    if (rawBanner.mobileImage?.url) {
+      images.bannerMobile = {
+        url: getStrapiImageUrl(rawBanner.mobileImage),
+        alt: rawBanner.mobileImage.alternativeText || "",
+      };
+    }
+  }
+
+  return {
+    imagePosition: rawBanner.imagePosition || "right",
+    overlay: rawBanner.overlay ?? undefined,
+    overlayColor: rawBanner.overlayColor ?? undefined,
+    subheading: rawBanner.heading
+      ? { enabled: true, text: rawBanner.heading }
+      : undefined,
+    title: splitTitleLines(rawBanner.subHeading),
+    description: rawBanner.description || undefined,
+    ...(images ? { images } : {}),
+  };
+}
 
 const SERVICE_SECTIONS = [
   {
@@ -207,7 +276,10 @@ function ServiceSection({ imageFirst, title, img, slides, body, href }) {
   );
 }
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const servicesPage = await getServicesPage();
+  const bannerData = buildServicesBannerData(servicesPage?.banner);
+
   return (
     <main className="wrapper">
       <JsonLd data={BREADCRUMB_SCHEMA} />

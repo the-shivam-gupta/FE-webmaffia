@@ -1,11 +1,19 @@
+import { Fragment } from "react";
 import Image from "next/image";
 
 function renderMultilineText(text) {
-  return String(text ?? "")
+  const lines = String(text ?? "")
     .replace(/\r\n/g, "\n")
-    .replace(/\n+/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
+    .split("\n")
+    .map((line) => line.replace(/\s+/g, " ").trim())
+    .filter(Boolean);
+
+  return lines.map((line, index) => (
+    <Fragment key={index}>
+      {index > 0 && <br />}
+      {line}
+    </Fragment>
+  ));
 }
 
 export default function Banner({
@@ -71,6 +79,10 @@ export default function Banner({
             <source media="(max-width: 540px)" srcSet={bannerMobile.url} />
           ) : null}
           {isBackground || hasMobileBanner ? (
+            /* Art-directed <picture>/<source> swap (desktop vs. mobile banner,
+               or full-bleed background); next/image can't select a different
+               source per <source>. */
+            // eslint-disable-next-line @next/next/no-img-element
             <img
               src={banner.url}
               alt={banner.alt ?? ""}

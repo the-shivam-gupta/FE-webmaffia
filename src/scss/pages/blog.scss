@@ -217,3 +217,91 @@
         }
     }
 }
+
+.blog_pagination{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 10rem;
+
+    @include mobile(){
+        gap: 3.6825rem;
+        margin-top: 9.9rem;
+        flex-wrap: wrap;
+    }
+
+    &_list{
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        @include mobile(){
+            gap: 2.5rem;
+        }
+
+        li{
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+
+            @include mobile(){
+                gap: 2.5rem;
+            }
+        }
+    }
+
+    &_number{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 4rem;
+        height: 4rem;
+        border-radius: 50%;
+        font-size: 1.6rem;
+        color: $black_60;
+        transition: background-color 0.2s ease, color 0.2s ease;
+
+        @include mobile(){
+            width: 8rem;
+            height: 8rem;
+            font-size: 3.6825rem;
+        }
+
+        &:hover{
+            background: $black_10;
+        }
+
+        &.active{
+            background: $black;
+            color: $white;
+        }
+    }
+
+    &_ellipsis{
+        color: $black_30;
+        font-size: 1.6rem;
+
+        @include mobile(){
+            font-size: 3.6825rem;
+        }
+    }
+
+    &_arrow{
+        font-size: 1.6rem;
+        letter-spacing: 0.1rem;
+        color: $black;
+
+        @include mobile(){
+            font-size: 3.6825rem;
+        }
+
+        &.disabled{
+            pointer-events: none;
+            color: $black_30;
+        }
+    }
+}

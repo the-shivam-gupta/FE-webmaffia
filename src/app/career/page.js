@@ -136,7 +136,7 @@ export default function CareerPage() {
         <section className="contact_us">
           <CareerAccordion data={careerData} />
 
-          <div id="career-apply">
+          {/* <div id="career-apply">
             <h2 className="h2">
               Let&apos;s work <br />
               together
@@ -219,7 +219,7 @@ export default function CareerPage() {
                 Apply <span>{submitting ? "…" : "Now"}</span>
               </button>
             </form>
-          </div>
+          </div> */}
         </section>
       </div>
     </main>
