@@ -16,6 +16,11 @@
   padding-bottom: 5rem !important;
 }
 
+.contact_us .form label:not(.checkmark){
+  display: flex !important;
+  margin-bottom: 0.5rem !important;
+}
+
 .contact_us [class*="klaviyo-form"] .klaviyo-form-button {
   padding: 1.7rem 3.2rem !important;
 }
@@ -33,4 +38,16 @@ a[title="Powered by Klaviyo"],
 a[href*="utm_campaign=poweredby"] {
   position: relative !important;
   z-index: 1 !important;
+}
+
+.kl-private-reset-css-Xuajs1[style*="z-index: 90000"] {
+  z-index: 2147483647 !important;
+  
+  @media (min-width: 1025px) {
+    .klaviyo-form {
+      width: 90vw !important;
+      max-width: 90rem !important;
+      border-radius: 0.4rem !important;
+    }
+  }
 }
