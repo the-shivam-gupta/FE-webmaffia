@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 function renderMultilineText(text) {
   const lines = String(text ?? "")
@@ -117,7 +118,16 @@ export default function Banner({
   const content = (
     <div className="banner_content">
       {subheading?.enabled ? (
-        <div className="sub_title">{subheading.text}</div>
+        <div className="sub_title">
+          {subheading.link ? (
+            <>
+              <Link href={subheading.link}>{subheading.text}</Link>
+              {subheading.current ? <> / {subheading.current}</> : null}
+            </>
+          ) : (
+            subheading.text
+          )}
+        </div>
       ) : null}
       <h1>
         <span className="banner_title_line">{title.line1}</span>

@@ -54,6 +54,8 @@ export default async function ServiceDetailPage({ config, breadcrumbs }) {
     subheading: {
       enabled: true,
       text: hero.subtitle,
+      link: "/services",
+      current: breadcrumbs?.length ? breadcrumbs[breadcrumbs.length - 1].name : null,
     },
     title: {
       line1: hero.title,
