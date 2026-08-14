@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { getServiceTechBySlug, getStrapiImageUrl } from "@/lib/strapiPage";
+import { buildBannerCta, getServiceTechBySlug, getStrapiImageUrl } from "@/lib/strapiPage";
 
 /**
  * Builds the render-ready `{ hero, sections }` shape ServiceDetailPage
@@ -85,6 +85,7 @@ export function buildServiceHero(banner) {
     image: getStrapiImageUrl(banner.desktopImage),
     imageWidth: banner.desktopImage?.width,
     imageHeight: banner.desktopImage?.height,
+    cta: buildBannerCta(banner),
   };
 }
 

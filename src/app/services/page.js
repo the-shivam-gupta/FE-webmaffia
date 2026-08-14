@@ -4,7 +4,7 @@ import Banner from "@/components/Banner";
 import JsonLd from "@/components/JsonLd";
 import ServiceTagSwiper from "@/components/ServiceTagSwiper";
 import { buildBreadcrumbSchema } from "@/lib/schema";
-import { getServicesPage, getStrapiImageUrl } from "@/lib/strapiPage";
+import { buildBannerCta, getServicesPage, getStrapiImageUrl } from "@/lib/strapiPage";
 
 const BREADCRUMB_SCHEMA = buildBreadcrumbSchema([
   { name: "Home", path: "/" },
@@ -90,6 +90,7 @@ function buildServicesBannerData(rawBanner) {
       : undefined,
     title: splitTitleLines(rawBanner.subHeading),
     description: rawBanner.description || undefined,
+    cta: buildBannerCta(rawBanner),
     ...(images ? { images } : {}),
   };
 }

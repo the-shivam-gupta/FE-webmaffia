@@ -35,7 +35,10 @@ export default function Banner({
     images,
     priority = false,
     unoptimized = false,
+    cta,
   } = data;
+
+  const hasCta = Boolean(cta?.text?.trim() && cta?.href?.trim());
 
   const banner = images?.banner;
   const bannerMobile = images?.bannerMobile;
@@ -145,6 +148,27 @@ export default function Banner({
         <p key={index}>{renderMultilineText(text)}</p>
       ))}
       {children}
+      {hasCta ? (
+        <Link href={cta.href} className="banner_cta">
+          <span>{cta.text}</span>
+          <svg
+            className="banner_cta__arrow"
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M3 8H13M13 8L9 4M13 8L9 12"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </Link>
+      ) : null}
     </div>
   );
 

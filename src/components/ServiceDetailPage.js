@@ -51,6 +51,7 @@ export default async function ServiceDetailPage({ config, breadcrumbs }) {
   const bannerData = {
     imagePosition: "right",
     priority: true,
+    cta: hero.cta,
     subheading: {
       enabled: true,
       text: hero.subtitle,

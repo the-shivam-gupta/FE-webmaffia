@@ -251,6 +251,48 @@ p{
     }
 }
 
+// Banner CTA button — rendered in Banner.js whenever a CMS banner's
+// `button`/`href` fields are both populated. Global so it works on every
+// page that renders <Banner>, not just one section. Deliberately an
+// outline-to-fill style with a sliding arrow so it reads differently from
+// the solid pill `.cta` button in the header (see menu.scss).
+.banner_content{
+    .banner_cta{
+        display: inline-flex;
+        align-items: center;
+        gap: 1rem;
+        // margin-top: 3rem;
+        padding: 1.3rem 2.6rem;
+        border-radius: 0.6rem;
+        border: 0.1rem solid $black;
+        background: transparent;
+        color: $black;
+        font-size: 1.6rem;
+        font-weight: $light;
+        letter-spacing: 0.05rem;
+        transition: background 0.3s ease-in, color 0.3s ease-in;
+        .banner_cta__arrow{
+            flex-shrink: 0;
+            transition: transform 0.3s ease-in;
+        }
+        &:hover{
+            background: $black;
+            color: $white;
+            .banner_cta__arrow{
+                transform: translateX(0.4rem);
+            }
+        }
+        @include mobile(){
+            font-size: 2.4rem;
+            padding: 1.6rem 3.6rem;
+            .banner_cta__arrow{
+                width: 2.2rem;
+                height: 2.2rem;
+            }
+        }
+    }
+}
+
 // FIX: 94rem -> 100vh so the pinned section always equals exactly one screen
 .main_horizontal{
     position: relative;

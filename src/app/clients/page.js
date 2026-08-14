@@ -1,7 +1,7 @@
 import Banner from "@/components/Banner";
 import ClientsLogosGrid from "@/components/ClientsLogosGrid";
 import JsonLd from "@/components/JsonLd";
-import { getClientBanner, getClients, getStrapiImageUrl } from "@/lib/strapiPage";
+import { buildBannerCta, getClientBanner, getClients, getStrapiImageUrl } from "@/lib/strapiPage";
 import { buildBreadcrumbSchema } from "@/lib/schema";
 
 const BREADCRUMB_SCHEMA = buildBreadcrumbSchema([
@@ -53,6 +53,7 @@ function buildClientsBannerData(rawBanner) {
       ...(lastSpace > 0 ? { line2: subHeading.slice(lastSpace + 1) } : {}),
     },
     descriptions: paragraphs.length ? paragraphs : undefined,
+    cta: buildBannerCta(rawBanner),
     ...(images ? { images } : {}),
   };
 }

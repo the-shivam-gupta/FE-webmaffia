@@ -228,6 +228,19 @@ export function getStrapiImageUrl(image) {
     return normalizeStrapiAssetUrl(url) || FALLBACK_IMAGE;
 }
 
+/**
+ * Maps a CMS `banner` component's `button`/`href` fields onto the
+ * `{ text, href }` shape Banner.js expects, shared across every page that
+ * renders a CMS-driven banner (services, about, awards, career, clients,
+ * case studies). Only returns a value when both fields are populated, so
+ * Banner.js can decide to render the CTA button or omit it entirely.
+ */
+export function buildBannerCta(rawBanner) {
+    const text = rawBanner?.button?.trim();
+    const href = rawBanner?.href?.trim();
+    return text && href ? { text, href } : undefined;
+}
+
 const CASE_STUDY_POPULATE = [
     "populate[banner][populate]=*",
     "populate[contentBlock][populate][image][populate]=*",

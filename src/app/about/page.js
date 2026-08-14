@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Banner from "@/components/Banner";
 import JsonLd from "@/components/JsonLd";
-import { getAboutUs, getStrapiImageUrl } from "@/lib/strapiPage";
+import { buildBannerCta, getAboutUs, getStrapiImageUrl } from "@/lib/strapiPage";
 import { buildBreadcrumbSchema } from "@/lib/schema";
 
 const BREADCRUMB_SCHEMA = buildBreadcrumbSchema([
@@ -72,6 +72,7 @@ function buildAboutBannerData(rawBanner) {
       ...(lastSpace > 0 ? { line2: subHeading.slice(lastSpace + 1) } : {}),
     },
     descriptions: paragraphs.length ? paragraphs : undefined,
+    cta: buildBannerCta(rawBanner),
     ...(images ? { images } : {}),
   };
 }

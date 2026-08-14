@@ -1,4 +1,4 @@
-import { getCareer, getStrapiImageUrl } from "@/lib/strapiPage";
+import { buildBannerCta, getCareer, getStrapiImageUrl } from "@/lib/strapiPage";
 
 export async function GET() {
   try {
@@ -38,6 +38,7 @@ export async function GET() {
           ...(lastSpace > 0 ? { line2: subHeading.slice(lastSpace + 1) } : {}),
         },
         description: (b.description || "").trim(),
+        cta: buildBannerCta(b),
         ...(Object.keys(images).length ? { images } : {}),
       };
     }
