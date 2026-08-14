@@ -431,5 +431,14 @@ html{
                 color: $white !important;
             }
         }
+        .banner_content .banner_cta{
+            border-color: $white;
+            color: $white;
+
+            &:hover{
+                background: $white;
+                color: $black;
+            }
+        }
     }
 }
