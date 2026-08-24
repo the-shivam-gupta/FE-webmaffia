@@ -77,7 +77,7 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
               <Image src="/assets/images/pixtop-logo.svg" alt="Pixtop Logo" width={100} height={50} />
               <p>PIXTOP MEDIA SOLUTIONS PVT LTD</p>
               <a
-                href="https://www.iafcertsearch.org/certification/mFC8n7nCQP9pWDAldITaANXl"
+                href="https://cms.webmaffia.com/uploads/ISO_certificate_9e1dbc303c.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="footer_iso_certificate"
@@ -91,7 +91,7 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
                 />
                 <span className="footer_iso_certificate_text">
                   <strong>ISO/IEC 27001:2022</strong>
-                  <em>Information Security Management Systems</em>
+                  <em>Certificate No. SG/IAS/IS/202402 | Valid until 11/12/2028</em>
                 </span>
               </a>
             </div>
