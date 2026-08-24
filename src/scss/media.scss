@@ -13,6 +13,12 @@
     }
 }
 
+@media screen and (min-width: 1686px){
+    .menu_wrapper{
+        top: -100vh;
+    }
+}
+
 @media screen and (max-width: 1600px) {
     html{
         font-size: 52.086%;

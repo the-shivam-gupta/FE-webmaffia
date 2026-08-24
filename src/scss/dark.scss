@@ -432,13 +432,59 @@ html{
             }
         }
         .banner_content .banner_cta{
-            border-color: $white;
             color: $white;
-
+            span{
+                color: rgba($white, 0.7);
+                &::before{
+                    background: rgba($white, 0.7);
+                }
+            }
+        }
+        .other_services{
+            background: rgba(255,255,255,0.04);
+        }
+        .other_services_item{
+            color: $white;
+            &::after{
+                background: rgba(255,255,255,0.08);
+            }
+            &:hover{
+                color: rgba(255,255,255,0.7);
+            }
+        }
+        .industries_grid{
+            background: rgba(255,255,255,0.1);
+        }
+        .industries_cell{
+            background: $black;
+            // Tiles sit on black here, so logos start inverted (visible as
+            // light marks) and flip back to their real colors on the
+            // white hover fill.
+            .industries_icon{
+                filter: invert(1);
+            }
             &:hover{
                 background: $white;
-                color: $black;
+                .industries_name{
+                    color: $black;
+                }
+                .industries_icon{
+                    filter: none;
+                }
             }
+        }
+        .tools_pill{
+            border-color: rgba(255,255,255,0.2);
+            box-shadow: -7px 1rem 0rem #5C5C6D;
+        }
+        .tools_name{
+            color: $white;
+        }
+        .industries_name{
+            color: $white;
+        }
+        .award_marquee .award_marquee_item img{
+            filter: invert(1);
         }
     }
 }

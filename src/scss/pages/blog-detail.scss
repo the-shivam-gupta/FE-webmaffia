@@ -155,6 +155,16 @@
                 ul{
                     padding-left: 3.5rem;
                     margin: 1rem 0;
+                    li{
+                        font-size: 2.2rem;
+                        line-height: 1.4;
+                        letter-spacing: .1rem;
+                        font-weight: 400;
+                        margin-bottom: 1rem;
+                        @include mobile(){
+                            font-size: 3rem;
+                        }
+                    }
                 }
                 table{
                     border-collapse: collapse;

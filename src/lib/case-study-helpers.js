@@ -1,5 +1,6 @@
 import {
   buildBannerCta,
+  getBlog,
   getCaseStudyThumbnails,
   getStrapiAssetUrl,
   getStrapiImageUrl,
@@ -71,6 +72,39 @@ export async function getLatestWorkItems(
     return [...matched, ...rest].slice(0, limit).map(toCaseStudyItem);
   } catch (e) {
     console.error("Failed to fetch latest work case studies:", e);
+    return [];
+  }
+}
+
+function matchesBlogCategory(post, wantedTags) {
+  const postTags = (post.workTitle ?? [])
+    .map((t) => t.title?.toLowerCase())
+    .filter(Boolean);
+  return wantedTags.some((tag) => postTags.includes(tag));
+}
+
+/**
+ * Fetches live blog posts and picks the ones tagged with a service's CMS
+ * `blogTitle` categories (e.g. "SEO"), for the "Blog" section on
+ * service pages. Mirrors getLatestWorkItems' category-matching approach.
+ * Falls back to the most recent posts (any category) when nothing matches,
+ * so the section never renders empty once a service opts into it.
+ */
+export async function getLatestBlogItems(limit = 3, categories = []) {
+  try {
+    const posts = await getBlog();
+    const eligible = posts.filter((post) => post?.image);
+
+    let matched = [];
+    if (categories.length) {
+      const wantedTags = categories.map((tag) => tag.toLowerCase());
+      matched = eligible.filter((post) => matchesBlogCategory(post, wantedTags));
+    }
+
+    const rest = eligible.filter((post) => !matched.includes(post));
+    return [...matched, ...rest].slice(0, limit);
+  } catch (e) {
+    console.error("Failed to fetch latest blog posts:", e);
     return [];
   }
 }

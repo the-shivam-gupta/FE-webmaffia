@@ -20,6 +20,38 @@ function buildBreadcrumbSchema(items) {
   };
 }
 
+/**
+ * Builds a FAQPage JSON-LD schema object from ServiceFaqAccordion items.
+ * Answers arrive as HTML blobs (they're rendered with dangerouslySetInnerHTML),
+ * so tags are stripped and entities decoded — Google expects literal text here.
+ */
+function buildFaqSchema(items) {
+  const toPlainText = (html) =>
+    html
+      .replace(/<[^>]+>/g, " ")
+      .replace(/&nbsp;/gi, " ")
+      .replace(/&amp;/gi, "&")
+      .replace(/&lt;/gi, "<")
+      .replace(/&gt;/gi, ">")
+      .replace(/&quot;/gi, '"')
+      .replace(/&#39;|&apos;/gi, "'")
+      .replace(/\s+/g, " ")
+      .trim();
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: toPlainText(item.answer ?? ""),
+      },
+    })),
+  };
+}
+
 /** Organization JSON-LD schema shared across pages. */
 const ORGANIZATION_SCHEMA = {
   "@context": "https://schema.org",
@@ -76,6 +108,7 @@ const LOCAL_BUSINESS_SCHEMA = {
 export {
   SITE_URL,
   buildBreadcrumbSchema,
+  buildFaqSchema,
   ORGANIZATION_SCHEMA,
   LOCAL_BUSINESS_SCHEMA,
 };

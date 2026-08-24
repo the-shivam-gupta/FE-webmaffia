@@ -1,5 +1,10 @@
 import { Fragment } from "react";
-import { buildBannerCta, getServiceTechBySlug, getStrapiImageUrl } from "@/lib/strapiPage";
+import {
+  buildBannerCta,
+  getServicesTech,
+  getServiceTechBySlug,
+  getStrapiImageUrl,
+} from "@/lib/strapiPage";
 
 /**
  * Builds the render-ready `{ hero, sections }` shape ServiceDetailPage
@@ -85,15 +90,87 @@ export function buildServiceHero(banner) {
     image: getStrapiImageUrl(banner.desktopImage),
     imageWidth: banner.desktopImage?.width,
     imageHeight: banner.desktopImage?.height,
+    mobileImage: banner.mobileImage ? getStrapiImageUrl(banner.mobileImage) : undefined,
     cta: buildBannerCta(banner),
   };
 }
 
 /**
- * Builds the `sections` array from the CMS `sections` dynamic zone, which
- * interleaves `services-tech.features` and `services-tech.technology`
- * components. A technology block is attached as the `technologies` field of
- * whichever features section precedes it.
+ * Splits a `services-tech.fa-qs` `description` HTML blob into individual
+ * Q&A items by treating every `<h3>` as a question and everything up to the
+ * next `<h3>` (or the end of the string) as that question's answer HTML.
+ * Content authors sometimes forget to heading-tag a follow-up question (it
+ * ends up as a stray `<p>`) — that text is simply kept as part of the
+ * previous answer rather than guessed at.
+ */
+function parseFaqItems(html) {
+  if (!html) return [];
+
+  const headingRegex = /<h3[^>]*>([\s\S]*?)<\/h3>/gi;
+  const matches = [...html.matchAll(headingRegex)];
+
+  return matches
+    .map((match, index) => {
+      const question = match[1].replace(/<[^>]+>/g, "").trim();
+      const start = match.index + match[0].length;
+      const end = index + 1 < matches.length ? matches[index + 1].index : html.length;
+      const answer = html.slice(start, end).trim();
+      return question ? { id: `faq-${index}`, question, answer } : null;
+    })
+    .filter(Boolean);
+}
+
+/**
+ * Maps a `services-tech.awards` `awardsList` (title + logo media) onto the
+ * `{ url, alt, width, height }` shape the awards logo grid expects,
+ * dropping any entry that has no logo image attached yet.
+ */
+function buildAwardItems(awardsList) {
+  return (awardsList ?? [])
+    .map((award) => {
+      if (!award.logo) return null;
+      return {
+        title: award.title?.trim() || "",
+        logo: {
+          url: getStrapiImageUrl(award.logo),
+          alt: award.logo.alternativeText || award.title?.trim() || "",
+          width: award.logo.width ?? 128,
+          height: award.logo.height ?? 111,
+        },
+      };
+    })
+    .filter(Boolean);
+}
+
+/**
+ * Maps a `lists` repeatable (`title` + `logo` media) shared by the
+ * industries-we-serve / tools-we-use components onto the
+ * `{ title, logo: { url, alt, width, height } }` shape both logo grids
+ * expect, dropping any entry that has no logo image attached yet.
+ */
+function buildLogoTitleItems(lists) {
+  return (lists ?? [])
+    .map((item) => {
+      if (!item.logo) return null;
+      return {
+        title: item.title?.trim() || "",
+        logo: {
+          url: getStrapiImageUrl(item.logo),
+          alt: item.logo.alternativeText || item.title?.trim() || "",
+          width: item.logo.width,
+          height: item.logo.height,
+        },
+      };
+    })
+    .filter(Boolean);
+}
+
+/**
+ * Builds the `sections` array from the CMS `sections` dynamic zone. Most
+ * components map 1:1 to a render-ready section object (tagged by `type`);
+ * `services-tech.technology` is the one exception — it has no section of
+ * its own and is instead attached as the `technologies` field of whichever
+ * `features` section precedes it.
  *
  * `influencerTitle` (the title-only, no-description feature styling used on
  * the influencer-marketing page) is derived automatically from whether the
@@ -104,47 +181,211 @@ export function buildServiceSections(cmsSections) {
 
   const merged = [];
 
-  cmsSections.forEach((section) => {
-    if (section.__component === "services-tech.technology") {
-      const technologies = buildTechnologyGroups(section);
-      if (technologies && merged.length) {
-        merged[merged.length - 1].technologies = technologies;
+  cmsSections.forEach((section, index) => {
+    switch (section.__component) {
+      case "services-tech.technology": {
+        const technologies = buildTechnologyGroups(section);
+        const lastFeatureSection = [...merged].reverse().find((s) => s.type === "features");
+        if (technologies && lastFeatureSection) {
+          lastFeatureSection.technologies = technologies;
+        }
+        return;
       }
-      return;
+
+      case "services-tech.features": {
+        const designFeature = section.designFeature;
+        if (!designFeature) return;
+        const cards = designFeature.card ?? [];
+        merged.push({
+          type: "features",
+          dataSection: `service_features_${index}`,
+          heading: designFeature.heading?.trim(),
+          intro: designFeature.subheading?.trim(),
+          features: cards.map((card, cardIndex) => ({
+            number: formatFeatureNumber(cardIndex),
+            title: card.heading?.trim(),
+            description: card.description?.trim(),
+            influencerTitle: !card.description?.trim(),
+          })),
+        });
+        return;
+      }
+
+      case "services-tech.introduction": {
+        if (!section.description?.trim()) return;
+        merged.push({
+          type: "introduction",
+          dataSection: `service_introduction_${index}`,
+          heading: section.heading?.trim(),
+          description: section.description.trim(),
+        });
+        return;
+      }
+
+      case "services-tech.why-choose-us": {
+        if (!section.description?.trim()) return;
+        merged.push({
+          type: "whyChooseUs",
+          dataSection: `service_why_choose_${index}`,
+          heading: section.heading?.trim(),
+          description: section.description.trim(),
+          cta:
+            section.cta?.title?.trim() && section.cta?.href?.trim()
+              ? { text: section.cta.title.trim(), href: section.cta.href.trim() }
+              : undefined,
+        });
+        return;
+      }
+
+      case "services-tech.awards": {
+        const items = buildAwardItems(section.awardsList);
+        if (!items.length) return;
+        merged.push({
+          type: "awards",
+          dataSection: `service_awards_${index}`,
+          heading: section.heading?.trim() || "Awards",
+          items,
+        });
+        return;
+      }
+
+      case "services-tech.industries-we-serve": {
+        const items = buildLogoTitleItems(section.lists);
+        if (!items.length) return;
+        merged.push({
+          type: "industries",
+          dataSection: `service_industries_${index}`,
+          heading: section.heading?.trim() || "Industries We Serve",
+          items,
+        });
+        return;
+      }
+
+      case "services-tech.tools-we-use": {
+        const items = buildLogoTitleItems(section.lists);
+        if (!items.length) return;
+        merged.push({
+          type: "tools",
+          dataSection: `service_tools_${index}`,
+          heading: section.heading?.trim() || "Tools We Use",
+          items,
+        });
+        return;
+      }
+
+      case "services-tech.our-process": {
+        if (!section.description?.trim()) return;
+        merged.push({
+          type: "process",
+          dataSection: `service_process_${index}`,
+          heading: section.heading?.trim(),
+          description: section.description.trim(),
+        });
+        return;
+      }
+
+      case "services-tech.blogs": {
+        const categories = (section.blogTitle ?? [])
+          .map((tag) => tag.title?.trim())
+          .filter(Boolean);
+        if (!categories.length) return;
+        merged.push({
+          type: "blogs",
+          dataSection: `service_blogs_${index}`,
+          heading: section.heading?.trim() || "Blog",
+          categories,
+        });
+        return;
+      }
+
+      case "services-tech.fa-qs": {
+        const items = parseFaqItems(section.description);
+        if (!items.length) return;
+        merged.push({
+          type: "faqs",
+          dataSection: `service_faqs_${index}`,
+          heading: section.heading?.trim() || "Frequently Asked Questions",
+          items,
+        });
+        return;
+      }
+
+      default:
+        return;
     }
-
-    const designFeature = section.designFeature;
-    if (!designFeature) return;
-
-    const cards = designFeature.card ?? [];
-
-    merged.push({
-      dataSection: `service_features_${merged.length}`,
-      heading: designFeature.heading?.trim(),
-      intro: designFeature.subheading?.trim(),
-      features: cards.map((card, cardIndex) => ({
-        number: formatFeatureNumber(cardIndex),
-        title: card.heading?.trim(),
-        description: card.description?.trim(),
-        influencerTitle: !card.description?.trim(),
-      })),
-    });
   });
 
   return merged;
 }
 
+function cleanServiceHeading(banner, pageName) {
+  const raw = banner?.subHeading?.trim() || pageName?.trim() || "";
+  return raw.replace(/\s*\n\s*/g, " ").trim();
+}
+
+/**
+ * `otherServices.services` only stores each pick as free text (e.g.
+ * "Digital Strategy") rather than a relation, so it has to be matched
+ * against the live services-teches list by heading to find a slug to link
+ * to. Tries an exact case-insensitive match first (covers the common case),
+ * then falls back to a substring match either way (covers minor wording
+ * differences, e.g. "Social Media" vs. a banner subHeading of "Social
+ * media marketing"). Entries with no match are dropped rather than
+ * rendered as a dead link.
+ */
+function buildOtherServicesSection(otherServicesRaw, allEntries, currentSlug) {
+  const picks = otherServicesRaw?.services ?? [];
+  if (!picks.length) return null;
+
+  const candidates = allEntries
+    .filter((entry) => entry.slug !== currentSlug)
+    .map((entry) => ({
+      slug: entry.slug,
+      heading: cleanServiceHeading(entry.banner, entry.pageName),
+    }))
+    .filter((entry) => entry.heading);
+
+  const items = picks
+    .map((pick) => {
+      const label = pick.services?.trim();
+      if (!label) return null;
+
+      const match =
+        candidates.find((c) => c.heading.toLowerCase() === label.toLowerCase()) ??
+        candidates.find(
+          (c) =>
+            c.heading.toLowerCase().includes(label.toLowerCase()) ||
+            label.toLowerCase().includes(c.heading.toLowerCase())
+        );
+
+      return match ? { title: match.heading, href: `/services/${match.slug}` } : null;
+    })
+    .filter(Boolean);
+
+  if (!items.length) return null;
+
+  return {
+    heading: otherServicesRaw.heading?.trim() || "Our Other Services",
+    items,
+  };
+}
+
 /**
  * Fetches and transforms the `services-teches` entry for `slug` into the
- * `{ hero, sections }` shape ServiceDetailPage expects. Returns empty
- * hero/sections (not null) when the CMS has no entry yet for this slug, so
- * callers can render without special-casing a missing service.
+ * `{ hero, sections, otherServices }` shape ServiceDetailPage expects.
+ * Returns empty hero/sections (not null) when the CMS has no entry yet for
+ * this slug, so callers can render without special-casing a missing
+ * service.
  */
 export async function getServiceRenderConfig(slug) {
-  const serviceTech = await getServiceTechBySlug(slug);
+  const [serviceTech, allEntries] = await Promise.all([
+    getServiceTechBySlug(slug),
+    getServicesTech(),
+  ]);
 
   return {
     hero: buildServiceHero(serviceTech?.banner),
     sections: buildServiceSections(serviceTech?.sections),
+    otherServices: buildOtherServicesSection(serviceTech?.otherServices, allEntries, slug),
   };
 }

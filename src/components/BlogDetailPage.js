@@ -110,7 +110,6 @@ export default function BlogDetailPage({
                   <Link href={post.href}>
                     <div className="h5 blog_item_title">{post.title}</div>
                     <div className="blog_para">
-                      <p>{post.excerpt}</p>
                       <div className="blogs_date">
                         <span>{post.date}</span>
                         <span>{post.readTime}</span>

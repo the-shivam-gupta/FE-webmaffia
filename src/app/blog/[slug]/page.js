@@ -2,7 +2,7 @@ import { notFound, permanentRedirect } from "next/navigation";
 import BlogDetailPage from "@/components/BlogDetailPage";
 import BlogStrapiArticle from "@/components/BlogStrapiArticle";
 import JsonLd from "@/components/JsonLd";
-import { prepareStrapiArticleHtml } from "@/lib/blog-helpers";
+import { buildFaqPageSchema, prepareStrapiArticleHtml } from "@/lib/blog-helpers";
 import { buildBreadcrumbSchema, SITE_URL } from "@/lib/schema";
 import {
     formatBlogDate,
@@ -106,10 +106,13 @@ export default async function StrapiBlogPage({ params }) {
         { name: headline || post.slug, path: `/blog/${post.slug}` },
     ]);
 
+    const faqPageSchema = buildFaqPageSchema(post.description);
+
     return (
         <>
             <JsonLd data={blogPostingSchema} />
             <JsonLd data={breadcrumbSchema} />
+            {faqPageSchema && <JsonLd data={faqPageSchema} />}
             <BlogDetailPage
                 slug={post.slug}
                 title={<BlogTitle heading={post.heading} />}
