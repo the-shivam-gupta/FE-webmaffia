@@ -290,6 +290,46 @@ footer {
     width: 100%;
     height: auto;
   }
+  
+  .footer_pixtop_logo{
+    position: relative;
+    z-index: 2;
+    margin: 3rem 0 0;
+    filter: invert(1);
+
+    img {
+      width: min(100%, 12.8rem);
+      height: auto;
+      display: block;
+      opacity: 1;
+    }
+
+    @include tablet() {
+      margin-top: 3rem;
+    }
+
+    @include mobile() {
+      margin-top: 2.4rem;
+    }
+
+    p{
+      color: #0009;
+      font-family: "Albert Sans", sans-serif;
+      font-size: 1.9rem;
+      font-weight: 400;
+      line-height: 1.2;
+      margin: 2rem 0 0;
+
+      @include tablet() {
+        font-size: 3rem;
+      }
+
+      @include mobile() {
+        font-size: 2.2rem;
+        margin-top: 0.5rem;
+      }
+    }
+  }
 
   .footer_nav {
     position: relative;
@@ -462,7 +502,7 @@ footer {
   }
 
   .footer_connect_details {
-    margin-top: 8rem;
+    margin-top: 6rem;
     width: 100%;
     max-width: 56rem;
 

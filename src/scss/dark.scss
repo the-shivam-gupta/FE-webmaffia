@@ -402,11 +402,18 @@ html{
 
             .footer_logo img {
                 filter: invert(1);
-                opacity: 0.12;
             }
 
             .footer_social_icons img {
-                filter: invert(1);
+                filter: invert(.7);
+            }
+            .footer_pixtop_logo{
+                img{
+                    filter: invert(1);
+                }
+                p{
+                    color: #ffffffc5;
+                }
             }
         }
         .contact_us .contact_address address a{
