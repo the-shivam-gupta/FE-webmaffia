@@ -133,6 +133,19 @@
             .blog_content{
                 padding-bottom: 3.5rem;
                 position: relative;
+                max-width: 100%;
+                overflow-wrap: break-word;
+                word-break: break-word;
+                img, iframe, video{
+                    max-width: 100%;
+                    height: auto;
+                }
+                table{
+                    display: block;
+                    max-width: 100%;
+                    overflow-x: auto;
+                    -webkit-overflow-scrolling: touch;
+                }
                 &::before{
                     content: '';
                     position: absolute;
@@ -206,6 +219,9 @@
                 align-items: center;
                 width: 85rem;
                 margin-top: 2.9rem;
+                @include mobile(){
+                    width: 100%;
+                }
                 .blog_name{
                     font-size: 2.2rem;
                     @include mobile(){
@@ -351,7 +367,7 @@
     padding: 0;
     width: 100%;
 
-    @include mobile(){
+    @media screen and (orientation: landscape) and (max-height: 500px) {
         display: none;
     }
 

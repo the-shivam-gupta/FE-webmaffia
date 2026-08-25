@@ -7,6 +7,7 @@ import "swiper/css/pagination";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ThemeInit from "@/components/ThemeInit";
+import ScrollToTop from "@/components/ScrollToTop";
 import KlaviyoScript from "@/components/KlaviyoScript";
 import WhatsAppCTA from "@/components/WhatsAppCTA";
 import { getCampaigns, getFooter } from "@/lib/strapiPage";
@@ -70,6 +71,7 @@ export default async function RootLayout({ children }) {
         </noscript>
         {/* End Google Tag Manager (noscript) */}
         <ThemeInit />
+        <ScrollToTop />
         <Header />
         {children}
         <Footer footerData={footerData} campaignSlugs={campaignSlugs} />

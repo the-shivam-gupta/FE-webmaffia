@@ -414,11 +414,12 @@ html{
                 p{
                     color: #ffffffc5;
                 }
-                .footer_iso_certificate_text{
-                    strong, em{
-                        color: #ffffffc5;
-                    }
-                }
+            }
+            .footer_iso_certificate_wrap{
+                // Footer background flips to light in dark theme, so cancel
+                // the base invert(1) from footer.scss to restore the
+                // badge/text's natural (dark) colors instead of inverting.
+                filter: none;
             }
         }
         .contact_us .contact_address address a{

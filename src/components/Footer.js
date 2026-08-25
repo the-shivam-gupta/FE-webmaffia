@@ -53,7 +53,7 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
               Follow our social channels to get a glimpse of Webmaffia
             </p>
 
-            <div className="footer_connect_divider" aria-hidden="true" />
+            {/* <div className="footer_connect_divider" aria-hidden="true" /> */}
 
             <div className="footer_social_icons">
               {socialLinks.map(({ platform, url, iconSrc, iconAlt }) =>
@@ -71,11 +71,14 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
               )}
             </div>
 
-            <div className="footer_connect_divider" aria-hidden="true" />
+            {/* <div className="footer_connect_divider" aria-hidden="true" /> */}
 
             <div className="footer_pixtop_logo">
               <Image src="/assets/images/pixtop-logo.svg" alt="Pixtop Logo" width={100} height={50} />
               <p>PIXTOP MEDIA SOLUTIONS PVT LTD</p>
+            </div>
+
+            <div className="footer_iso_certificate_wrap">
               <a
                 href="https://cms.webmaffia.com/uploads/ISO_certificate_9e1dbc303c.pdf"
                 target="_blank"
@@ -84,7 +87,7 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
                 aria-label="ISO/IEC 27001:2022 Certification"
               >
                 <Image
-                  src="/assets/images/footer/ISO-certificate.png"
+                  src="/assets/images/footer/ISO-certificate-1.svg"
                   alt="ISO/IEC 27001:2022 Certification"
                   width={40}
                   height={40}
