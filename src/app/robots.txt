@@ -23,4 +23,7 @@ Allow: /
 User-agent: PerplexityBot
 Allow: /
 
+User-agent: SERankingBacklinksBot
+Disallow: /
+
 Sitemap: https://www.webmaffia.com/sitemap.xml
