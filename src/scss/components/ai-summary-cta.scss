@@ -178,3 +178,8 @@
     font-size: 11px;
   }
 }
+
+/* dark theme turns every link white (html.active a), keep the pills readable */
+html.active .ai-cta__list a {
+  color: #1a1a1a;
+}
