@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import Script from "next/script";
 import { usePathname } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
@@ -87,7 +88,7 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
                 aria-label="ISO/IEC 27001:2022 Certification"
               >
                 <Image
-                  src="/assets/images/footer/ISO-certificate-1.svg"
+                  src="/assets/images/footer/ISO-icon.svg"
                   alt="ISO/IEC 27001:2022 Certification"
                   width={40}
                   height={40}
@@ -145,6 +146,25 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
                   ))}
                 </div>
               )}
+            </div>
+
+            <Script
+              src="https://news.google.com/swg/js/v1/publisher.js"
+              strategy="lazyOnload"
+            />
+            <div className="footer_google_source_wrap">
+              {/* Google's script only scans the DOM once, so render both
+                  themes up front and toggle visibility with CSS. */}
+              <div
+                className="footer_google_source_light"
+                google-add-preferred-source-btn=""
+                data-theme="light"
+              />
+              <div
+                className="footer_google_source_dark"
+                google-add-preferred-source-btn=""
+                data-theme="dark"
+              />
             </div>
           </div>
         </div>

@@ -10,6 +10,7 @@ import ThemeInit from "@/components/ThemeInit";
 import ScrollToTop from "@/components/ScrollToTop";
 import KlaviyoScript from "@/components/KlaviyoScript";
 import WhatsAppCTA from "@/components/WhatsAppCTA";
+import AISummaryCTA from "@/components/AISummaryCTA";
 import { getCampaigns, getFooter } from "@/lib/strapiPage";
 
 const albertSans = Albert_Sans({
@@ -89,6 +90,7 @@ export default async function RootLayout({ children }) {
         </Script>
         <KlaviyoScript />
         <WhatsAppCTA />
+        <AISummaryCTA />
       </body>
     </html>
   );

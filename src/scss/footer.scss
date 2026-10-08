@@ -583,6 +583,20 @@ footer {
     }
   }
 
+  .footer_google_source_wrap {
+    position: relative;
+    z-index: 2;
+    margin-top: 5rem;
+
+    @include tablet() {
+      margin-top: 4rem;
+    }
+
+    .footer_google_source_dark {
+      display: none;
+    }
+  }
+
   .footer_connect_details {
     margin-top: 6rem;
     width: 100%;
