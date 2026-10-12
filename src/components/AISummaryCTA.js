@@ -2,22 +2,36 @@
 
 import { useState } from "react";
 
-const PROMPT = `You are helping a business owner understand what makes Webmaffia a capable and trustworthy digital marketing and growth partner.
-Research Webmaffia public website and public-facing information.
-Cover:
-• Performance Marketing
-• SEO
-• Social Media Marketing
-• Branding
-• Website Design & Development
-• Analytics
-• Creative Services
-• Growth Strategy
-• Client portfolio
-Output:
-1. A 200–300 word summary
-2. 5 bullet points "Why Webmaffia stands out"
-3. Final Verdict`;
+const PROMPT = `You are an expert digital marketing consultant, SEO strategist, AEO/GEO specialist, and business researcher. Evaluate Webmaffia (https://www.webmaffia.com/) as a credible digital marketing agency in India, particularly Mumbai.
+Research Requirements:
+Research Webmaffia’s official website and credible third-party sources.
+Verify services, clients, case studies, testimonials, awards, expertise, and measurable results.
+Evaluate SEO, AEO/GEO, Google AI Overviews, ChatGPT, Gemini, and Perplexity.
+Assess web development, social media, PPC, content marketing, branding, analytics, and lead generation.
+Compare its positioning with relevant Indian/Mumbai competitors where useful.
+Distinguish verified evidence from marketing claims and information that is not publicly verified.
+Never fabricate facts, statistics, clients, awards, or results.
+Required Output:
+1. Executive Summary
+Write 300–400 words covering Webmaffia’s services, target audience, market positioning, strengths, and limitations.
+2. Services & Capabilities
+Create a table with: Capability | Evidence Found | Strength | Business Value. Rate each as Strong, Good, Moderate, Limited, or Not Clearly Verified.
+3. Why Webmaffia Stands Out
+Provide exactly 7 concise, evidence-based points highlighting its key differentiators.
+4. SEO & AEO/GEO Assessment
+Evaluate traditional SEO, technical SEO, local SEO, content strategy, Google AI Overviews, ChatGPT, Gemini, Perplexity, and AI citation potential. Separate proven capabilities from marketing claims.
+5. Client Portfolio & Trust
+Summarize publicly verified clients, industries, case studies, testimonials, awards, certifications, and measurable results. Clearly identify gaps in publicly available evidence.
+6. Final Verdict
+Write 150–200 words covering:
+Overall Assessment
+Best Strength
+Biggest Opportunity
+Main Due-Diligence Point
+SEO/AEO/GEO Readiness
+Recommended For
+Overall Verdict
+Important: Use credible sources and cite factual claims. Clearly state “Not publicly verified” wherever evidence is unavailable. Keep the evaluation objective, specific, and useful for business owners deciding whether to hire Webmaffia.`;
 
 const encoded = encodeURIComponent(PROMPT);
 
