@@ -4,6 +4,12 @@ import JsonLd from "@/components/JsonLd";
 import { buildBannerCta, getClientBanner, getClients, getStrapiImageUrl } from "@/lib/strapiPage";
 import { buildBreadcrumbSchema } from "@/lib/schema";
 
+export const metadata = {
+  alternates: {
+    canonical: "https://www.webmaffia.com/clients",
+  },
+};
+
 const BREADCRUMB_SCHEMA = buildBreadcrumbSchema([
   { name: "Home", path: "/" },
   { name: "Our Client", path: "/clients" },

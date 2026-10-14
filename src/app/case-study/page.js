@@ -11,6 +11,9 @@ const BREADCRUMB_SCHEMA = buildBreadcrumbSchema([
 ]);
 
 export const metadata = {
+  alternates: {
+    canonical: "https://www.webmaffia.com/case-study",
+  },
   title: "Project Portfolio and Successfull Campaigns by Webmaffia",
   description:
     "Discover Webmaffia's diverse project portfolio showcasing innovative, successful campaigns across industries. See how we drive results for our clients.",

@@ -8,6 +8,12 @@ import {
   LOCAL_BUSINESS_SCHEMA,
 } from "@/lib/schema";
 
+export const metadata = {
+  alternates: {
+    canonical: "https://www.webmaffia.com/contact",
+  },
+};
+
 const BREADCRUMB_SCHEMA = buildBreadcrumbSchema([
   { name: "Home", path: "/" },
   { name: "Contact", path: "/contact" },

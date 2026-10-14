@@ -360,16 +360,16 @@
             min-height: 24rem;
             padding: 3.5rem 2.8rem;
         }
-        &:hover{
-            background: $black;
-            .industries_name{
-                color: $white;
-            }
+        // &:hover{
+        //     background: $black;
+        //     .industries_name{
+        //         color: $white;
+        //     }
 
-            .industries_icon{
-                filter: invert(1);
-            }
-        }
+        //     .industries_icon{
+        //         filter: invert(1);
+        //     }
+        // }
     }
     .industries_icon{
         width: auto;
@@ -398,65 +398,61 @@
     }
 }
 
-// "Tools We Use" — soft rounded pills: logo thumbnail chip + tool name,
-// lifting off the page on hover. Kept light & organic so it reads as a
-// different component from the Industries matrix above.
+// "Tools We Use" — identical markup/styling to the "Technologies we use"
+// block (.technology_items+.technology_img above): one row per tool, name
+// on the left in the h4 style, grayscale circular chip on the right that
+// turns full color on hover.
 .service_tools{
     .tools_list{
         margin-top: 7rem;
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 2.8rem;
-        @include mobile(){
-            margin-top: 6rem;
-            gap: 2.4rem;
-        }
     }
-    .tools_pill{
-        display: inline-flex;
-        align-items: center;
-        gap: 2.4rem;
-        padding: 1.4rem 4.2rem 1.4rem 1.4rem;
-        border: .15rem solid rgba($black, .14);
-        box-shadow: -7px 1rem 0rem #0000001a;
-        border-radius: 1.9rem;
-        transition: transform .3s ease-in, border-color .3s ease-in, box-shadow .3s ease-in;
-        @include mobile(){
-            padding: 1.8rem 5rem 1.8rem 1.8rem;
-        }
-    }
-    .tools_thumb{
-        width: 9rem;
-        height: 9rem;
+    .tools_row{
         display: flex;
         align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        overflow: hidden;
-        img{
-            width: auto;
-            height: auto;
-            max-width: 5.8rem;
-            max-height: 5.8rem;
-            object-fit: contain;
-        }
+        gap: 6.5rem;
+        margin-bottom: 2.5rem;
         @include mobile(){
-            width: 11rem;
-            height: 11rem;
-            border-radius: 2.8rem;
-            img{
-                max-width: 7rem;
-                max-height: 7rem;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 3rem;
+            margin-bottom: 5.5rem;
+            &:nth-last-child(1){
+                margin-bottom: 0;
             }
         }
+
+        h4{
+            width: 58rem;
+        }
     }
-    .tools_name{
-        font-size: 2.4rem;
-        font-weight: 500;
-        color: $black;
-        @include mobile(){
-            font-size: 3.2rem;
+    .tools_img{
+        display: flex;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 2.7rem;
+        &>div{
+            width: 10rem;
+            height: 10rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: $gray_medium_thin;
+            border-radius: 50%;
+            @include mobile(){
+                width: 12.5rem;
+                height: 12.5rem;
+            }
+            img{
+                width: 7.5rem;
+                filter: grayscale(1);
+                transition: filter 0.3s ease;
+                @include mobile(){
+                    width: 9rem;
+                }
+            }
+            &:hover img{
+                filter: grayscale(0);
+            }
         }
     }
 }

@@ -3,6 +3,12 @@ import JsonLd from "@/components/JsonLd";
 import { getTestimonials } from "@/lib/strapiPage";
 import { ORGANIZATION_SCHEMA, LOCAL_BUSINESS_SCHEMA } from "@/lib/schema";
 
+export const metadata = {
+  alternates: {
+    canonical: "https://www.webmaffia.com/",
+  },
+};
+
 export default async function Home() {
   const testimonials = await getTestimonials();
 

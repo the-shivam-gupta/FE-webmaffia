@@ -166,23 +166,24 @@ function IndustriesSection({ section }) {
 }
 
 function ToolsSection({ section }) {
-  // Soft rounded pills — thumbnail chip + tool name — that lift on hover.
-  // Kept intentionally lighter/organic to contrast the Industries matrix.
   return (
     <>
       {section.heading ? <h2 className="h2">{section.heading}</h2> : null}
       <div className="tools_list">
         {section.items.map((item, index) => (
-          <div className="tools_pill" key={`${item.title}-${index}`}>
-            <span className="tools_thumb">
-              <Image
-                src={item.logo.url}
-                alt={item.logo.alt}
-                width={item.logo.width ?? 110}
-                height={item.logo.height ?? 110}
-              />
-            </span>
-            <span className="tools_name">{item.title}</span>
+          <div className="tools_row" key={`${item.title}-${index}`}>
+            <h4>{item.title}</h4>
+            <div className="tools_img">
+              <div>
+                <Image
+                  src={item.logo.url}
+                  title={item.title}
+                  alt={item.logo.alt}
+                  width={item.logo.width ?? 110}
+                  height={item.logo.height ?? 110}
+                />
+              </div>
+            </div>
           </div>
         ))}
       </div>
