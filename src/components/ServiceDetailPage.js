@@ -174,15 +174,17 @@ function ToolsSection({ section }) {
           <div className="tools_row" key={`${item.title}-${index}`}>
             <h4>{item.title}</h4>
             <div className="tools_img">
-              <div>
-                <Image
-                  src={item.logo.url}
-                  title={item.title}
-                  alt={item.logo.alt}
-                  width={item.logo.width ?? 110}
-                  height={item.logo.height ?? 110}
-                />
-              </div>
+              {item.icons.map((icon, iconIndex) => (
+                <div key={`${item.title}-${iconIndex}-${icon.url}`}>
+                  <Image
+                    src={icon.url}
+                    title={icon.title}
+                    alt={icon.alt}
+                    width={icon.width ?? 110}
+                    height={icon.height ?? 110}
+                  />
+                </div>
+              ))}
             </div>
           </div>
         ))}

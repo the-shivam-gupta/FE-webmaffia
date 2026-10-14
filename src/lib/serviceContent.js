@@ -166,6 +166,34 @@ function buildLogoTitleItems(lists) {
 }
 
 /**
+ * Maps the `tools-we-use` `lists` repeatable — each entry a `title` plus an
+ * `icons` repeatable of `{ logo }` media — onto `{ title, icons: [{ url,
+ * alt, width, height, title }] }` rows, dropping icons with no image and
+ * rows left with no icons.
+ */
+function buildToolGroups(lists) {
+  return (lists ?? [])
+    .map((item) => ({
+      title: item.title?.trim() || "",
+      icons: (item.icons ?? [])
+        .map((entry) => entry.logo)
+        .filter(Boolean)
+        .map((media) => {
+          const name =
+            media.alternativeText || media.name?.replace(/\.[^.]+$/, "") || "";
+          return {
+            url: getStrapiImageUrl(media),
+            alt: name,
+            title: name,
+            width: media.width,
+            height: media.height,
+          };
+        }),
+    }))
+    .filter((group) => group.icons.length);
+}
+
+/**
  * Builds the `sections` array from the CMS `sections` dynamic zone. Most
  * components map 1:1 to a render-ready section object (tagged by `type`);
  * `services-tech.technology` is the one exception — it has no section of
@@ -262,7 +290,7 @@ export function buildServiceSections(cmsSections) {
       }
 
       case "services-tech.tools-we-use": {
-        const items = buildLogoTitleItems(section.lists);
+        const items = buildToolGroups(section.lists);
         if (!items.length) return;
         merged.push({
           type: "tools",
