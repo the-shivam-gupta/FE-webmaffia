@@ -143,23 +143,30 @@ function buildAwardItems(awardsList) {
 }
 
 /**
- * Maps a `lists` repeatable (`title` + `logo` media) shared by the
- * industries-we-serve / tools-we-use components onto the
- * `{ title, logo: { url, alt, width, height } }` shape both logo grids
- * expect, dropping any entry that has no logo image attached yet.
+ * Maps the industries-we-serve `lists` repeatable onto
+ * `{ title, logo: { url, alt, width, height } | null }` tiles. The CMS entry
+ * now carries an `icons` repeatable of `{ logo }` media (same shape as
+ * tools-we-use), so the first icon is used as the tile's logo; a legacy
+ * single `logo` is still honoured. Entries with a title but no icon yet are
+ * kept as title-only tiles so the section doesn't vanish.
  */
 function buildLogoTitleItems(lists) {
   return (lists ?? [])
     .map((item) => {
-      if (!item.logo) return null;
+      const title = item.title?.trim() || "";
+      if (!title) return null;
+
+      const media = item.logo ?? item.icons?.find((entry) => entry.logo)?.logo;
       return {
-        title: item.title?.trim() || "",
-        logo: {
-          url: getStrapiImageUrl(item.logo),
-          alt: item.logo.alternativeText || item.title?.trim() || "",
-          width: item.logo.width,
-          height: item.logo.height,
-        },
+        title,
+        logo: media
+          ? {
+              url: getStrapiImageUrl(media),
+              alt: media.alternativeText || title,
+              width: media.width,
+              height: media.height,
+            }
+          : null,
       };
     })
     .filter(Boolean);

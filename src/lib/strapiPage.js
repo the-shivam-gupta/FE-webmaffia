@@ -213,6 +213,71 @@ export function getRelatedStrapiPosts(slug, count = 2) {
     );
 }
 
+function normalizeAuthor(author) {
+    const blogs = (author.blogs ?? [])
+        .map(normalizeBlogPost)
+        .sort((a, b) => parseBlogDate(b.date) - parseBlogDate(a.date));
+
+    return {
+        ...author,
+        slug: author.slug?.trim() || slugify(author.name ?? ""),
+        profileImage: author.profileImage
+            ? {
+                ...author.profileImage,
+                url: normalizeStrapiAssetUrl(author.profileImage.url),
+            }
+            : null,
+        blogs,
+    };
+}
+
+export async function getAuthors() {
+    try {
+        const strapiBaseUrl = getStrapiApiBaseUrl();
+        if (!strapiBaseUrl) {
+            throw new Error("STRAPI_API_URL is not configured");
+        }
+
+        const response = await fetch(
+            `${strapiBaseUrl}/api/authors?populate[profileImage]=true&populate[blogs][populate]=image&pagination[pageSize]=100`,
+            {
+                headers: {
+                    Authorization: `Bearer ${STRAPI_TOKEN}`,
+                    "Content-Type": "application/json",
+                },
+                next: { revalidate: 60 },
+                signal: AbortSignal.timeout(STRAPI_FETCH_TIMEOUT_MS),
+            }
+        );
+        if (!response.ok) {
+            throw new Error(`Failed to fetch authors (${response.status})`);
+        }
+
+        const data = await response.json();
+        return (data.data ?? []).map(normalizeAuthor);
+    } catch (error) {
+        console.error("Failed to fetch authors:", error);
+        return [];
+    }
+}
+
+export async function getAuthorBySlug(slug) {
+    const authors = await getAuthors();
+    return authors.find((author) => author.slug === slug) ?? null;
+}
+
+/** First author linked to a blog post, as `{ name, slug, designation }`. */
+export function getPostAuthor(post) {
+    const author = post?.authors?.[0];
+    if (!author?.name) return null;
+
+    return {
+        name: author.name,
+        slug: author.slug?.trim() || slugify(author.name),
+        designation: author.designation ?? "",
+    };
+}
+
 export function getStrapiAssetUrl(asset) {
     if (!asset?.url) return "";
 
@@ -591,7 +656,7 @@ const SERVICES_TECH_POPULATE = [
     "populate[sections][on][services-tech.why-choose-us][populate][cta][populate]=*",
     "populate[sections][on][services-tech.awards][populate][awardsList][populate]=*",
     "populate[sections][on][services-tech.our-process][populate]=*",
-    "populate[sections][on][services-tech.industries-we-serve][populate][lists][populate]=*",
+    "populate[sections][on][services-tech.industries-we-serve][populate][lists][populate][icons][populate]=*",
     "populate[sections][on][services-tech.tools-we-use][populate][lists][populate][icons][populate]=*",
     "populate[sections][on][services-tech.blogs][populate][blogTitle][populate]=*",
     "populate[sections][on][services-tech.fa-qs][populate]=*",

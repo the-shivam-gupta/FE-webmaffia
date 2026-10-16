@@ -150,13 +150,15 @@ function IndustriesSection({ section }) {
       <div className="industries_grid">
         {section.items.map((item, index) => (
           <div className="industries_cell" key={`${item.title}-${index}`}>
-            <Image
-              className="industries_icon"
-              src={item.logo.url}
-              alt={item.logo.alt}
-              width={item.logo.width ?? 110}
-              height={item.logo.height ?? 135}
-            />
+            {item.logo ? (
+              <Image
+                className="industries_icon"
+                src={item.logo.url}
+                alt={item.logo.alt}
+                width={item.logo.width ?? 110}
+                height={item.logo.height ?? 135}
+              />
+            ) : null}
             <h3 className="industries_name">{item.title}</h3>
           </div>
         ))}
