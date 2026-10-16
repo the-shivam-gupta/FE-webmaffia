@@ -8,7 +8,9 @@ import {
     formatBlogDate,
     getBlog,
     getBlogBySlug,
+    getPostAuthor,
     getRelatedStrapiPosts,
+    getSeoFields,
     getStrapiImageUrl,
 } from "@/lib/strapiPage";
 
@@ -39,12 +41,14 @@ export async function generateMetadata({ params }) {
 
     const title = post.heading?.replace(/\n/g, " ") ?? "Blog";
     const canonicalSlug = post.slug;
+    const seo = getSeoFields(post.seo);
 
     return {
-        title: `${title} | Webmaffia`,
-        description: post.excerpt,
+        title: seo.title ?? `${title} | Webmaffia`,
+        description: seo.description ?? post.excerpt,
+        ...(seo.keywords ? { keywords: seo.keywords } : {}),
         alternates: {
-            canonical: `https://www.webmaffia.com/blog/${canonicalSlug}`,
+            canonical: seo.canonical ?? `https://www.webmaffia.com/blog/${canonicalSlug}`,
         },
     };
 }
@@ -69,6 +73,7 @@ export default async function StrapiBlogPage({ params }) {
     const preparedArticle = prepareStrapiArticleHtml(post.description);
     const relatedPosts = await getRelatedStrapiPosts(post.slug, 2);
 
+    const author = getPostAuthor(post);
     const headline = post.heading?.replace(/\n/g, " ") ?? "";
     const publishedAt = post.publishedAt || post.createdAt || null;
     const modifiedAt = post.updatedAt || publishedAt;
@@ -83,11 +88,17 @@ export default async function StrapiBlogPage({ params }) {
         headline,
         description: post.excerpt ?? "",
         image: toAbsoluteUrl(getStrapiImageUrl(post.image)),
-        author: {
-            "@type": "Organization",
-            name: "WebMaffia",
-            url: `${SITE_URL}/`,
-        },
+        author: author
+            ? {
+                "@type": "Person",
+                name: author.name,
+                url: `${SITE_URL}/author/${author.slug}`,
+            }
+            : {
+                "@type": "Organization",
+                name: "WebMaffia",
+                url: `${SITE_URL}/`,
+            },
         publisher: {
             "@type": "Organization",
             name: "WebMaffia",
@@ -118,6 +129,7 @@ export default async function StrapiBlogPage({ params }) {
                 title={<BlogTitle heading={post.heading} />}
                 date={formatBlogDate(post.date)}
                 readTime={post.readTime}
+                author={author}
                 image={getStrapiImageUrl(post.image)}
                 imageAlt={post.image?.alternativeText || post.heading || ""}
                 stickyLinks={preparedArticle.stickyLinks}

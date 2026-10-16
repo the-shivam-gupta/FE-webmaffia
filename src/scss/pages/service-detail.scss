@@ -337,10 +337,13 @@
         margin-top: 8rem;
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        // Dividers via 0.1rem gaps over a hairline-colored backdrop — no
-        // nth-child border math, works for any item count/column layout.
-        gap: .1rem;
-        background: rgba($black, .08);
+        // Dividers are a fixed 1px inset shadow on each cell (right + bottom)
+        // — not a rem-sized gap, which turns into a fractional device pixel
+        // at 125%/150% display scaling or browser zoom and vanishes. The
+        // clip-path trims the outer right/bottom edge so only inner lines
+        // show, for any item count/column layout.
+        gap: 0;
+        clip-path: inset(0 1px 1px 0);
         @include mobile(){
             grid-template-columns: repeat(2, 1fr);
             margin-top: 6rem;
@@ -354,6 +357,7 @@
         min-height: 28rem;
         padding: 4rem 3.2rem;
         background: $white;
+        box-shadow: inset -1px -1px 0 rgba($black, .15);
         transition: background-color .35s ease-in;
         @include mobile(){
             gap: 6rem;

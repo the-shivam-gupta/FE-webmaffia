@@ -473,11 +473,9 @@ html{
                 color: rgba(255,255,255,0.7);
             }
         }
-        .industries_grid{
-            background: rgba(255,255,255,0.1);
-        }
         .industries_cell{
             background: $black;
+            box-shadow: inset -1px -1px 0 rgba(255,255,255,0.18);
             // Tiles sit on black here, so logos start inverted (visible as
             // light marks) and flip back to their real colors on the
             // white hover fill.

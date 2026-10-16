@@ -20,6 +20,7 @@ export default function BlogDetailPage({
   title,
   date,
   readTime,
+  author,
   image,
   imageAlt = "",
   stickyLinks: stickyLinksProp,
@@ -39,6 +40,11 @@ export default function BlogDetailPage({
             <span>|</span>
             <span>{readTime}</span>
           </div>
+          {author ? (
+            <div className="author_byline">
+              By <Link href={`/author/${author.slug}`} className="link">{author.name}</Link>
+            </div>
+          ) : null}
           <div className="blog_section">
             <div className="" id="mob_sticky_article" />
             <div className="blog_set">

@@ -306,6 +306,22 @@ export function buildBannerCta(rawBanner) {
     return text && href ? { text, href } : undefined;
 }
 
+/**
+ * Reads the CMS `seo` component (`metaTitle`, `metaDescription`, `canonical`,
+ * `keyword`) into trimmed values; any empty field comes back `undefined` so
+ * callers can fall back with `??`.
+ */
+export function getSeoFields(seo) {
+    const clean = (value) => value?.trim() || undefined;
+
+    return {
+        title: clean(seo?.metaTitle),
+        description: clean(seo?.metaDescription),
+        canonical: clean(seo?.canonical),
+        keywords: clean(seo?.keyword),
+    };
+}
+
 const CASE_STUDY_POPULATE = [
     "populate[banner][populate]=*",
     "populate[contentBlock][populate][image][populate]=*",
@@ -511,7 +527,7 @@ async function fetchCampaignsRaw() {
         throw new Error("STRAPI_API_URL is not configured");
     }
 
-    const response = await fetch(`${strapiBaseUrl}/api/campaigns?populate[poster][populate]=*&populate[video][populate]=*&populate[recognition][populate]=*`, {
+    const response = await fetch(`${strapiBaseUrl}/api/campaigns?populate[seo]=true&populate[poster][populate]=*&populate[video][populate]=*&populate[recognition][populate]=*`, {
         headers: {
             Authorization: `Bearer ${STRAPI_TOKEN}`,
             "Content-Type": "application/json",

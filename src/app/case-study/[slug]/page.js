@@ -9,6 +9,7 @@ import {
   getCampaigns,
   getCaseStudies,
   getCaseStudyBySlug,
+  getSeoFields,
 } from "@/lib/strapiPage";
 
 export async function generateStaticParams() {
@@ -47,9 +48,7 @@ export async function generateMetadata({ params }) {
       entry.banner?.heading?.replace(/\n/g, " ") ??
       entry.pageName ??
       "Case Study";
-    const description =
-      entry.banner?.description?.replace(/\s+/g, " ").trim() ??
-      "Explore Webmaffia case studies.";
+    const description = entry.banner?.description?.replace(/\s+/g, " ").trim();
 
     return {
       title: `${title} | Webmaffia`,
@@ -66,11 +65,15 @@ export async function generateMetadata({ params }) {
     return { title: "Case Study | Webmaffia" };
   }
 
+  const seo = getSeoFields(campaign.seo);
+
   return {
-    title: `${campaign.pageName ?? campaign.heading} | Webmaffia`,
-    description: campaign.tagLine,
+    title: seo.title ?? `${campaign.pageName ?? campaign.heading} | Webmaffia`,
+    description: seo.description ?? campaign.tagLine,
+    ...(seo.keywords ? { keywords: seo.keywords } : {}),
     alternates: {
-      canonical: `https://www.webmaffia.com/case-study/${campaign.slug}`,
+      canonical:
+        seo.canonical ?? `https://www.webmaffia.com/case-study/${campaign.slug}`,
     },
   };
 }

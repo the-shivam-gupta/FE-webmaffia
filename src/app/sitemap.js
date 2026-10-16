@@ -3,6 +3,7 @@ import {
   getAllServiceLocationPaths,
 } from "@/lib/serviceLocations";
 import {
+  getAuthors,
   getBlog,
   getCampaigns,
   getCaseStudies,
@@ -47,8 +48,9 @@ async function safeFetch(label, fn) {
 }
 
 export default async function sitemap() {
-  const [blogs, caseStudies, campaigns, services, locationPaths] = await Promise.all([
+  const [blogs, authors, caseStudies, campaigns, services, locationPaths] = await Promise.all([
     safeFetch("blogs", getBlog),
+    safeFetch("authors", getAuthors),
     safeFetch("case studies", getCaseStudies),
     safeFetch("campaigns", getCampaigns),
     safeFetch("services", getAllServiceEntries),
@@ -82,6 +84,16 @@ export default async function sitemap() {
       })
     );
 
+  const authorEntries = authors
+    .filter((author) => author?.slug)
+    .map((author) =>
+      entry(`/author/${author.slug}`, {
+        priority: 0.5,
+        changeFrequency: "weekly",
+        lastModified: author.updatedAt || author.publishedAt || author.createdAt,
+      })
+    );
+
   const caseStudySlugs = new Set();
   const caseStudyEntries = [];
 
@@ -109,5 +121,5 @@ export default async function sitemap() {
     );
   }
 
-  return [...staticEntries, ...blogEntries, ...caseStudyEntries];
+  return [...staticEntries, ...blogEntries, ...authorEntries, ...caseStudyEntries];
 }
