@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import {
-  buildBannerCta,
+  buildBannerCtas,
   getServicesTech,
   getServiceTechBySlug,
   getStrapiImageUrl,
@@ -91,7 +91,7 @@ export function buildServiceHero(banner) {
     imageWidth: banner.desktopImage?.width,
     imageHeight: banner.desktopImage?.height,
     mobileImage: banner.mobileImage ? getStrapiImageUrl(banner.mobileImage) : undefined,
-    cta: buildBannerCta(banner),
+    ...buildBannerCtas(banner),
   };
 }
 

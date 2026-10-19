@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import Image from "next/image";
 import Banner from "@/components/Banner";
 import JsonLd from "@/components/JsonLd";
-import { buildBannerCta, getAwards, getStrapiImageUrl } from "@/lib/strapiPage";
+import { buildBannerCtas, getAwards, getStrapiImageUrl } from "@/lib/strapiPage";
 import { buildBreadcrumbSchema } from "@/lib/schema";
 
 const BREADCRUMB_SCHEMA = buildBreadcrumbSchema([
@@ -82,7 +82,7 @@ function buildAwardsBannerData(rawBanner) {
       ...(lastSpace > 0 ? { line2: subHeading.slice(lastSpace + 1) } : {}),
     },
     description: (rawBanner.description || "").trim(),
-    cta: buildBannerCta(rawBanner),
+    ...buildBannerCtas(rawBanner),
     ...(images ? { images } : {}),
   };
 }

@@ -93,7 +93,6 @@ html{
         .client_para, .contact_person{
             color: $white;
         }
-        .ourService-swiper .slide_cta,
         .slide_cta{
             .service-button-prev,
             .swiper-button-prev{
@@ -135,11 +134,17 @@ html{
                 }
             }
         }
-        .staticSection{
-            background: $black !important;
-        }
-        .main_horizontal .horizontal_sliders .cta_text span::before{
-            background: rgba(255, 255, 255, 0.4);
+        .services_grid{
+            .services_item_label,
+            .services_item_heading{
+                color: $white;
+            }
+            .services_item_link{
+                color: $white;
+                &::after{
+                    background: rgba($white, 0.6);
+                }
+            }
         }
         .contact_us .form,
         .menu_wrapper form,
@@ -453,12 +458,29 @@ html{
             }
         }
         .banner_content .banner_cta{
+            border-color: $white;
+            background: $white;
+            color: $black;
+            &:hover{
+                background: transparent;
+                color: $white;
+            }
+        }
+        .statistics_bar{
+            .statistics_locations,
+            .statistics_value,
+            .statistics_label{
+                color: $white;
+            }
+            .statistics_grid,
+            .statistics_item{
+                border-color: rgba($white, 0.15);
+            }
+        }
+        .banner_content .banner_cta_secondary{
             color: $white;
-            span{
-                color: rgba($white, 0.7);
-                &::before{
-                    background: rgba($white, 0.7);
-                }
+            &::after{
+                background: rgba($white, 0.6);
             }
         }
         .other_services{
@@ -507,3 +529,37 @@ html{
         }
     }
 }
+
+html.active .home_industries{
+    .home_industries_grid{
+        border-color: rgba(255,255,255,0.18);
+    }
+    .home_industries_cell{
+        color: $white;
+        border-color: rgba(255,255,255,0.18);
+        &::before{
+            background: $white;
+        }
+    }
+    .home_industries_name,
+    .home_industries_cta{
+        color: $white;
+    }
+    .home_industries_clients{
+        color: rgba(255,255,255,0.6);
+    }
+    a.home_industries_cell:hover,
+    a.home_industries_cell:focus-visible{
+        .home_industries_name,
+        .home_industries_clients,
+        .home_industries_cta{
+            color: $black;
+        }
+    }
+}
+
+// Statistics bar icons are dark artwork; turn them white on the dark theme.
+html.active .statistics_bar .statistics_icon{
+    filter: brightness(0) invert(1);
+}
+

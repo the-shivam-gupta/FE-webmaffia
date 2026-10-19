@@ -1,5 +1,5 @@
 import {
-  buildBannerCta,
+  buildBannerCtas,
   getBlog,
   getCaseStudyThumbnails,
   getStrapiAssetUrl,
@@ -164,7 +164,7 @@ export function buildCaseStudyBannerData(banner) {
       ? { enabled: true, text: banner.subHeading }
       : undefined,
     description: banner.description?.trim() ?? "",
-    cta: buildBannerCta(banner),
+    ...buildBannerCtas(banner),
     images: {
       banner: desktopImage
         ? {

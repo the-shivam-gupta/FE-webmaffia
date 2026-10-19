@@ -1,7 +1,7 @@
 import Banner from "@/components/Banner";
 import ClientsLogosGrid from "@/components/ClientsLogosGrid";
 import JsonLd from "@/components/JsonLd";
-import { buildBannerCta, getClientBanner, getClients, getStrapiImageUrl } from "@/lib/strapiPage";
+import { buildBannerCtas, getClientBanner, getClients, getStrapiImageUrl } from "@/lib/strapiPage";
 import { buildBreadcrumbSchema } from "@/lib/schema";
 
 export const metadata = {
@@ -59,7 +59,7 @@ function buildClientsBannerData(rawBanner) {
       ...(lastSpace > 0 ? { line2: subHeading.slice(lastSpace + 1) } : {}),
     },
     descriptions: paragraphs.length ? paragraphs : undefined,
-    cta: buildBannerCta(rawBanner),
+    ...buildBannerCtas(rawBanner),
     ...(images ? { images } : {}),
   };
 }

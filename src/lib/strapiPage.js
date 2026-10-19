@@ -307,6 +307,131 @@ export function buildBannerCta(rawBanner) {
 }
 
 /**
+ * Same as buildBannerCta, for the CMS banner's `secondaryButton` component
+ * (`title` + `href`).
+ */
+export function buildBannerSecondaryCta(rawBanner) {
+    const text = rawBanner?.secondaryButton?.title?.trim();
+    const href = rawBanner?.secondaryButton?.href?.trim();
+    return text && href ? { text, href } : undefined;
+}
+
+/**
+ * Both banner CTAs as `{ cta, secondaryCta }`, ready to spread into the
+ * data object passed to <Banner>.
+ */
+export function buildBannerCtas(rawBanner) {
+    return {
+        cta: buildBannerCta(rawBanner),
+        secondaryCta: buildBannerSecondaryCta(rawBanner),
+    };
+}
+
+/**
+ * Splits a banner title into `{ line1, line2?, line3? }`, honouring explicit
+ * newlines and otherwise balancing words across up to `maxLines` lines.
+ */
+export function splitBannerTitle(text, maxLines = 3) {
+    const explicit = String(text || "")
+        .split("\n")
+        .map((line) => line.trim())
+        .filter(Boolean);
+    if (explicit.length > 1) {
+        return {
+            line1: explicit[0],
+            line2: explicit[1],
+            ...(explicit[2] ? { line3: explicit.slice(2).join(" ") } : {}),
+        };
+    }
+
+    const words = String(text || "").trim().split(/\s+/).filter(Boolean);
+    if (!words.length) return { line1: "" };
+
+    const totalLen = words.reduce((sum, word, i) => sum + word.length + (i ? 1 : 0), 0);
+    const targetPerLine = totalLen / Math.min(maxLines, words.length);
+
+    const lines = [];
+    let current = [];
+    let currentLen = 0;
+
+    for (const word of words) {
+        const wordLen = word.length + (current.length ? 1 : 0);
+        if (
+            current.length &&
+            currentLen + wordLen > targetPerLine &&
+            lines.length < maxLines - 1
+        ) {
+            lines.push(current.join(" "));
+            current = [];
+            currentLen = 0;
+        }
+        currentLen += wordLen;
+        current.push(word);
+    }
+    if (current.length) lines.push(current.join(" "));
+
+    return {
+        line1: lines[0] || "",
+        ...(lines[1] ? { line2: lines[1] } : {}),
+        ...(lines[2] ? { line3: lines[2] } : {}),
+    };
+}
+
+const HOME_POPULATE = [
+    "populate[banner][populate]=*",
+    "populate[sections][on][services.statistics-bar][populate][statisticsBar][populate]=*",
+    "populate[sections][on][services.services][populate][cards][populate]=*",
+    "populate[sections][on][services.services][populate][button]=*",
+    "populate[sections][on][services.work][populate][cards][populate]=*",
+    "populate[sections][on][services.work][populate][button]=*",
+    "populate[sections][on][services.projects][populate][cards][populate]=*",
+    "populate[sections][on][services.projects][populate][button]=*",
+    "populate[sections][on][services.industries][populate][cards][populate]=*",
+    "populate[sections][on][services.testimonial][populate]=*",
+    "populate[sections][on][services.trophies][populate][cards][populate]=*",
+    "populate[sections][on][services.trophies][populate][button]=*",
+    "populate[sections][on][services.blogs][populate][button]=*",
+].join("&");
+
+async function fetchHomeRaw() {
+    const strapiBaseUrl = getStrapiApiBaseUrl();
+    if (!strapiBaseUrl) {
+        throw new Error("STRAPI_API_URL is not configured");
+    }
+
+    const response = await fetch(
+        `${strapiBaseUrl}/api/homepage?${HOME_POPULATE}`,
+        {
+            headers: {
+                Authorization: `Bearer ${STRAPI_TOKEN}`,
+                "Content-Type": "application/json",
+            },
+            next: { revalidate: 60 },
+            signal: AbortSignal.timeout(STRAPI_FETCH_TIMEOUT_MS),
+        }
+    );
+
+    if (!response.ok) {
+        const errorBody = await response.text().catch(() => "");
+        throw new Error(
+            `Failed to fetch home (${response.status})${errorBody ? `: ${errorBody.slice(0, 200)}` : ""}`
+        );
+    }
+
+    const data = await response.json();
+    return data.data;
+}
+
+export async function getHome() {
+    try {
+        return await fetchHomeRaw();
+    } catch (error) {
+        console.error("Failed to fetch home:", error);
+        return null;
+    }
+}
+
+/**
  * Reads the CMS `seo` component (`metaTitle`, `metaDescription`, `canonical`,
  * `keyword`) into trimmed values; any empty field comes back `undefined` so
  * callers can fall back with `??`.
