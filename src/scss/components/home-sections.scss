@@ -392,6 +392,7 @@ p{
     p{
         max-width: 40rem;
         margin-bottom: 3rem;
+        font-weight: 400;
         @include mobile(){
             max-width: 100%;
             margin-bottom: 5rem;
