@@ -8,6 +8,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import Banner from "@/components/Banner";
 import StatisticsBar from "@/components/StatisticsBar";
+import KlaviyoFormEmbed from "@/components/KlaviyoFormEmbed";
 
 // Renders CMS text, turning line breaks into <br />.
 function Lines({ text }) {
@@ -415,6 +416,44 @@ function BlogsSection({ section, blogs }) {
   );
 }
 
+// "Let's talk" — same Klaviyo form as /contact. The `contact_us` class pulls in
+// that page's form styling (labels, inputs, custom select, dark mode).
+function ContactSection() {
+  return (
+    <section data-section="contact" className="home_contact contact_us">
+      <div className="home_contact_info">
+        <h2 className="sub_title">LET&apos;S TALK</h2>
+        <div className="sub_heading">
+          Let&apos;s make <br />
+          you an offer.
+        </div>
+        <p className="section_description">
+          Tell us what you&apos;re building. Within 2 business days,
+          we&apos;ll come back with a plan you&apos;ll find very hard to refuse.
+        </p>
+        <div className="home_contact_details">
+          <div className="home_contact_item">
+            <span className="home_contact_label">EMAIL</span>
+            <a href="mailto:veera@webmaffia.com">veera@webmaffia.com</a>
+          </div>
+          <div className="home_contact_item">
+            <span className="home_contact_label">INDIA · UAE</span>
+            <span>
+              <a href="tel:+919867625909">+91 98676 25909</a>
+              {" · "}
+              <a href="tel:+971562722998">+971 56 272 2998</a>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div className="form">
+        <KlaviyoFormEmbed />
+      </div>
+    </section>
+  );
+}
+
 export default function HomePage({
   bannerData = null,
   sections = [],
@@ -462,6 +501,8 @@ export default function HomePage({
               return null;
           }
         })}
+
+        <ContactSection />
       </div>
     </main>
   );

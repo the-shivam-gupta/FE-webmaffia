@@ -563,3 +563,12 @@ html.active .statistics_bar .statistics_icon{
     filter: brightness(0) invert(1);
 }
 
+html.active .home_contact{
+    .home_contact_label{
+        color: rgba(255,255,255,0.6);
+    }
+    .home_contact_item,
+    .home_contact_item a{
+        color: $white;
+    }
+}
