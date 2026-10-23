@@ -255,6 +255,9 @@ p{
 // (primary, filled pill) and `secondaryButton` (secondary, underlined text
 // link). Global so it works on every page that renders <Banner>.
 .banner_content{
+    h1{
+        font-size: 11rem;
+    }
     .banner_cta_group{
         display: flex;
         align-items: center;
