@@ -36,13 +36,9 @@ export default function Banner({
     priority = false,
     unoptimized = false,
     cta,
-    secondaryCta,
   } = data;
 
   const hasCta = Boolean(cta?.text?.trim() && cta?.href?.trim());
-  const hasSecondaryCta = Boolean(
-    secondaryCta?.text?.trim() && secondaryCta?.href?.trim()
-  );
 
   const banner = images?.banner;
   const bannerMobile = images?.bannerMobile;
@@ -152,19 +148,10 @@ export default function Banner({
         <p key={index}>{renderMultilineText(text)}</p>
       ))}
       {children}
-      {hasCta || hasSecondaryCta ? (
-        <div className="banner_cta_group">
-          {hasCta ? (
-            <Link href={cta.href} className="banner_cta">
-              {cta.text}
-            </Link>
-          ) : null}
-          {hasSecondaryCta ? (
-            <Link href={secondaryCta.href} className="banner_cta_secondary">
-              {secondaryCta.text}
-            </Link>
-          ) : null}
-        </div>
+      {hasCta ? (
+        <Link href={cta.href} className="banner_cta">
+          <span>{cta.text}</span>
+        </Link>
       ) : null}
     </div>
   );
